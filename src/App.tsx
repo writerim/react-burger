@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import AppHeader from './AppHeader/AppHeader';
 import BurgerIngredients from './BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from './BurgerConstructor/BurgerConstructor';
 import 'bootstrap/dist/css/bootstrap.css';
+import BurgerConstructor from './BurgerConstructor/BurgerConstructor';
 
 function App() {
 
@@ -19,10 +19,10 @@ function App() {
       <AppHeader />
       <div className="row">
         <div className="col">
-          <BurgerConstructor tabs={tabs} />
+          <BurgerIngredients tabs={tabs}/>
         </div>
         <div className="col">
-          <BurgerIngredients />
+          <BurgerConstructor />
         </div>
       </div>
     </div>
