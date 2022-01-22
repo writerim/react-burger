@@ -27,7 +27,7 @@ const CardList = (props: CardListProps) => (
   <div className='row'>
     <h2 className={styles.h2}>{props.tab}</h2>
     {props.listItems && props.listItems.map(item => (
-      <CardItem item={item} />
+      <CardItem item={item} key={item._id}/>
     ))}
   </div>
 )

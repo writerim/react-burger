@@ -72,7 +72,7 @@ class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIn
         </div>
         <div >
           {this.props.tabs.map((tab) =>
-            <CardList listItems={this.filterByType(tab.id)} tab={tab.value} />
+            <CardList listItems={this.filterByType(tab.id)} tab={tab.value} key={tab.id}/>
           )}
         </div>
       </>
