@@ -19,18 +19,18 @@ interface BurgerConstructorState {
 }
 
 interface CardItemI {
-    name : string;
-    type : string;
-    proteins : number;
-    fat : number;
-    carbohydrates : number;
-    calories : number;
-    price : number;
-    image : string;
-    image_mobile : string;
-    image_large : string;
-    _id : string;
-    __v : number;
+  name: string;
+  type: string;
+  proteins: number;
+  fat: number;
+  carbohydrates: number;
+  calories: number;
+  price: number;
+  image: string;
+  image_mobile: string;
+  image_large: string;
+  _id: string;
+  __v: number;
 }
 
 class BurgerConstructor extends React.Component<BurgerConstructorProps, BurgerConstructorState> {
@@ -39,16 +39,16 @@ class BurgerConstructor extends React.Component<BurgerConstructorProps, BurgerCo
     super(props);
 
     this.state = {
-      current : props.tabs.length ? props.tabs[0].id : '',
-      data : data
+      current: props.tabs.length ? props.tabs[0].id : '',
+      data: data
     };
 
     this.setCurrent = this.setCurrent.bind(this)
     this.filterByType = this.filterByType.bind(this)
   }
 
-  setCurrent(current_tab: string){
-    this.setState({current : current_tab})
+  setCurrent(current_tab: string) {
+    this.setState({ current: current_tab })
   }
 
   filterByType(find_type: string): CardItemI[] {
@@ -58,21 +58,23 @@ class BurgerConstructor extends React.Component<BurgerConstructorProps, BurgerCo
   }
 
 
-  render(){ 
+  render() {
     return (
-      <div className={styles.BurgerConstructor} data-testid="BurgerConstructor">
+      <>
         <h1>Соберите бургер</h1>
         <div style={{ display: 'flex' }}>
           {this.props.tabs.map(tab => (
-              <Tab key={tab.id} value={tab.id} active={this.state.current === tab.id} onClick={this.setCurrent}>
-                {tab.value}
-              </Tab>
+            <Tab key={tab.id} value={tab.id} active={this.state.current === tab.id} onClick={this.setCurrent}>
+              {tab.value}
+            </Tab>
           ))}
         </div>
-        {this.props.tabs.map((tab) =>
-            <CardList listItems={this.filterByType(tab.id)} tab={tab.value}/>
-        )}
-      </div>
+        <div >
+          {this.props.tabs.map((tab) =>
+            <CardList listItems={this.filterByType(tab.id)} tab={tab.value} />
+          )}
+        </div>
+      </>
     )
   }
 };

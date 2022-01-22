@@ -7,14 +7,16 @@ import BtnProfile from './BtnProfile/BtnProfile';
 
 function AppHeader() {
     return (
-        <div className={AppHeaderStyle.AppHeader}>
-            <BtnGenerator/>
-            <BtnOrders/>
-            <div className={AppHeaderStyle.logo}>
-                <Logo />
+        <nav className="navbar navbar-expand-lg">
+            <div className="container-fluid">
+                <BtnGenerator/>
+                <BtnOrders/>
+                <div className={AppHeaderStyle.logo}>
+                    <Logo />
+                </div>
+                <BtnProfile/> 
             </div>
-            <BtnProfile/> 
-        </div>
+        </nav>
     )
 }
 

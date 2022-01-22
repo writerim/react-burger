@@ -1,6 +1,7 @@
 .page{
   display: -webkit-flex;
 	display: flex;
+	flex-wrap: wrap;
 	-webkit-flex-direction: row;
 	flex-direction: row;
   align-items: center;
