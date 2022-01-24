@@ -6,6 +6,9 @@ import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor'
 import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients';
 import AppHeader from './components/AppHeader/AppHeader';
 
+import all_ingridietns from './utils/data';
+import selcted_ingridients from './utils/data_selected';
+
 
 function App() {
 
@@ -16,10 +19,10 @@ function App() {
       <AppHeader />
       <div className="row">
         <div className="col">
-          <BurgerIngredients/>
+          <BurgerIngredients data={all_ingridietns}/>
         </div>
         <div className="col" style={style}>
-          <BurgerConstructor />
+          <BurgerConstructor data={selcted_ingridients}/>
         </div>
       </div>
     </div>

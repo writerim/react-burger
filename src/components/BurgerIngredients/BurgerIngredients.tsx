@@ -1,7 +1,6 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import styles from './BurgerIngredients.module.css';
-import data from '../../utils/data';
 import CardList from './CardList/CardList';
 
 interface BurgerIngredientsTabs {
@@ -10,6 +9,7 @@ interface BurgerIngredientsTabs {
 }
 
 interface BurgerIngredientsProps {
+  data : CardItemI[]
 }
 
 interface BurgerIngredientsState {
@@ -44,8 +44,8 @@ class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIn
     super(props);
 
     this.state = {
-      current: data.length ? data[0].type : '',
-      data: data
+      current: this.props.data.length ? this.props.data[0].type : '',
+      data: this.props.data
     };
 
     this.setCurrent = this.setCurrent.bind(this)

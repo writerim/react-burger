@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
 import styles from './BurgerConstructor.module.css';
-import data from '../../utils/data_selected';
 import ItemList from './ItemListIngridients/ItemListIngridients';
 import SummaryPrice from '../BurgerIngredients/SummaryPrice/SummaryPrice';
 
+
+interface BurgerConstructorProps{
+  data : Ingridient[]
+}
 interface Ingridient {
   name: string;
   type: string;
@@ -19,7 +22,7 @@ interface Ingridient {
   __v: number;
 }
 
-class BurgerConstructor extends React.Component {
+class BurgerConstructor extends React.Component <BurgerConstructorProps> {
 
   total_price = (data: Ingridient[]): number => {
     let total_price = 0
@@ -33,8 +36,8 @@ class BurgerConstructor extends React.Component {
   render(): React.ReactNode {
     return (
       <div className='row' data-testid="BurgerConstructor">
-        <ItemList items={data} />
-        <SummaryPrice total_price={this.total_price(data)} />
+        <ItemList items={this.props.data} />
+        <SummaryPrice total_price={this.total_price(this.props.data)} />
       </div>
     )
   }
