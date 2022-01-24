@@ -10,7 +10,6 @@ interface BurgerIngredientsTabs {
 }
 
 interface BurgerIngredientsProps {
-  tabs: BurgerIngredientsTabs[];
 }
 
 interface BurgerIngredientsState {
@@ -33,6 +32,12 @@ interface CardItemI {
   __v: number;
 }
 
+
+const tabs = [
+  { id: 'bun', value: "Булки" },
+  { id: 'sauce', value: "Соусы" },
+  { id: 'main', value: "Начинки" },
+]
 class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIngredientsState> {
 
   constructor(props: BurgerIngredientsProps) {
@@ -57,6 +62,7 @@ class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIn
       return item.type === find_type
     })
   }
+  
 
 
 
@@ -65,14 +71,14 @@ class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIn
       <>
         <h1 className='text text_type_main-large'>Соберите бургер</h1>
         <div className={styles.Tabs}>
-          {this.props.tabs.map(tab => (
+          {tabs.map(tab => (
             <Tab key={tab.id} value={tab.id} active={this.state.current === tab.id} onClick={this.setCurrent}>
               {tab.value}
             </Tab>
           ))}
         </div>
         <div className={styles.Overflow}>
-          {this.props.tabs.map((tab) =>
+          {tabs.map((tab) =>
             <CardList 
               listItems={this.filterByType(tab.id)} 
               tab={tab.value} 

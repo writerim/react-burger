@@ -8,19 +8,12 @@ import AppHeader from './components/AppHeader/AppHeader';
 
 
 function App() {
-
-  const tabs = [
-    { id: 'bun', value: "Булки" },
-    { id: 'sauce', value: "Соусы" },
-    { id: 'main', value: "Начинки" },
-  ]
-
   return (
     <div className="container">
       <AppHeader />
       <div className="row">
         <div className="col">
-          <BurgerIngredients tabs={tabs}/>
+          <BurgerIngredients/>
         </div>
         <div className="col">
           <BurgerConstructor />
