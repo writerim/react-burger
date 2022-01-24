@@ -1,6 +1,7 @@
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC , FocusEvent } from 'react';
 import styles from './BtnOrders.module.css';
+import stylesAppHeader from './../AppHeader.module.css';
 
 interface BtnOrdersProps {}
 
@@ -14,9 +15,10 @@ class BtnOrders extends React.Component {
   }
 
   render(){
-    return <a className={styles.BtnOrders} data-testid="BtnOrders" onFocus={this.onFocus}>
+    return <a className={ `${styles.BtnOrders} ${stylesAppHeader.Btn}` } 
+    data-testid="BtnOrders" onFocus={this.onFocus}>
       <ListIcon type="secondary"/>
-      Лента заказов
+      <span className={stylesAppHeader.BtnTitle}>Лента заказов</span>
     </a>
   }
 };

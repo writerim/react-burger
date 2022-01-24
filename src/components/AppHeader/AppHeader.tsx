@@ -9,7 +9,7 @@ function AppHeader() {
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
-                <BtnGenerator/>
+                <BtnGenerator />
                 <BtnOrders/>
                 <div className={AppHeaderStyle.logo}>
                     <Logo />

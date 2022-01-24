@@ -15,21 +15,18 @@
     text-align: center;
 }
 
-a {
-    padding: 16px 20px;
-    border-radius: 40px;
-    border: 1px dashed #4C4CFF;
-    text-align: center;
-    color: #8585AD;
+.Btn{
+    padding: 20px;
+    color: #fff;
     font-size: 16px;
     vertical-align: middle;
-    margin: 8px;
+    margin: 16px 4px;
+    white-space: nowrap;
 }
 
-a:hover{
-    color: #fff;
+.BtnTitle{
+    padding: 0;
+    padding-left: 8px;
+    white-space: nowrap;
 }
 
-a svg{
-        margin-right: 10px;
-}
