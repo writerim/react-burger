@@ -19,13 +19,13 @@ interface CardItemProps {
   __v: number;
 }
 
-interface CardItemState{
-  isShow? : boolean
+interface CardItemState {
+  isShow?: boolean
 }
 
-class CardItem extends React.Component <CardItemProps,CardItemState> {
+class CardItem extends React.Component<CardItemProps, CardItemState> {
 
-  constructor(props: CardItemProps){
+  constructor(props: CardItemProps) {
     super(props)
     this.state = {
       isShow: false
@@ -33,21 +33,23 @@ class CardItem extends React.Component <CardItemProps,CardItemState> {
   }
 
 
-  openModal (item: CardItemProps){
-    this.setState({isShow : !this.state.isShow})
+  openModal(item: CardItemProps) {
+    this.setState({ isShow: !this.state.isShow })
   }
 
   render(): React.ReactNode {
-      
-    return ( 
+
+    return (
       <div className={`col ${styles.CardItemCol}`} onClick={this.openModal.bind(this, this.props)}>
         <img src={this.props.image_large} className={styles.CardItemImage} />
-        <p className={`${styles.CardItemPrice} text text_type_digits-default`}>
+        <p className={`${styles.CardItemPriceLine}`}>
+          <span className={`text text_type_digits-default ${styles.CardItemPrice}`}>
+            {this.props.price}
+          </span>
           <CurrencyIcon type="secondary" />
-          {this.props.price}
         </p>
         <p className={`${styles.CardItemName} text text_type_digits-default`}>{this.props.name}</p>
-        {this.state.isShow && <ModalItem {...this.props}/>}
+        {this.state.isShow && <ModalItem {...this.props} />}
       </div>
     )
   }

@@ -4,10 +4,14 @@
     padding: 16px;
 }
 
-.CardItemPrice{
+.CardItemPriceLine{
     text-align: center;
     margin: 4px;
     font-size: 28px;
+}
+
+.CardItemPrice{
+    margin: 8px;
 }
 
 .CardItemName{
