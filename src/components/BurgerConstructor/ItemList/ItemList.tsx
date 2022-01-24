@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React, { FC } from 'react';
-import data from '../../utils/data_selected';
+import data from '../../../utils/data_selected';
 import  Item from '../Item/Item';
 import styles from './ItemList.module.css'
 

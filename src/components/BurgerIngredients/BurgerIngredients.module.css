@@ -6,3 +6,9 @@
 .ScrollWraper{
     overflow-y: scroll;
 }
+
+.Overflow{
+    overflow-y: scroll;
+    max-height: 600px;
+    overflow-x: hidden;
+}

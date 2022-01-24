@@ -1,10 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import AppHeader from './AppHeader/AppHeader';
-import BurgerIngredients from './BurgerIngredients/BurgerIngredients';
 import 'bootstrap/dist/css/bootstrap.css';
-import BurgerConstructor from './BurgerConstructor/BurgerConstructor';
+import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor';
+import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients';
+import AppHeader from './components/AppHeader/AppHeader';
+
 
 function App() {
 

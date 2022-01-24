@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styles from './BurgerConstructor.module.css';
-import data from '../utils/data_selected';
+import data from '../../utils/data_selected';
 import ItemList from './ItemList/ItemList';
 
 

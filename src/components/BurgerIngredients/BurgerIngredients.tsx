@@ -1,16 +1,16 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import styles from './BurgerIngredients.module.css';
-import data from '../utils/data';
+import data from '../../utils/data';
 import CardList from './CardList/CardList';
 
 interface BurgerIngredientsTabs {
-  id : string;
-  value : string
+  id: string;
+  value: string
 }
 
 interface BurgerIngredientsProps {
-  tabs : BurgerIngredientsTabs[];
+  tabs: BurgerIngredientsTabs[];
 }
 
 interface BurgerIngredientsState {
@@ -59,6 +59,7 @@ class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIn
   }
 
 
+
   render() {
     return (
       <>
@@ -70,9 +71,12 @@ class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIn
             </Tab>
           ))}
         </div>
-        <div >
+        <div className={styles.Overflow}>
           {this.props.tabs.map((tab) =>
-            <CardList listItems={this.filterByType(tab.id)} tab={tab.value} key={tab.id}/>
+            <CardList 
+              listItems={this.filterByType(tab.id)} 
+              tab={tab.value} 
+              key={tab.id}/>
           )}
         </div>
       </>
