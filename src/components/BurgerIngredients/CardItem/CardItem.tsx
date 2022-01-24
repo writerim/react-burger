@@ -48,7 +48,7 @@ class CardItem extends React.Component<CardItemProps, CardItemState> {
           </span>
           <CurrencyIcon type="primary" />
         </p>
-        <p className={`${styles.CardItemName} text text_type_digits-default`}>{this.props.name}</p>
+        <p className={`${styles.CardItemName} text text_type_main-medium`}>{this.props.name}</p>
         {this.state.isShow && <ModalItem {...this.props} />}
       </div>
     )

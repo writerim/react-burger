@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients';
