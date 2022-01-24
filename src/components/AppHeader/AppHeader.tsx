@@ -10,11 +10,13 @@ function AppHeader() {
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
                 <BtnGenerator />
-                <BtnOrders/>
+                <BtnOrders />
                 <div className={AppHeaderStyle.logo}>
-                    <Logo />
+                    <div className={AppHeaderStyle.svgLogo}>
+                        <Logo />
+                    </div>
                 </div>
-                <BtnProfile/> 
+                <BtnProfile />
             </div>
         </nav>
     )

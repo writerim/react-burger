@@ -8,6 +8,9 @@ import AppHeader from './components/AppHeader/AppHeader';
 
 
 function App() {
+
+  const style = {maxWidth : 528}
+
   return (
     <div className="container">
       <AppHeader />
@@ -15,7 +18,7 @@ function App() {
         <div className="col">
           <BurgerIngredients/>
         </div>
-        <div className="col">
+        <div className="col" style={style}>
           <BurgerConstructor />
         </div>
       </div>
