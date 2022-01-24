@@ -6,7 +6,7 @@ import stylesAppHeader from './../AppHeader.module.css';
 interface BtnProfileProps {}
 
 const BtnProfile: FC<BtnProfileProps> = () => (
-  <a className={ `${styles.BtnProfile} ${stylesAppHeader.Btn}` } data-testid="BtnProfile">
+  <a className={ `${styles.BtnProfile} ${stylesAppHeader.Btn} text text_type_main-default` } data-testid="BtnProfile">
     <ProfileIcon type="primary"/>
     <span className={stylesAppHeader.BtnTitle}>Личный кабинет</span>
   </a>

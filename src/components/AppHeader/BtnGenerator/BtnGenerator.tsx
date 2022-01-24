@@ -8,7 +8,8 @@ import stylesAppHeader from './../AppHeader.module.css';
 interface BtnGeneratorProps {}
 
 const BtnGenerator: FC<BtnGeneratorProps> = () => (
-  <a href='' className={ `${styles.BtnGenerator} ${stylesAppHeader.Btn} ${styles.BtnFirst}` } 
+  <a href='' className={ `${styles.BtnGenerator} ${stylesAppHeader.Btn} ${styles.BtnFirst} 
+  text text_type_main-default` } 
   data-testid="BtnGenerator">
     <BurgerIcon type="primary" />
     <span className={stylesAppHeader.BtnTitle}>Конструктор</span>

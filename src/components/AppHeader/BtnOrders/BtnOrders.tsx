@@ -15,7 +15,7 @@ class BtnOrders extends React.Component {
   }
 
   render(){
-    return <a className={ `${styles.BtnOrders} ${stylesAppHeader.Btn}` } 
+    return <a className={ `${styles.BtnOrders} ${stylesAppHeader.Btn} text text_type_main-default` } 
     data-testid="BtnOrders" onFocus={this.onFocus}>
       <ListIcon type="secondary"/>
       <span className={stylesAppHeader.BtnTitle}>Лента заказов</span>
