@@ -1,6 +1,6 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
-import styles from './Item.module.css';
+import styles from './ItemIngridient.module.css';
 
 interface ItemI {
   name: string;
