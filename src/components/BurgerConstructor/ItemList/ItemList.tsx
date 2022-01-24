@@ -49,7 +49,7 @@ class ItemList extends React.Component<ItemListProps>{
       <div className={`row ${styles.Row}`}>
         {this.props.items.map(item => (
           <Item item={item} key={item._id} position={this.getPosition(item._id)}/>
-        ))}e
+        ))}
       </div>
     )
   }

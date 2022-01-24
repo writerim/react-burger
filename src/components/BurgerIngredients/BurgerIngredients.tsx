@@ -64,7 +64,7 @@ class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIn
     return (
       <>
         <h1 className='text text_type_main-large'>Соберите бургер</h1>
-        <div style={{ display: 'flex' }}>
+        <div className={styles.Tabs}>
           {this.props.tabs.map(tab => (
             <Tab key={tab.id} value={tab.id} active={this.state.current === tab.id} onClick={this.setCurrent}>
               {tab.value}

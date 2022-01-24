@@ -12,3 +12,15 @@
     max-height: 600px;
     overflow-x: hidden;
 }
+
+.Tabs{
+    display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+.Tabs > div{
+    flex-grow: 1;
+}
