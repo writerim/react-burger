@@ -23,7 +23,6 @@ interface ItemListProps {
   items: Ingridient[]
 }
 
-// class ItemList extends React.Component<ItemListProps>{
 const ItemList = (props: ItemListProps) => {
   // Получение позиции оносительно списка
   const getPosition = (id: string): "top" | "bottom" | undefined => {
@@ -45,7 +44,6 @@ const ItemList = (props: ItemListProps) => {
   // Верхний должен содержать Верх
   // Нижний - низ
   const getModifyTitle = (itemIngridient: Ingridient) :Ingridient =>  {
-    let pos = 0;
     let clone_ingridient = Object.assign({}, itemIngridient)
     for (let index = 0; index < data.length; index++) {
       const element = data[index];

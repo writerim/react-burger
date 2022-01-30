@@ -22,9 +22,9 @@ interface Ingridient {
   __v: number;
 }
 
-class BurgerConstructor extends React.Component <BurgerConstructorProps> {
+const BurgerConstructor = (props: BurgerConstructorProps) => {
 
-  totalPrice = (data: Ingridient[]): number => {
+  const totalPrice = (data: Ingridient[]): number => {
     let totalPrice = 0
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
@@ -33,14 +33,12 @@ class BurgerConstructor extends React.Component <BurgerConstructorProps> {
     return totalPrice
   }
 
-  render(): React.ReactNode {
-    return (
-      <div className='row' data-testid="BurgerConstructor">
-        <ItemList items={this.props.data} />
-        <SummaryPrice totalPrice={this.totalPrice(this.props.data)} />
-      </div>
-    )
-  }
+  return (
+    <div className='row' data-testid="BurgerConstructor">
+      <ItemList items={props.data} />
+      <SummaryPrice totalPrice={totalPrice(props.data)} />
+    </div>
+  )
 };
 
 export default BurgerConstructor;
