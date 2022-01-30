@@ -1,36 +1,9 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { IngridientInterface } from '../../interfaces/inridient_interface';
 import styles from './BurgerIngredients.module.css';
 import CardList from './CardList/CardList';
 
-interface BurgerIngredientsTabs {
-  id: string;
-  value: string
-}
-
-interface BurgerIngredientsProps {
-  data : CardItemI[]
-}
-
-interface BurgerIngredientsState {
-  current?: string
-  data: CardItemI[]
-}
-
-interface CardItemI {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
 
 
 const tabs = [
@@ -38,12 +11,14 @@ const tabs = [
   { id: 'sauce', value: "Соусы" },
   { id: 'main', value: "Начинки" },
 ]
-//class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIngredientsState> {
-const BurgerIngredients = (props: BurgerIngredientsProps) => {
 
+interface BurgerIngredientsProps {
+  ingridients : IngridientInterface[]
+}
 
-  const [data , setData] = React.useState(props.data);
-  const [curentType, setCurrentType] = React.useState(props.data.length ? props.data[0].type : '');
+const BurgerIngredients = ({ingridients} :BurgerIngredientsProps) => {
+
+  const [curentType, setCurrentType] = React.useState<string>(tabs[0].id);
 
   
   const setCurrent = (currentTab: string) => {
@@ -51,8 +26,8 @@ const BurgerIngredients = (props: BurgerIngredientsProps) => {
   }
 
   // Получение продуктов по типу
-  const filterByType = (find_type: string): CardItemI[] =>  {
-    return data.filter(item => {
+  const filterByType = (find_type: string): IngridientInterface[] =>  {
+    return ingridients.filter((item: IngridientInterface) => {
       return item.type === find_type
     })
   }
