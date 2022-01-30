@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import './App.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import selcted_ingridients from './../../utils/data_selected';
+import selctedIngridients from './../../utils/data_selected';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+
+const URL_GET_LIST_INGRIDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
 
 
 function App() {
@@ -13,10 +15,13 @@ function App() {
   
 
   useEffect(() => {
-    fetch('https://norma.nomoreparties.space/api/ingredients')
+    fetch(URL_GET_LIST_INGRIDIENTS)
     .then(r => r.json())
     .then(req => {
       setIngridients(req.data)
+    })
+    .catch(e => {
+      console.log(e)
     })
   }, [])
 
@@ -28,7 +33,7 @@ function App() {
           <BurgerIngredients ingridients={ingridients}/>
         </div>
         <div className="col">
-          <BurgerConstructor data={selcted_ingridients}/>
+          <BurgerConstructor data={selctedIngridients}/>
         </div>
       </div>
     </div>

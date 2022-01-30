@@ -1,25 +1,11 @@
 import React from 'react';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardList.module.css';
 
 
-interface CardListI {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
-
 interface CardListProps {
-  listItems?: CardListI[];
+  listItems?: IngridientInterface[];
   tab?: string
 }
 

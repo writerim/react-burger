@@ -1,28 +1,13 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import styles from './ItemIngridient.module.css';
 
-interface ItemI {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
-
 interface ItemProps {
-  item: ItemI
+  item: IngridientInterface
   position: "top" | "bottom" | undefined
 }
 
-//class Item extends React.Component<ItemProps> {
 const Item = (props: ItemProps) => {
 
   const style = {

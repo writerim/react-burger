@@ -1,20 +1,7 @@
 import React, { FC } from 'react';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import styles from './ModalItem.module.css';
 
-interface ModalItemProps {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
 
 const styleModal = {
   display: 'block'
@@ -25,7 +12,7 @@ const styleModalClose = {
 }
 
 // Еще модальное окно. Ммм фигма Ui
-const ModalItem = (props: ModalItemProps) => (
+const ModalItem = (props: IngridientInterface) => (
   <>
     <div className="modal fade show" style={styleModal}>
       <div className={ `modal-dialog ${styles.modalDialog}` }>

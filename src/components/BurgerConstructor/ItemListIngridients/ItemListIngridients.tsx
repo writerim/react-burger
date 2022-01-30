@@ -1,26 +1,10 @@
-import { render } from '@testing-library/react';
-import React, { FC } from 'react';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import data from '../../../utils/data_selected';
 import Item from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngridients.module.css'
 
-interface Ingridient {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
-
 interface ItemListProps {
-  items: Ingridient[]
+  items: IngridientInterface[]
 }
 
 const ItemList = (props: ItemListProps) => {
@@ -43,7 +27,7 @@ const ItemList = (props: ItemListProps) => {
   // Модификация названия первого и последнего элемента
   // Верхний должен содержать Верх
   // Нижний - низ
-  const getModifyTitle = (itemIngridient: Ingridient) :Ingridient =>  {
+  const getModifyTitle = (itemIngridient: IngridientInterface) :IngridientInterface =>  {
     let clone_ingridient = Object.assign({}, itemIngridient)
     for (let index = 0; index < data.length; index++) {
       const element = data[index];

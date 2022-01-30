@@ -2,29 +2,17 @@ import React, { FC } from 'react';
 import styles from './BurgerConstructor.module.css';
 import ItemList from './ItemListIngridients/ItemListIngridients';
 import SummaryPrice from '../BurgerIngredients/SummaryPrice/SummaryPrice';
+import { IngridientInterface } from '../../interfaces/inridient_interface';
 
 
 interface BurgerConstructorProps{
-  data : Ingridient[]
+  data : IngridientInterface[]
 }
-interface Ingridient {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
+
 
 const BurgerConstructor = (props: BurgerConstructorProps) => {
 
-  const totalPrice = (data: Ingridient[]): number => {
+  const totalPrice = (data: IngridientInterface[]): number => {
     let totalPrice = 0
     for (let index = 0; index < data.length; index++) {
       const element = data[index];

@@ -1,34 +1,20 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import ModalItem from '../ModalItem/ModalItem';
 import styles from './CardItem.module.css';
 
-
-interface CardItemProps {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
 
 interface CardItemState {
   isShow?: boolean
 }
 
-const CardItem = (props: CardItemProps) => {
+const CardItem = (props: IngridientInterface) => {
 
   const [isShow, setIsShow] = React.useState(false)
 
 
-  const openModal = (item: CardItemProps) => {
+  const openModal = (item: IngridientInterface) => {
     setIsShow(!isShow)
   }
 
