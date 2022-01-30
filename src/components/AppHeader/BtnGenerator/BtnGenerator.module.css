@@ -1,0 +1,9 @@
+.BtnGenerator {
+    display: inline-block;
+    flex: 1;
+}
+
+.BtnFirst{
+    margin-left: 0;
+    padding-left: 0;
+}

@@ -1,0 +1,29 @@
+.CardItem {
+    flex: 50%;
+    width: 50%;
+    padding: 16px;
+}
+
+.CardItemPriceLine{
+    text-align: center;
+    margin: 4px;
+    font-size: 28px;
+}
+
+.CardItemPrice{
+    margin: 8px;
+}
+
+.CardItemName{
+    text-align: center;
+    font-size: 16px;
+}
+
+.CardItemImage{
+    padding: 16px;
+    max-width: 240px;
+}
+
+.CardItemCol{
+    text-align: center;
+}
