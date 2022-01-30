@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
-import styles from './BurgerConstructor.module.css';
 import ItemList from './ItemListIngridients/ItemListIngridients';
 import SummaryPrice from '../BurgerIngredients/SummaryPrice/SummaryPrice';
 import { IngridientInterface } from '../../interfaces/inridient_interface';

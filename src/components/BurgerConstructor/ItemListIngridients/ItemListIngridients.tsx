@@ -1,4 +1,5 @@
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
+import { IngridientPropType } from '../../../types/ingridient';
 import data from '../../../utils/data_selected';
 import Item from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngridients.module.css'
@@ -50,5 +51,7 @@ const ItemList = (props: ItemListProps) => {
     </div>
   )
 };
+
+ItemList.propTypes = IngridientPropType
 
 export default ItemList;

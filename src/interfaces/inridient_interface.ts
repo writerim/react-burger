@@ -1,3 +1,4 @@
+// Интефейс одного ингридиента
 export interface IngridientInterface {
     name: string;
     type: string;
