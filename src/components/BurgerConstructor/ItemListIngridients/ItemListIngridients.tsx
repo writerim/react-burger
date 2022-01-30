@@ -52,6 +52,6 @@ const ItemList = (props: ItemListProps) => {
   )
 };
 
-ItemList.propTypes = IngridientPropType
+ItemList.propTypes = IngridientPropType.isRequired
 
 export default ItemList;

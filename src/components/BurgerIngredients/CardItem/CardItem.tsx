@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
-import ModalItem from '../ModalItem/ModalItem';
+import ModalItem from '../IngredientDetails/IngredientDetails';
 import styles from './CardItem.module.css';
 
 

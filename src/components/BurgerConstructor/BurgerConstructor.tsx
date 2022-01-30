@@ -1,6 +1,6 @@
 import ItemList from './ItemListIngridients/ItemListIngridients';
-import SummaryPrice from '../BurgerIngredients/SummaryPrice/SummaryPrice';
 import { IngridientInterface } from '../../interfaces/inridient_interface';
+import SummaryPrice from './SummaryPrice/SummaryPrice';
 
 
 interface BurgerConstructorProps{

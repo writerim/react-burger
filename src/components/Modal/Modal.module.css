@@ -1,1 +1,27 @@
-.Modal {}
+.modalContent {
+    border-radius: 40px !important;
+    background: #131316 !important;
+    padding: 40px;
+}
+
+.modal-backdrop{
+  opacity: 0.6;  
+}
+
+.modalDialog{
+    color:#fff !important;
+    max-width: 700px;
+}
+
+.modalHeader{
+    border-bottom: none !important;
+}
+
+.Img{
+    width: 100%;
+}
+
+.Title{
+    margin-top: 16px;
+    margin-bottom: 32px;
+}

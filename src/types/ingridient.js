@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 // Валидность ингридиента
 export const IngridientPropType = PropTypes.shape({
     _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     proteins: PropTypes.number.isRequired,
     fat: PropTypes.number.isRequired,
