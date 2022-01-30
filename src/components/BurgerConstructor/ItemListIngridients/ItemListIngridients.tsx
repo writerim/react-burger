@@ -49,12 +49,12 @@ class ItemList extends React.Component<ItemListProps>{
   // Модификация названия первого и последнего элемента
   // Верхний должен содержать Верх
   // Нижний - низ
-  getModifyTitle(item_ingridient: Ingridient) :Ingridient {
+  getModifyTitle(itemIngridient: Ingridient) :Ingridient {
     let pos = 0;
-    let clone_ingridient = Object.assign({}, item_ingridient)
+    let clone_ingridient = Object.assign({}, itemIngridient)
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-      if (element._id === item_ingridient._id) {
+      if (element._id === itemIngridient._id) {
         if (index === 0) {
           clone_ingridient.name += ' (верх)'
         } else if (index === data.length - 1) {

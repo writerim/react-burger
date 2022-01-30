@@ -24,20 +24,20 @@ interface Ingridient {
 
 class BurgerConstructor extends React.Component <BurgerConstructorProps> {
 
-  total_price = (data: Ingridient[]): number => {
-    let total_price = 0
+  totalPrice = (data: Ingridient[]): number => {
+    let totalPrice = 0
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-      total_price += element.price
+      totalPrice += element.price
     }
-    return total_price
+    return totalPrice
   }
 
   render(): React.ReactNode {
     return (
       <div className='row' data-testid="BurgerConstructor">
         <ItemList items={this.props.data} />
-        <SummaryPrice total_price={this.total_price(this.props.data)} />
+        <SummaryPrice totalPrice={this.totalPrice(this.props.data)} />
       </div>
     )
   }
