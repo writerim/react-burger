@@ -23,15 +23,10 @@ interface ItemListProps {
   items: Ingridient[]
 }
 
-class ItemList extends React.Component<ItemListProps>{
-  constructor(props: ItemListProps) {
-    super(props)
-    this.getPosition = this.getPosition.bind(this)
-    this.getModifyTitle = this.getModifyTitle.bind(this)
-  }
-
+// class ItemList extends React.Component<ItemListProps>{
+const ItemList = (props: ItemListProps) => {
   // Получение позиции оносительно списка
-  getPosition(id: string): "top" | "bottom" | undefined {
+  const getPosition = (id: string): "top" | "bottom" | undefined => {
     let pos = 0;
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
@@ -49,7 +44,7 @@ class ItemList extends React.Component<ItemListProps>{
   // Модификация названия первого и последнего элемента
   // Верхний должен содержать Верх
   // Нижний - низ
-  getModifyTitle(itemIngridient: Ingridient) :Ingridient {
+  const getModifyTitle = (itemIngridient: Ingridient) :Ingridient =>  {
     let pos = 0;
     let clone_ingridient = Object.assign({}, itemIngridient)
     for (let index = 0; index < data.length; index++) {
@@ -65,15 +60,13 @@ class ItemList extends React.Component<ItemListProps>{
     return clone_ingridient
   }
 
-  render() {
-    return (
-      <div className={`row ${styles.Row}`}>
-        {this.props.items.map(item => (
-          <Item item={this.getModifyTitle(item)} key={item._id} position={this.getPosition(item._id)} />
-        ))}
-      </div>
-    )
-  }
+  return (
+    <div className={`row ${styles.Row}`}>
+      {props.items.map(item => (
+        <Item item={getModifyTitle(item)} key={item._id} position={getPosition(item._id)} />
+      ))}
+    </div>
+  )
 };
 
 export default ItemList;

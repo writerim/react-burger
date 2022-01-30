@@ -8,7 +8,6 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 
 
 function App() {
-
   return (
     <div className="container">
       <AppHeader />

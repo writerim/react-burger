@@ -22,41 +22,37 @@ interface ItemProps {
   position: "top" | "bottom" | undefined
 }
 
-class Item extends React.Component<ItemProps> {
-  constructor(props: ItemProps) {
-    super(props)
-  }
+//class Item extends React.Component<ItemProps> {
+const Item = (props: ItemProps) => {
 
-  style = {
+  const style = {
     maxWidth :48,
     verticalAlign:'middle',
     paddintTop: 30
   }
 
-  render() {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className={`col ${styles.ItemCol}`}>
-        <div className='row'>
-          <div className='col' style={this.style}>
-            <span className={styles.Icon}>
-              <DragIcon type="primary" />
-            </span>
-          </div>
-          <div className='col'>
-            <span className={styles.Element}>
-              <ConstructorElement
-                type={this.props.position}
-                isLocked={true}
-                text={this.props.item.name}
-                price={this.props.item.price}
-                thumbnail={this.props.item.image}
-              />
-            </span>
-          </div>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className={`col ${styles.ItemCol}`}>
+      <div className='row'>
+        <div className='col' style={style}>
+          <span className={styles.Icon}>
+            <DragIcon type="primary" />
+          </span>
+        </div>
+        <div className='col'>
+          <span className={styles.Element}>
+            <ConstructorElement
+              type={props.position}
+              isLocked={true}
+              text={props.item.name}
+              price={props.item.price}
+              thumbnail={props.item.image}
+            />
+          </span>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 };
 
 export default Item

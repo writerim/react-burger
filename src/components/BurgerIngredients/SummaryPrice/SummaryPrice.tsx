@@ -6,7 +6,7 @@ interface SummaryPriceProps {
   totalPrice: number;
 }
 
-const SummaryPrice: FC<SummaryPriceProps> = (props) => (
+const SummaryPrice = (props: SummaryPriceProps) => (
   <div className={styles.SummaryPrice} data-testid="SummaryPrice">
     <span className={`text text_type_main-medium ${styles.Price}`}>
       {props.totalPrice}

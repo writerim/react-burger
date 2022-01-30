@@ -38,56 +38,47 @@ const tabs = [
   { id: 'sauce', value: "Соусы" },
   { id: 'main', value: "Начинки" },
 ]
-class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIngredientsState> {
+//class BurgerIngredients extends React.Component<BurgerIngredientsProps, BurgerIngredientsState> {
+const BurgerIngredients = (props: BurgerIngredientsProps) => {
 
-  constructor(props: BurgerIngredientsProps) {
-    super(props);
 
-    this.state = {
-      current: this.props.data.length ? this.props.data[0].type : '',
-      data: this.props.data
-    };
+  const [data , setData] = React.useState(props.data);
+  const [curentType, setCurrentType] = React.useState(props.data.length ? props.data[0].type : '');
 
-    this.setCurrent = this.setCurrent.bind(this)
-    this.filterByType = this.filterByType.bind(this)
-  }
-
-  setCurrent(current_tab: string) {
-    this.setState({ current: current_tab })
+  
+  const setCurrent = (currentTab: string) => {
+    setCurrentType(currentTab)
   }
 
   // Получение продуктов по типу
-  filterByType(find_type: string): CardItemI[] {
-    return this.state.data.filter(item => {
+  const filterByType = (find_type: string): CardItemI[] =>  {
+    return data.filter(item => {
       return item.type === find_type
     })
   }
   
 
 
-
-  render() {
-    return (
-      <>
-        <h1 className='text text_type_main-large'>Соберите бургер</h1>
-        <div className={styles.Tabs}>
-          {tabs.map(tab => (
-            <Tab key={tab.id} value={tab.id} active={this.state.current === tab.id} onClick={this.setCurrent}>
-              {tab.value}
-            </Tab>
-          ))}
-        </div>
-        <div className={styles.Overflow}>
-          {tabs.map((tab) =>
-            <CardList 
-              listItems={this.filterByType(tab.id)} 
-              tab={tab.value} 
-              key={tab.id}/>
-          )}
-        </div>
-      </>
-    )
-  }
+  return (
+    <>
+      <h1 className='text text_type_main-large'>Соберите бургер</h1>
+      <div className={styles.Tabs}>
+        {tabs.map(tab => (
+          <Tab key={tab.id} value={tab.id} active={curentType === tab.id} onClick={setCurrent}>
+            {tab.value}
+          </Tab>
+        ))}
+      </div>
+      <div className={styles.Overflow}>
+        {tabs.map((tab) =>
+          <CardList 
+            listItems={filterByType(tab.id)} 
+            tab={tab.value} 
+            key={tab.id}/>
+        )}
+      </div>
+    </>
+  )
 };
 
 export default BurgerIngredients;

@@ -23,36 +23,28 @@ interface CardItemState {
   isShow?: boolean
 }
 
-class CardItem extends React.Component<CardItemProps, CardItemState> {
+const CardItem = (props: CardItemProps) => {
 
-  constructor(props: CardItemProps) {
-    super(props)
-    this.state = {
-      isShow: false
-    }
+  const [isShow, setIsShow] = React.useState(false)
+
+
+  const openModal = (item: CardItemProps) => {
+    setIsShow(!isShow)
   }
 
-
-  openModal(item: CardItemProps) {
-    this.setState({ isShow: !this.state.isShow })
-  }
-
-  render(): React.ReactNode {
-
-    return (
-      <div className={`col ${styles.CardItemCol}`} onClick={this.openModal.bind(this, this.props)}>
-        <img src={this.props.image_large} className={styles.CardItemImage} />
-        <p className={`${styles.CardItemPriceLine}`}>
-          <span className={`text text_type_digits-default ${styles.CardItemPrice}`}>
-            {this.props.price}
-          </span>
-          <CurrencyIcon type="primary" />
-        </p>
-        <p className={`${styles.CardItemName} text text_type_main-medium`}>{this.props.name}</p>
-        {this.state.isShow && <ModalItem {...this.props} />}
-      </div>
-    )
-  }
+  return (
+    <div className={`col ${styles.CardItemCol}`} onClick={openModal.bind(this, props)}>
+      <img src={props.image_large} className={styles.CardItemImage} />
+      <p className={`${styles.CardItemPriceLine}`}>
+        <span className={`text text_type_digits-default ${styles.CardItemPrice}`}>
+          {props.price}
+        </span>
+        <CurrencyIcon type="primary" />
+      </p>
+      <p className={`${styles.CardItemName} text text_type_main-medium`}>{props.name}</p>
+      {isShow && <ModalItem {...props} />}
+    </div>
+  )
 }
 
 export default CardItem;
