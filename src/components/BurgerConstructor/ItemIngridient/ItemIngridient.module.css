@@ -2,3 +2,13 @@
     margin: 4px;
     padding: 4px;
 }
+
+.Icon{
+    display: inline;
+    vertical-align: middle;
+}
+
+.Element {
+    display: inline;
+    vertical-align: middle;
+}

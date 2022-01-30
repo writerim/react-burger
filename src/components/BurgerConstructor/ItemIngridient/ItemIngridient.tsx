@@ -1,4 +1,4 @@
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
 import styles from './ItemIngridient.module.css';
 
@@ -27,16 +27,33 @@ class Item extends React.Component<ItemProps> {
     super(props)
   }
 
+  style = {
+    maxWidth :48,
+    verticalAlign:'middle',
+    paddintTop: 30
+  }
+
   render() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className={`col ${styles.ItemCol}`}>
-          <ConstructorElement
-            type={this.props.position}
-            isLocked={true}
-            text={this.props.item.name}
-            price={this.props.item.price}
-            thumbnail={this.props.item.image}
-          />
+        <div className='row'>
+          <div className='col' style={this.style}>
+            <span className={styles.Icon}>
+              <DragIcon type="primary" />
+            </span>
+          </div>
+          <div className='col'>
+            <span className={styles.Element}>
+              <ConstructorElement
+                type={this.props.position}
+                isLocked={true}
+                text={this.props.item.name}
+                price={this.props.item.price}
+                thumbnail={this.props.item.image}
+              />
+            </span>
+          </div>
+        </div>
       </div>
     )
   }
