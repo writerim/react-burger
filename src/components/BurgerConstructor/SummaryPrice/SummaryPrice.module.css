@@ -5,7 +5,30 @@
     padding: 40px;
 }
 
-.PriceIcon{
+.PriceIcon {
     margin: 10px;
     font-size: 24px;
+}
+
+.SummaryModal {
+    text-align: center;
+    padding: 48px;
+}
+
+.TotalPriceModal {
+    text-shadow: #13139d 10px 0 19px;
+}
+
+.IdOrderModal {
+    margin: 30px;
+}
+
+.IconStatusModal {
+    margin: 48px;
+}
+
+.TextStatusModal {}
+
+.DescriptionModal {
+    margin: 15px;
 }
