@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import Modal from '../../Modal/Modal';
 import styles from './OrderDetails.module.css';
 
 const OrderDetails = () => {
+
+  const [isShow, setShow] = useState(true)
+
   return (
-    <Modal>
+    <Modal setShow={setShow}>
       <p className="text text_type_digits-large">034536</p>
       <p className="text text_type_main-medium">
         Идентификатор заказа

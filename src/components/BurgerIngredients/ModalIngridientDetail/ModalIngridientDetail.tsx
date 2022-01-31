@@ -1,32 +1,40 @@
-import React, { FC } from 'react';
+import { useState } from 'react';
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import Modal from '../../Modal/Modal';
-import styles from './IngredientDetails.module.css';
+import styles from './ModalIngridientDetail.module.css';
+
+interface ModalIngridientDetailInterface {
+  ingridient: IngridientInterface,
+  setIsShowDetail: Function
+}
 
 // Еще модальное окно. Ммм фигма Ui
-const ModalItem = (props: IngridientInterface) => (
-    <Modal title='Детали ингридиента'>
-      <img src={props.image} className={styles.Img} />
-      <p className="text text_type_main-medium">{props.name}</p>
+const ModalIngridientDetail = (props: ModalIngridientDetailInterface) => {
+
+  return (
+    <Modal title='Детали ингридиента' setShow={props.setIsShowDetail}>
+      <img src={props.ingridient.image} className={styles.Img} />
+      <p className="text text_type_main-medium">{props.ingridient.name}</p>
       <div className={`row ${styles.Title}`}>
         <div className='col'>
           <p className="text text_type_main-default">Калории,ккал</p>
-          {props.calories}
+          {props.ingridient.calories}
         </div>
         <div className='col'>
           <p className="text text_type_main-default">Белки, г</p>
-          {props.proteins}
+          {props.ingridient.proteins}
         </div>
         <div className='col'>
           <p className="text text_type_main-default">Жиры, г</p>
-          {props.fat}
+          {props.ingridient.fat}
         </div>
         <div className='col'>
           <p className="text text_type_main-default">Углеводы, г</p>
-          {props.carbohydrates}
+          {props.ingridient.carbohydrates}
         </div>
       </div>
     </Modal>
-);
+  )
+};
 
-export default ModalItem;
+export default ModalIngridientDetail;

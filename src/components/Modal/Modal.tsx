@@ -1,62 +1,39 @@
-import { useState } from 'react';
-import { ModalInterface } from '../../interfaces/modal_interface';
+// Компонент омдального окна
+import { useEffect, useState } from 'react';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './Modal.module.css';
+import { createPortal } from 'react-dom';
 
-const styleModal = {
-  display: 'block'
+interface ModalInterface {
+  title?: string; // Название модального окна в шапке
+  children?: JSX.Element | JSX.Element[]; // Что будет в теле модального окна
+  setShow: Function // Коллебек для передачи видимости инициатору
 }
 
-const styleModalClose = {
-  color: '#fff'
-}
 
-const Modal = ({ title, children }: ModalInterface) => {
+const modalRoot = document.getElementById('modal-root');
 
-  const [isShowModal, setIsShowModal] = useState(true)
+// Принимает в себя название, тело
+const Modal = ({ title, children, setShow }: ModalInterface) => {
 
-  const hideModal = () =>{
-    setIsShowModal(false)
-  }
+  // Выстаялем что при рендере будет всегда снаача
+  // И через проброшенный коллбек буем закрувать его
+  const [isShow, setIsShow] = useState(true)
 
-  const getClassModal = () =>{
-    let modalClassName = 'modal fade'
-    if( isShowModal ){
-      modalClassName += ' show'
-    }
-    return modalClassName
-  }
+  // const onClickOverlay = () => {
+  //   setShow(false)
+  // }
 
-  const getStyleModal = () =>{
-    if( isShowModal ){
-      return {display: 'block'}
-    }
-    return {display: 'none'}
-  }
+  useEffect(() => {
+    console.log(isShow, 'isShow')
+  }, [isShow])
 
-  return (
-    <>
-    <div className={getClassModal()} style={getStyleModal()}>
-      <div className={`modal-dialog ${styles.modalDialog}`}>
-        <div className={`modal-content ${styles.modalContent}`}>
-            <div className={`modal-header ${styles.modalHeader}`}>
-              {title && 
-                <h5 className="modal-title">{title}</h5>
-              }
-              <button type="button"
-                className="btn-close"
-                style={styleModalClose}
-                onClick={hideModal}
-                ></button>
-            </div>
-          <div className="modal-body">
-            {children}
-          </div>
-        </div>
-      </div>
-    </div>
-    {isShowModal && <div className="modal-backdrop fade show"></div>}
-    </>
-  )
+  console.log('render modal')
+
+  return modalRoot ? createPortal(
+    <ModalOverlay setShow={setShow} />
+    , modalRoot) : <></>
+
 };
 
 export default Modal;

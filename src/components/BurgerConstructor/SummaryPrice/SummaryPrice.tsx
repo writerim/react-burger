@@ -23,7 +23,6 @@ const SummaryPrice = (props: SummaryPriceProps) => {
       <Button type="primary" size="large" onClick={showIngridientDetails}>
         Оформить заказ
       </Button>
-      {isShowOrderDetail && <OrderDetails/>}
     </div>
   )
 };
