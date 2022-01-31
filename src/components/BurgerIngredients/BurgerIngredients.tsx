@@ -13,25 +13,25 @@ const tabs = [
 ]
 
 interface BurgerIngredientsProps {
-  ingridients : IngridientInterface[]
+  ingridients: IngridientInterface[]
 }
 
-const BurgerIngredients = ({ingridients} :BurgerIngredientsProps) => {
+const BurgerIngredients = ({ ingridients }: BurgerIngredientsProps) => {
 
   const [curentType, setCurrentType] = React.useState<string>(tabs[0].id);
 
-  
+
   const setCurrent = (currentTab: string) => {
     setCurrentType(currentTab)
   }
 
   // Получение продуктов по типу
-  const filterByType = (find_type: string): IngridientInterface[] =>  {
+  const filterByType = (find_type: string): IngridientInterface[] => {
     return ingridients.filter((item: IngridientInterface) => {
       return item.type === find_type
     })
   }
-  
+
 
 
   return (
@@ -46,10 +46,10 @@ const BurgerIngredients = ({ingridients} :BurgerIngredientsProps) => {
       </div>
       <div className={styles.Overflow}>
         {tabs.map((tab) =>
-          <CardList 
-            listItems={filterByType(tab.id)} 
-            tab={tab.value} 
-            key={tab.id}/>
+          <CardList
+            listItems={filterByType(tab.id)}
+            tab={tab.value}
+            key={tab.id} />
         )}
       </div>
     </>

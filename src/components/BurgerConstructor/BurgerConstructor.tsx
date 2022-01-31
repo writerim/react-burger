@@ -1,10 +1,10 @@
-import ItemList from './ItemListIngridients/ItemListIngridients';
+import ItemListIngridients from './ItemListIngridients/ItemListIngridients';
 import { IngridientInterface } from '../../interfaces/inridient_interface';
 import SummaryPrice from './SummaryPrice/SummaryPrice';
+import styles from './BurgerConstructor.module.css'
 
-
-interface BurgerConstructorProps{
-  data : IngridientInterface[]
+interface BurgerConstructorProps {
+  data: IngridientInterface[]
 }
 
 
@@ -20,8 +20,8 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
   }
 
   return (
-    <div className='row' data-testid="BurgerConstructor">
-      <ItemList items={props.data} />
+    <div data-testid="BurgerConstructor">
+      <ItemListIngridients items={props.data} />
       <SummaryPrice totalPrice={totalPrice(props.data)} />
     </div>
   )

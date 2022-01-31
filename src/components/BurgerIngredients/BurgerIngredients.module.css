@@ -1,26 +1,25 @@
 .BurgerIngredients {
     margin-right: 20px;
-    flex: 1;
 }
 
-.ScrollWraper{
+.ScrollWraper {
     overflow-y: scroll;
 }
 
-.Overflow{
+.Overflow {
     overflow-y: scroll;
     max-height: 600px;
     overflow-x: hidden;
 }
 
-.Tabs{
+.Tabs {
     display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 
-.Tabs > div{
+.Tabs>div {
     flex-grow: 1;
 }

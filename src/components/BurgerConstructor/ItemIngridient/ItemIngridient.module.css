@@ -3,12 +3,22 @@
     padding: 4px;
 }
 
-.Icon{
+.Icon {
     display: inline;
-    vertical-align: middle;
 }
 
 .Element {
     display: inline;
+}
+
+.Element svg {
     vertical-align: middle;
+}
+
+.Pointers {
+    display: inline-block;
+}
+
+.IngridientSummary {
+    display: inline-block;
 }

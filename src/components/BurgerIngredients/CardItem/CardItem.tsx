@@ -19,7 +19,7 @@ const CardItem = (props: IngridientInterface) => {
   }
 
   return (
-    <div className={`col ${styles.CardItemCol}`} onClick={openModal.bind(this, props)}>
+    <div className={styles.CardItemCol} onClick={openModal.bind(this, props)}>
       <img src={props.image_large} className={styles.CardItemImage} />
       <p className={`${styles.CardItemPriceLine}`}>
         <span className={`text text_type_digits-default ${styles.CardItemPrice}`}>

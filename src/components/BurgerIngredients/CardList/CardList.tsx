@@ -10,11 +10,13 @@ interface CardListProps {
 }
 
 const CardList = (props: CardListProps) => (
-  <div className='row'>
-    <h2 className={styles.h2}>{props.tab}</h2>
-    {props.listItems && props.listItems.map(item => (
-      <CardItem key={item._id} {...item}/>
-    ))}
+  <div className={styles.BlockIngridients}>
+    <p className="text text_type_main-medium">{props.tab}</p>
+    <div className={styles.CardList}>
+      {props.listItems && props.listItems.map(item => (
+        <CardItem key={item._id} {...item} />
+      ))}
+    </div>
   </div>
 )
 

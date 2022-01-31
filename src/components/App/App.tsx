@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
-import './App.module.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import React, { useEffect } from 'react';
+import styles from './App.module.css';
 import selctedIngridients from './../../utils/data_selected';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -11,29 +10,28 @@ const URL_GET_LIST_INGRIDIENTS = 'https://norma.nomoreparties.space/api/ingredie
 
 function App() {
 
-  const [ingridients , setIngridients] = React.useState([]);
-  
+  const [ingridients, setIngridients] = React.useState([]);
 
   useEffect(() => {
     fetch(URL_GET_LIST_INGRIDIENTS)
-    .then(r => r.json())
-    .then(req => {
-      setIngridients(req.data)
-    })
-    .catch(e => {
-      console.log(e)
-    })
-  }, [])
+      .then(r => r.json())
+      .then(req => {
+        setIngridients(req.data)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }, [URL_GET_LIST_INGRIDIENTS])
 
   return (
-    <div className="container">
+    <div className={styles.Container}>
       <AppHeader />
-      <div className="row">
-        <div className="col">
-          <BurgerIngredients ingridients={ingridients}/>
+      <div className={styles.ContainerWorkFlow}>
+        <div className={styles.LeftColumn}>
+          <BurgerIngredients ingridients={ingridients} />
         </div>
-        <div className="col">
-          <BurgerConstructor data={selctedIngridients}/>
+        <div className={styles.RightColumn}>
+          <BurgerConstructor data={selctedIngridients} />
         </div>
       </div>
     </div>

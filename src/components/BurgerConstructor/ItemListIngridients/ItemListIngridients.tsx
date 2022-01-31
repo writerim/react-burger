@@ -1,7 +1,7 @@
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import { IngridientPropType } from '../../../types/ingridient';
 import data from '../../../utils/data_selected';
-import Item from '../ItemIngridient/ItemIngridient';
+import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngridients.module.css'
 
 interface ItemListProps {
@@ -28,7 +28,7 @@ const ItemList = (props: ItemListProps) => {
   // Модификация названия первого и последнего элемента
   // Верхний должен содержать Верх
   // Нижний - низ
-  const getModifyTitle = (itemIngridient: IngridientInterface) :IngridientInterface =>  {
+  const getModifyTitle = (itemIngridient: IngridientInterface): IngridientInterface => {
     let clone_ingridient = Object.assign({}, itemIngridient)
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
@@ -44,9 +44,9 @@ const ItemList = (props: ItemListProps) => {
   }
 
   return (
-    <div className={`row ${styles.Row}`}>
+    <div className={styles.IngridientRow}>
       {props.items.map(item => (
-        <Item item={getModifyTitle(item)} key={item._id} position={getPosition(item._id)} />
+        <ItemIngridient item={getModifyTitle(item)} key={item._id} position={getPosition(item._id)} />
       ))}
     </div>
   )
