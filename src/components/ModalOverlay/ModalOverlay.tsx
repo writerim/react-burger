@@ -7,19 +7,14 @@ interface ModalOverlayPropsInterface {
   setShow: Function
 }
 
-const ModalOverlay = ({ children, setShow }: ModalOverlayPropsInterface) => {
+const ModalOverlay = ({ setShow }: ModalOverlayPropsInterface) => {
 
   const closeModal = () => {
-    console.log('click overlay')
     setShow(false)
   }
 
-  console.log('render overlay')
-
   return (
     <div className={styles.Background} onClick={closeModal}>
-      {/* Тут отображаем содержимое модального окна */}
-      {children}
     </div>
   )
 };

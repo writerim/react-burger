@@ -1,8 +1,22 @@
-.Img{
+.Img {
     width: 100%;
 }
 
-.Title{
+.Title {
     margin-top: 16px;
     margin-bottom: 32px;
+    text-align: center;
+}
+
+.Compound {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    text-align: center;
+}
+
+.Col {
+    padding: 24px;
 }

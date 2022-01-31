@@ -13,7 +13,6 @@ const CardItem = (props: IngridientInterface) => {
 
   const [isShowDetail, setIsShowDetail] = React.useState(false)
 
-
   const openModal = (item: IngridientInterface) => {
     setIsShowDetail(!isShowDetail)
   }

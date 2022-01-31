@@ -1,8 +1,9 @@
 // Компонент омдального окна
-import { useEffect, useState } from 'react';
+import { EventHandler, useEffect, useState } from 'react';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './Modal.module.css';
 import { createPortal } from 'react-dom';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 interface ModalInterface {
   title?: string; // Название модального окна в шапке
@@ -16,22 +17,38 @@ const modalRoot = document.getElementById('modal-root');
 // Принимает в себя название, тело
 const Modal = ({ title, children, setShow }: ModalInterface) => {
 
-  // Выстаялем что при рендере будет всегда снаача
-  // И через проброшенный коллбек буем закрувать его
-  const [isShow, setIsShow] = useState(true)
+  const onCloseModal = () => {
+    setShow(false)
+  }
 
-  // const onClickOverlay = () => {
-  //   setShow(false)
-  // }
+  const listenerKeyboard = (e: KeyboardEvent) => {
+    if (e.key == "Escape") {
+      setShow(false)
+    }
+  }
 
-  useEffect(() => {
-    console.log(isShow, 'isShow')
-  }, [isShow])
-
-  console.log('render modal')
+  useState(() => {
+    window.addEventListener('keyup', listenerKeyboard);
+    return () => {
+      window.removeEventListener('keyup', listenerKeyboard)
+    }
+  })
 
   return modalRoot ? createPortal(
-    <ModalOverlay setShow={setShow} />
+    <>
+      <ModalOverlay setShow={setShow} />
+      <div className={styles.ModalContent}>
+        <div className={styles.Header}>
+          {title &&
+            <p className="text text_type_main-medium">{title}</p>
+          }
+          <div className={styles.CloseButton} onClick={onCloseModal}>
+            <CloseIcon type="primary" />
+          </div>
+        </div>
+        {children}
+      </div>
+    </>
     , modalRoot) : <></>
 
 };

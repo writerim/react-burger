@@ -14,21 +14,21 @@ const ModalIngridientDetail = (props: ModalIngridientDetailInterface) => {
   return (
     <Modal title='Детали ингридиента' setShow={props.setIsShowDetail}>
       <img src={props.ingridient.image} className={styles.Img} />
-      <p className="text text_type_main-medium">{props.ingridient.name}</p>
-      <div className={`row ${styles.Title}`}>
-        <div className='col'>
+      <p className={`text text_type_main-medium ${styles.Title}`}>{props.ingridient.name}</p>
+      <div className={styles.Compound}>
+        <div className={styles.Col}>
           <p className="text text_type_main-default">Калории,ккал</p>
           {props.ingridient.calories}
         </div>
-        <div className='col'>
+        <div className={styles.Col}>
           <p className="text text_type_main-default">Белки, г</p>
           {props.ingridient.proteins}
         </div>
-        <div className='col'>
+        <div className={styles.Col}>
           <p className="text text_type_main-default">Жиры, г</p>
           {props.ingridient.fat}
         </div>
-        <div className='col'>
+        <div className={styles.Col}>
           <p className="text text_type_main-default">Углеводы, г</p>
           {props.ingridient.carbohydrates}
         </div>
