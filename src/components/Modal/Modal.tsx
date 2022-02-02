@@ -1,9 +1,10 @@
 // Компонент омдального окна
-import { EventHandler, useEffect, useState } from 'react';
+import { useState } from 'react';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './Modal.module.css';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 interface ModalInterface {
   title?: string; // Название модального окна в шапке
@@ -22,7 +23,7 @@ const Modal = ({ title, children, setShow }: ModalInterface) => {
   }
 
   const listenerKeyboard = (e: KeyboardEvent) => {
-    if (e.key == "Escape") {
+    if (e.key === "Escape") {
       setShow(false)
     }
   }
@@ -52,5 +53,6 @@ const Modal = ({ title, children, setShow }: ModalInterface) => {
     , modalRoot) : <></>
 
 };
+
 
 export default Modal;

@@ -1,7 +1,8 @@
 import ItemListIngridients from './ItemListIngridients/ItemListIngridients';
 import { IngridientInterface } from '../../interfaces/inridient_interface';
 import SummaryPrice from './SummaryPrice/SummaryPrice';
-import styles from './BurgerConstructor.module.css'
+import PropTypes from 'prop-types';
+import { IngridientPropType } from '../../types/ingridient';
 
 interface BurgerConstructorProps {
   data: IngridientInterface[]
@@ -26,5 +27,6 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
     </div>
   )
 };
+
 
 export default BurgerConstructor;

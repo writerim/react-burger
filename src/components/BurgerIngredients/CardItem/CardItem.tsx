@@ -4,11 +4,6 @@ import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import ModalIngridientDetail from '../ModalIngridientDetail/ModalIngridientDetail';
 import styles from './CardItem.module.css';
 
-
-interface CardItemState {
-  isShow?: boolean
-}
-
 const CardItem = (props: IngridientInterface) => {
 
   const [isShowDetail, setIsShowDetail] = React.useState(false)
@@ -20,7 +15,7 @@ const CardItem = (props: IngridientInterface) => {
   return (
     <>
       <div className={styles.CardItemCol} onClick={openModal.bind(this, props)}>
-        <img src={props.image_large} className={styles.CardItemImage} />
+        <img src={props.image_large} className={styles.CardItemImage} alt="" />
         <p className={`${styles.CardItemPriceLine}`}>
           <span className={`text text_type_digits-default ${styles.CardItemPrice}`}>
             {props.price}

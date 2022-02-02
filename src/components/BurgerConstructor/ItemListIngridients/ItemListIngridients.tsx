@@ -3,6 +3,7 @@ import { IngridientPropType } from '../../../types/ingridient';
 import data from '../../../utils/data_selected';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngridients.module.css'
+import PropTypes from 'prop-types'
 
 interface ItemListProps {
   items: IngridientInterface[]
@@ -11,7 +12,6 @@ interface ItemListProps {
 const ItemList = (props: ItemListProps) => {
   // Получение позиции оносительно списка
   const getPosition = (id: string): "top" | "bottom" | undefined => {
-    let pos = 0;
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
       if (element._id === id) {
@@ -52,6 +52,5 @@ const ItemList = (props: ItemListProps) => {
   )
 };
 
-ItemList.propTypes = IngridientPropType.isRequired
 
 export default ItemList;

@@ -1,8 +1,10 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IngridientInterface } from '../../interfaces/inridient_interface';
+import { IngridientPropType } from '../../types/ingridient';
 import styles from './BurgerIngredients.module.css';
 import CardList from './CardList/CardList';
+import PropTypes from 'prop-types';
 
 
 
@@ -55,5 +57,6 @@ const BurgerIngredients = ({ ingridients }: BurgerIngredientsProps) => {
     </>
   )
 };
+
 
 export default BurgerIngredients;

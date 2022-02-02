@@ -16,12 +16,15 @@ function App() {
     fetch(URL_GET_LIST_INGRIDIENTS)
       .then(r => r.json())
       .then(req => {
-        setIngridients(req.data)
+        if (req.ok) {
+          setIngridients(req.data)
+        }
+        return Promise.reject(req.status);
       })
       .catch(e => {
         console.log(e)
       })
-  }, [URL_GET_LIST_INGRIDIENTS])
+  }, [])
 
   return (
     <div className={styles.Container}>
