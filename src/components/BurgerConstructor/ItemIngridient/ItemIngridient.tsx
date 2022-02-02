@@ -1,8 +1,6 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
-import { IngridientPropType } from '../../../types/ingridient';
 import styles from './ItemIngridient.module.css';
-import PropTypes from 'prop-types';
 
 interface ItemProps {
   item: IngridientInterface

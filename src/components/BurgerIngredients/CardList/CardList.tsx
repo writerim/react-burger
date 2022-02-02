@@ -1,9 +1,6 @@
-import React from 'react';
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardList.module.css';
-import PropTypes from 'prop-types';
-import { IngridientPropType } from '../../../types/ingridient';
 
 
 interface CardListProps {

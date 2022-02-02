@@ -16,10 +16,11 @@ function App() {
     fetch(URL_GET_LIST_INGRIDIENTS)
       .then(r => r.json())
       .then(req => {
-        if (req.ok) {
+        if (req.success) {
           setIngridients(req.data)
+        } else {
+          return Promise.reject(req.status);
         }
-        return Promise.reject(req.status);
       })
       .catch(e => {
         console.log(e)

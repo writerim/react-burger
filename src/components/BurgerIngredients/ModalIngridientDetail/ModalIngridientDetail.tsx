@@ -1,8 +1,6 @@
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import Modal from '../../Modal/Modal';
 import styles from './ModalIngridientDetail.module.css';
-import PropTypes from 'prop-types';
-import { IngridientPropType } from '../../../types/ingridient';
 
 interface ModalIngridientDetailInterface {
   ingridient: IngridientInterface,
