@@ -1,9 +1,7 @@
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
-import { IngridientPropType } from '../../../types/ingridient';
 import data from '../../../utils/data_selected';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngridients.module.css'
-import PropTypes from 'prop-types'
 
 interface ItemListProps {
   items: IngridientInterface[]
