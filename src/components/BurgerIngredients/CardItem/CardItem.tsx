@@ -1,7 +1,8 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
-import ModalIngridientDetail from '../ModalIngridientDetail/ModalIngridientDetail';
+import IngridientDetails from '../../IngridientDetails/IngridientDetails';
+import Modal from '../../Modal/Modal';
 import styles from './CardItem.module.css';
 
 const CardItem = (props: IngridientInterface) => {
@@ -24,7 +25,9 @@ const CardItem = (props: IngridientInterface) => {
         </p>
         <p className={`${styles.CardItemName} text text_type_main-medium`}>{props.name}</p>
       </div>
-      {isShowDetail && <ModalIngridientDetail ingridient={props} setIsShowDetail={setIsShowDetail} />}
+      {isShowDetail && <Modal title="Детали" setShow={openModal}>
+        <IngridientDetails {...props} />
+      </Modal>}
     </>
   )
 }

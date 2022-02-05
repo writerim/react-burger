@@ -8,3 +8,8 @@
     padding-left: 14px;
     align-items: center;
 }
+
+.Scroll {
+    overflow-y: scroll;
+    max-height: 351px;
+}

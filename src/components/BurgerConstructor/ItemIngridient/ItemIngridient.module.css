@@ -22,3 +22,9 @@
 .IngridientSummary {
     display: inline-block;
 }
+
+.ItemColMain {
+    margin: 4px;
+    padding: 4px;
+    margin-left: 24px;
+}

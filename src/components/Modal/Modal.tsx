@@ -1,5 +1,5 @@
 // Компонент омдального окна
-import { useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './Modal.module.css';
 import { createPortal } from 'react-dom';
@@ -21,18 +21,18 @@ const Modal = ({ title, children, setShow }: ModalInterface) => {
     setShow(false)
   }
 
-  const listenerKeyboard = (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      setShow(false)
-    }
-  }
 
-  useState(() => {
+  useEffect(() => {
+    const listenerKeyboard = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setShow(false)
+      }
+    }
     window.addEventListener('keyup', listenerKeyboard);
     return () => {
       window.removeEventListener('keyup', listenerKeyboard)
     }
-  })
+  }, [])
 
   return modalRoot ? createPortal(
     <>

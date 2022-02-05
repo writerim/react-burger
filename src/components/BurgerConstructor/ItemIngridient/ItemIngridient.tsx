@@ -1,34 +1,37 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useCallback } from 'react';
 import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import styles from './ItemIngridient.module.css';
 
 interface ItemProps {
-  item: IngridientInterface
+  ingridient: IngridientInterface
+  is_locked: boolean
   position: "top" | "bottom" | undefined
 }
 
-const Item = (props: ItemProps) => {
+const Item = ({ ingridient, is_locked, position }: ItemProps) => {
 
-  const isLocked = (): boolean => {
-    if (props.position) {
-      return false
+  const getName = useCallback((position) => {
+    if (position == 'top') {
+      return ingridient.name + ' (верх)'
+    } else if (position == 'bottom') {
+      return ingridient.name + ' (низ)'
     }
-    return true
-  }
+    return ingridient.name
+  }, [position])
 
   return (
-    <div className={`col ${styles.ItemCol}`}>
-      <div className={styles.Pointers}>
+    <div className={`col ${is_locked ? styles.ItemColMain : styles.ItemCol}`}>
+      {!is_locked && <div className={styles.Pointers}>
         <DragIcon type="primary" />
-      </div>
+      </div>}
       <div className={styles.IngridientSummary}>
         <span className={styles.Element}>
           <ConstructorElement
-            type={props.position}
-            isLocked={isLocked()}
-            text={props.item.name}
-            price={props.item.price}
-            thumbnail={props.item.image}
+            isLocked={is_locked}
+            text={getName(position)}
+            price={ingridient.price}
+            thumbnail={ingridient.image}
           />
         </span>
       </div>
