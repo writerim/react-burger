@@ -41,8 +41,8 @@ const ItemList = (props: ItemListProps) => {
     let filtered_ingridients = ingridients.filter(ingridient => ingridient.type !== 'bun')
 
     return (
-      filtered_ingridients.map(ingridient => (
-        <ItemIngridient ingridient={ingridient} key={ingridient._id} is_locked={false} position={undefined} />
+      filtered_ingridients.map((ingridient, index) => (
+        <ItemIngridient ingridient={ingridient} key={index} is_locked={false} position={undefined} />
       ))
     )
   }

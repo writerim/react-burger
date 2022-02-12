@@ -25,7 +25,24 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
   const [isShowOrderDetail, setIsShowOrderDetail] = useState(false)
 
   const showIngridientDetails = () => {
-    setIsShowOrderDetail(!isShowOrderDetail)
+
+    fetch('https://norma.nomoreparties.space/api/orders', {
+      method: 'POST',
+      body: JSON.stringify({
+        "ingredients": props.data.reduce((res: string[], ingridient: IngridientInterface) => {
+          res.push(ingridient._id)
+          return res
+        }, [])
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(r => r.json())
+      .then(data => {
+        console.log(data)
+        setIsShowOrderDetail(!isShowOrderDetail)
+      })
   }
 
   return (
