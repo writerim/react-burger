@@ -1,72 +1,62 @@
-import { render } from '@testing-library/react';
-import React, { FC } from 'react';
+import { useCallback } from 'react';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import data from '../../../utils/data_selected';
-import Item from '../ItemIngridient/ItemIngridient';
+import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngridients.module.css'
 
-interface Ingridient {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
-
 interface ItemListProps {
-  items: Ingridient[]
+  items: IngridientInterface[]
 }
 
-// class ItemList extends React.Component<ItemListProps>{
 const ItemList = (props: ItemListProps) => {
-  // Получение позиции оносительно списка
-  const getPosition = (id: string): "top" | "bottom" | undefined => {
-    let pos = 0;
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
-      if (element._id === id) {
-        if (index === 0) {
-          return 'top'
-        } else if (index === data.length - 1) {
-          return 'bottom'
-        }
-        return undefined
+
+  // Нужно отрисовать сначала топ элемент
+  // Потом все остальные элементы
+  // А потом и нижний
+  // Все это прибиваем на гвозди
+
+  const getTopMainIngridient = (ingridients: IngridientInterface[]) => {
+    let bottom = null;
+    ingridients.map(ingridient => {
+      if (ingridient.type == 'bun') {
+        bottom = ingridient
+        return
       }
-    }
+    })
+    return (bottom && <ItemIngridient ingridient={bottom} is_locked={true} position="top" />)
   }
 
-  // Модификация названия первого и последнего элемента
-  // Верхний должен содержать Верх
-  // Нижний - низ
-  const getModifyTitle = (itemIngridient: Ingridient) :Ingridient =>  {
-    let pos = 0;
-    let clone_ingridient = Object.assign({}, itemIngridient)
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
-      if (element._id === itemIngridient._id) {
-        if (index === 0) {
-          clone_ingridient.name += ' (верх)'
-        } else if (index === data.length - 1) {
-          clone_ingridient.name += ' (низ)'
-        }
+  const getBottomMainIngridient = (ingridients: IngridientInterface[]) => {
+    let bottom = null;
+    ingridients.map(ingridient => {
+      if (ingridient.type == 'bun') {
+        bottom = ingridient
       }
-    }
-    return clone_ingridient
+    })
+    return (bottom && <ItemIngridient ingridient={bottom} is_locked={true} position="bottom" />)
+  }
+
+  const getMiddleIngridients = (ingridients: IngridientInterface[]) => {
+
+    let filtered_ingridients = ingridients.filter(ingridient => ingridient.type !== 'bun')
+
+    return (
+      filtered_ingridients.map(ingridient => (
+        <ItemIngridient ingridient={ingridient} key={ingridient._id} is_locked={false} position={undefined} />
+      ))
+    )
   }
 
   return (
-    <div className={`row ${styles.Row}`}>
-      {props.items.map(item => (
-        <Item item={getModifyTitle(item)} key={item._id} position={getPosition(item._id)} />
-      ))}
+    <div className={styles.IngridientRow}>
+      {getTopMainIngridient(props.items)}
+      <div className={styles.Scroll}>
+        {getMiddleIngridients(props.items)}
+      </div>
+      {getBottomMainIngridient(props.items)}
     </div>
   )
 };
+
 
 export default ItemList;

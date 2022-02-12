@@ -1,46 +1,57 @@
-import React, { FC } from 'react';
+import ItemListIngridients from './ItemListIngridients/ItemListIngridients';
+import { IngridientInterface } from '../../interfaces/inridient_interface';
 import styles from './BurgerConstructor.module.css';
-import ItemList from './ItemListIngridients/ItemListIngridients';
-import SummaryPrice from '../BurgerIngredients/SummaryPrice/SummaryPrice';
+import { useCallback, useState } from 'react';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
-
-interface BurgerConstructorProps{
-  data : Ingridient[]
-}
-interface Ingridient {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
+interface BurgerConstructorProps {
+  data: IngridientInterface[]
 }
 
-class BurgerConstructor extends React.Component <BurgerConstructorProps> {
 
-  totalPrice = (data: Ingridient[]): number => {
+const BurgerConstructor = (props: BurgerConstructorProps) => {
+
+  const totalPrice = useCallback((data: IngridientInterface[]): number => {
     let totalPrice = 0
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
       totalPrice += element.price
     }
     return totalPrice
+  }, [props])
+
+  const [isShowOrderDetail, setIsShowOrderDetail] = useState(false)
+
+  const showIngridientDetails = () => {
+    setIsShowOrderDetail(!isShowOrderDetail)
   }
 
-  render(): React.ReactNode {
-    return (
-      <div className='row' data-testid="BurgerConstructor">
-        <ItemList items={this.props.data} />
-        <SummaryPrice totalPrice={this.totalPrice(this.props.data)} />
+  return (
+    <div data-testid="BurgerConstructor">
+      <ItemListIngridients items={props.data} />
+
+      <div className={styles.SummaryPrice} data-testid="SummaryPrice">
+        <span className={`text text_type_main-medium ${styles.Price}`}>
+          {totalPrice(props.data)}
+          <span className={styles.PriceIcon}>
+            <CurrencyIcon type="primary" />
+          </span>
+        </span>
+        <Button type="primary" size="large" onClick={showIngridientDetails}>
+          Оформить заказ
+        </Button>
       </div>
-    )
-  }
+
+      {isShowOrderDetail &&
+        <Modal setShow={setIsShowOrderDetail}>
+          <OrderDetails totalPrice={totalPrice(props.data)} />
+        </Modal>
+      }
+    </div>
+  )
 };
+
 
 export default BurgerConstructor;

@@ -1,35 +1,59 @@
-.AppHeader{
-    width: 100%;
+.NavCenter {
+    /* флексим */
     display: -webkit-flex;
-	display: flex;
-	-webkit-flex-direction: row;
-	flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-direction: row;
+    flex-direction: row;
     align-items: center;
-    padding:16px;
+    margin: 0 auto;
+    padding: 16px;
+    max-width: 1440px;
 }
 
 
-.logo{
-    flex: 3;    
+.Logo {
     margin: 0 auto;
     text-align: center;
+    display: inline;
+    /* чтобы отцетнровать блок нужно его сместить на пловину 290 / 2 = 145*/
+    padding-right: 145px;
+    margin: 0 auto;
 }
 
-.Btn{
+.Btn {
     padding: 20px;
     color: #fff;
     font-size: 16px;
-    vertical-align: middle;
     margin: 16px 4px;
     white-space: nowrap;
 }
 
-.BtnTitle{
-    padding: 0;
+.BtnTitle {
     padding-left: 8px;
     white-space: nowrap;
+    vertical-align: middle;
 }
 
-.svgLogo{
+.svgLogo {
     margin-left: -127px;
+}
+
+.LeftMenu {
+    flex-wrap: unset;
+    display: inline-block;
+}
+
+.NavCenter a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.NavCenter a:hover {
+    color: #999;
+    cursor: pointer;
+}
+
+.NavCenter a svg {
+    vertical-align: middle;
 }

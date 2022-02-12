@@ -1,58 +1,43 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { FC } from 'react';
+import { useCallback } from 'react';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
 import styles from './ItemIngridient.module.css';
 
-interface ItemI {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
-
 interface ItemProps {
-  item: ItemI
+  ingridient: IngridientInterface
+  is_locked: boolean
   position: "top" | "bottom" | undefined
 }
 
-//class Item extends React.Component<ItemProps> {
-const Item = (props: ItemProps) => {
+const Item = ({ ingridient, is_locked, position }: ItemProps) => {
 
-  const style = {
-    maxWidth :48,
-    verticalAlign:'middle',
-    paddintTop: 30
-  }
+  const getName = useCallback((position) => {
+    if (position == 'top') {
+      return ingridient.name + ' (верх)'
+    } else if (position == 'bottom') {
+      return ingridient.name + ' (низ)'
+    }
+    return ingridient.name
+  }, [position])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className={`col ${styles.ItemCol}`}>
-      <div className='row'>
-        <div className='col' style={style}>
-          <span className={styles.Icon}>
-            <DragIcon type="primary" />
-          </span>
-        </div>
-        <div className='col'>
-          <span className={styles.Element}>
-            <ConstructorElement
-              type={props.position}
-              isLocked={true}
-              text={props.item.name}
-              price={props.item.price}
-              thumbnail={props.item.image}
-            />
-          </span>
-        </div>
+    <div className={`col ${is_locked ? styles.ItemColMain : styles.ItemCol}`}>
+      {!is_locked && <div className={styles.Pointers}>
+        <DragIcon type="primary" />
+      </div>}
+      <div className={styles.IngridientSummary}>
+        <span className={styles.Element}>
+          <ConstructorElement
+            isLocked={is_locked}
+            text={getName(position)}
+            price={ingridient.price}
+            thumbnail={ingridient.image}
+          />
+        </span>
       </div>
     </div>
   )
 };
+
 
 export default Item

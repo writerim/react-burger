@@ -1,8 +1,27 @@
-.page{
-  display: -webkit-flex;
+.Container {
+	/* выравниваем внутренне содержимое */
+	margin: 0 auto;
+}
+
+.ContainerWorkFlow {
+	/* флексим */
+	display: -webkit-flex;
 	display: flex;
 	flex-wrap: wrap;
 	-webkit-flex-direction: row;
 	flex-direction: row;
-  align-items: center;
+	max-width: 1440px;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+
+/* Левая колонка */
+.LeftColumn {
+	flex: 1;
+}
+
+/* Правая  колонка */
+.RightColumn {
+	flex: 1;
+	margin-left: 40px;
 }

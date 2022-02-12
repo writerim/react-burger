@@ -1,5 +1,5 @@
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
-import AppHeaderStyle from './AppHeader.module.css'
+import styles from './AppHeader.module.css'
 import BtnGenerator from './BtnGenerator/BtnGenerator';
 import BtnOrders from './BtnOrders/BtnOrders';
 import BtnProfile from './BtnProfile/BtnProfile';
@@ -7,16 +7,18 @@ import BtnProfile from './BtnProfile/BtnProfile';
 
 function AppHeader() {
     return (
-        <nav className="navbar navbar-expand-lg">
-            <div className="container-fluid">
-                <BtnGenerator />
-                <BtnOrders />
-                <div className={AppHeaderStyle.logo}>
-                    <div className={AppHeaderStyle.svgLogo}>
-                        <Logo />
-                    </div>
+        <nav className={styles.Nav}>
+            <div className={styles.NavCenter}>
+                <div className={styles.LeftMenu}>
+                    <BtnGenerator />
+                    <BtnOrders />
                 </div>
-                <BtnProfile />
+                <div className={styles.Logo}>
+                    <Logo />
+                </div>
+                <div>
+                    <BtnProfile />
+                </div>
             </div>
         </nav>
     )

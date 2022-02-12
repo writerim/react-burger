@@ -1,49 +1,34 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import ModalItem from '../ModalItem/ModalItem';
+import { IngridientInterface } from '../../../interfaces/inridient_interface';
+import IngridientDetails from '../../IngridientDetails/IngridientDetails';
+import Modal from '../../Modal/Modal';
 import styles from './CardItem.module.css';
 
+const CardItem = (props: IngridientInterface) => {
 
-interface CardItemProps {
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  _id: string;
-  __v: number;
-}
+  const [isShowDetail, setIsShowDetail] = React.useState(false)
 
-interface CardItemState {
-  isShow?: boolean
-}
-
-const CardItem = (props: CardItemProps) => {
-
-  const [isShow, setIsShow] = React.useState(false)
-
-
-  const openModal = (item: CardItemProps) => {
-    setIsShow(!isShow)
+  const openModal = (item: IngridientInterface) => {
+    setIsShowDetail(!isShowDetail)
   }
 
   return (
-    <div className={`col ${styles.CardItemCol}`} onClick={openModal.bind(this, props)}>
-      <img src={props.image_large} className={styles.CardItemImage} />
-      <p className={`${styles.CardItemPriceLine}`}>
-        <span className={`text text_type_digits-default ${styles.CardItemPrice}`}>
-          {props.price}
-        </span>
-        <CurrencyIcon type="primary" />
-      </p>
-      <p className={`${styles.CardItemName} text text_type_main-medium`}>{props.name}</p>
-      {isShow && <ModalItem {...props} />}
-    </div>
+    <>
+      <div className={styles.CardItemCol} onClick={openModal.bind(this, props)}>
+        <img src={props.image_large} className={styles.CardItemImage} alt="" />
+        <p className={`${styles.CardItemPriceLine}`}>
+          <span className={`text text_type_digits-default ${styles.CardItemPrice}`}>
+            {props.price}
+          </span>
+          <CurrencyIcon type="primary" />
+        </p>
+        <p className={`${styles.CardItemName} text text_type_main-medium`}>{props.name}</p>
+      </div>
+      {isShowDetail && <Modal title="Детали" setShow={openModal}>
+        <IngridientDetails {...props} />
+      </Modal>}
+    </>
   )
 }
 
