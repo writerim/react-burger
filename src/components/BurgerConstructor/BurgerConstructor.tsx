@@ -46,7 +46,7 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
 
       {isShowOrderDetail &&
         <Modal setShow={setIsShowOrderDetail}>
-          <OrderDetails totalPrice={totalPrice(props.data)} />
+          <OrderDetails ingridients={props.data} totalPrice={totalPrice(props.data)} />
         </Modal>
       }
     </div>

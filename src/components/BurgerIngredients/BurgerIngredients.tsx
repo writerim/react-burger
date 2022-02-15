@@ -1,6 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { useContext } from 'react';
 import { IngridientInterface } from '../../interfaces/inridient_interface';
+import { IngridientsContext } from '../../services/IngridientsContext';
 import styles from './BurgerIngredients.module.css';
 import CardList from './CardList/CardList';
 
@@ -12,11 +13,9 @@ const tabs = [
   { id: 'main', value: "Начинки" },
 ]
 
-interface BurgerIngredientsProps {
-  ingridients: IngridientInterface[]
-}
+const BurgerIngredients = () => {
 
-const BurgerIngredients = ({ ingridients }: BurgerIngredientsProps) => {
+  const ingridients = useContext(IngridientsContext);
 
   const [curentType, setCurrentType] = React.useState<string>(tabs[0].id);
 

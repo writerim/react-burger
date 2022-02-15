@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './App.module.css';
 import selctedIngridients from './../../utils/data_selected';
+import { IngridientsContext } from './../../services/IngridientsContext';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
@@ -31,12 +32,14 @@ function App() {
     <div className={styles.Container}>
       <AppHeader />
       <div className={styles.ContainerWorkFlow}>
-        <div className={styles.LeftColumn}>
-          <BurgerIngredients ingridients={ingridients} />
-        </div>
-        <div className={styles.RightColumn}>
-          <BurgerConstructor data={selctedIngridients} />
-        </div>
+        <IngridientsContext.Provider value={ingridients}>
+          <div className={styles.LeftColumn}>
+            <BurgerIngredients />
+          </div>
+          <div className={styles.RightColumn}>
+            <BurgerConstructor data={selctedIngridients} />
+          </div>
+        </IngridientsContext.Provider>
       </div>
     </div>
   );
