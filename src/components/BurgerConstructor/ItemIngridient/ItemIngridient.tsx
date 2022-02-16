@@ -12,9 +12,9 @@ interface ItemProps {
 const Item = ({ ingridient, is_locked, position }: ItemProps) => {
 
   const getName = useCallback((position) => {
-    if (position == 'top') {
+    if (position === 'top') {
       return ingridient.name + ' (верх)'
-    } else if (position == 'bottom') {
+    } else if (position === 'bottom') {
       return ingridient.name + ' (низ)'
     }
     return ingridient.name

@@ -1,7 +1,7 @@
 import ItemListIngredients from './ItemListIngredients/ItemListIngredients';
 import { IngredientInterface } from '../../interfaces/inredient_interface';
 import styles from './BurgerConstructor.module.css';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';

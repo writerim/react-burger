@@ -1,5 +1,5 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useCallback, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { IngredientInterface } from '../../interfaces/inredient_interface';
 import styles from './OrderDetails.module.css';
 
@@ -48,16 +48,16 @@ const OrderDetails = ({ ingredients }: OrderDetailsInterface) => {
 
   const [{ data }, dispatch] = useReducer(reducer, { isLoading: false })
 
-  // поулчаем все id так как хз пока как сделать это прямо в теле
-  const getIds = (ingredients: IngredientInterface[]): string[] => {
-    let ids: string[] = []
-    ingredients.forEach(ingridient => {
-      ids.push(ingridient._id)
-    })
-    return ids
-  }
-
   useEffect(() => {
+
+    const getIds = (ingredients: IngredientInterface[]): string[] => {
+      let ids: string[] = []
+      ingredients.forEach(ingridient => {
+        ids.push(ingridient._id)
+      })
+      return ids
+    }
+
     fetch(URL_TO_SUMMARY, {
       method: 'POST',
       headers: {
@@ -75,7 +75,7 @@ const OrderDetails = ({ ingredients }: OrderDetailsInterface) => {
       }).catch(e => {
         dispatch({ type: "failure", error: e })
       })
-  }, [ingredients, getIds])
+  }, [ingredients])
 
   return (
     <div className={styles.SummaryModal}>
