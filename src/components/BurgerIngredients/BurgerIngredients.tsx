@@ -1,7 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useContext } from 'react';
-import { IngridientInterface } from '../../interfaces/inridient_interface';
-import { IngridientsContext } from '../../services/IngridientsContext';
+import { IngredientInterface } from '../../interfaces/inredient_interface';
+import { IngredientsContext } from '../../services/IngredientsContext';
 import styles from './BurgerIngredients.module.css';
 import CardList from './CardList/CardList';
 
@@ -15,7 +15,7 @@ const tabs = [
 
 const BurgerIngredients = () => {
 
-  const ingridients = useContext(IngridientsContext);
+  const ingredients = useContext(IngredientsContext);
 
   const [curentType, setCurrentType] = React.useState<string>(tabs[0].id);
 
@@ -25,8 +25,8 @@ const BurgerIngredients = () => {
   }
 
   // Получение продуктов по типу
-  const filterByType = (find_type: string): IngridientInterface[] => {
-    return ingridients.filter((item: IngridientInterface) => {
+  const filterByType = (find_type: string): IngredientInterface[] => {
+    return ingredients.filter((item: IngredientInterface) => {
       return item.type === find_type
     })
   }

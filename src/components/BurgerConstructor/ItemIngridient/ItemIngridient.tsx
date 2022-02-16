@@ -1,10 +1,10 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useCallback } from 'react';
-import { IngridientInterface } from '../../../interfaces/inridient_interface';
+import { IngredientInterface } from '../../../interfaces/inredient_interface';
 import styles from './ItemIngridient.module.css';
 
 interface ItemProps {
-  ingridient: IngridientInterface
+  ingridient: IngredientInterface
   is_locked: boolean
   position: "top" | "bottom" | undefined
 }

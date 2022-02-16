@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
-import { IngridientInterface } from '../../../interfaces/inridient_interface';
+import { IngredientInterface } from '../../../interfaces/inredient_interface';
 import data from '../../../utils/data_selected';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
-import styles from './ItemListIngridients.module.css'
+import styles from './ItemListIngredients.module.css'
 
 interface ItemListProps {
-  items: IngridientInterface[]
+  items: IngredientInterface[]
 }
 
 const ItemList = (props: ItemListProps) => {
@@ -15,9 +15,9 @@ const ItemList = (props: ItemListProps) => {
   // А потом и нижний
   // Все это прибиваем на гвозди
 
-  const getTopMainIngridient = (ingridients: IngridientInterface[]) => {
+  const getTopMainIngridient = (ingredients: IngredientInterface[]) => {
     let bottom = null;
-    ingridients.map(ingridient => {
+    ingredients.map(ingridient => {
       if (ingridient.type == 'bun') {
         bottom = ingridient
         return
@@ -26,9 +26,9 @@ const ItemList = (props: ItemListProps) => {
     return (bottom && <ItemIngridient ingridient={bottom} is_locked={true} position="top" />)
   }
 
-  const getBottomMainIngridient = (ingridients: IngridientInterface[]) => {
+  const getBottomMainIngridient = (ingredients: IngredientInterface[]) => {
     let bottom = null;
-    ingridients.map(ingridient => {
+    ingredients.map(ingridient => {
       if (ingridient.type == 'bun') {
         bottom = ingridient
       }
@@ -36,12 +36,12 @@ const ItemList = (props: ItemListProps) => {
     return (bottom && <ItemIngridient ingridient={bottom} is_locked={true} position="bottom" />)
   }
 
-  const getMiddleIngridients = (ingridients: IngridientInterface[]) => {
+  const getMiddleIngredients = (ingredients: IngredientInterface[]) => {
 
-    let filtered_ingridients = ingridients.filter(ingridient => ingridient.type !== 'bun')
+    let filtered_ingredients = ingredients.filter(ingridient => ingridient.type !== 'bun')
 
     return (
-      filtered_ingridients.map(ingridient => (
+      filtered_ingredients.map(ingridient => (
         <ItemIngridient ingridient={ingridient} key={ingridient._id} is_locked={false} position={undefined} />
       ))
     )
@@ -51,7 +51,7 @@ const ItemList = (props: ItemListProps) => {
     <div className={styles.IngridientRow}>
       {getTopMainIngridient(props.items)}
       <div className={styles.Scroll}>
-        {getMiddleIngridients(props.items)}
+        {getMiddleIngredients(props.items)}
       </div>
       {getBottomMainIngridient(props.items)}
     </div>

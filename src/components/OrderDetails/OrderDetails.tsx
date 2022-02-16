@@ -1,7 +1,6 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useCallback, useEffect, useReducer, useState } from 'react';
-import { Interface } from 'readline';
-import { IngridientInterface } from '../../interfaces/inridient_interface';
+import { useCallback, useEffect, useReducer } from 'react';
+import { IngredientInterface } from '../../interfaces/inredient_interface';
 import styles from './OrderDetails.module.css';
 
 
@@ -23,13 +22,6 @@ type HNResponse = {
   error?: string;
 }
 
-const initialOrderDetail = {
-  name: "",
-  order: {
-    number: 0
-  }
-}
-
 type Action =
   | { type: 'request' }
   | { type: 'success', results: HNResponse }
@@ -47,29 +39,23 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-interface OrderDetails {
-  ingridients: IngridientInterface[];
-  totalPrice: number
+interface OrderDetailsInterface {
+  ingredients: IngredientInterface[];
 }
 
 
-const OrderDetails = ({ ingridients, totalPrice }: OrderDetails) => {
+const OrderDetails = ({ ingredients }: OrderDetailsInterface) => {
 
-  const [{
-    data,
-    isLoading,
-    error
-  }, dispatch] = useReducer(reducer, { isLoading: false })
+  const [{ data }, dispatch] = useReducer(reducer, { isLoading: false })
 
   // поулчаем все id так как хз пока как сделать это прямо в теле
-  // завернем ее в useCallback чтобы закешировать
-  const getIds = useCallback((ingridients: IngridientInterface[]): string[] => {
+  const getIds = (ingredients: IngredientInterface[]): string[] => {
     let ids: string[] = []
-    ingridients.forEach(ingridient => {
+    ingredients.forEach(ingridient => {
       ids.push(ingridient._id)
     })
     return ids
-  }, [ingridients])
+  }
 
   useEffect(() => {
     fetch(URL_TO_SUMMARY, {
@@ -78,25 +64,26 @@ const OrderDetails = ({ ingridients, totalPrice }: OrderDetails) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ingredients: getIds(ingridients)
+        ingredients: getIds(ingredients)
       })
     })
       .then(r => r.json())
-      .then(data => {
-        if (!data.success) {
-          console.log(data)
+      .then(req => {
+        if (req.success) {
+          dispatch({ type: "success", results: req })
         }
-        dispatch({ type: "success", results: data })
+      }).catch(e => {
+        dispatch({ type: "failure", error: e })
       })
-  }, [ingridients])
+  }, [ingredients, getIds])
 
   return (
     <div className={styles.SummaryModal}>
       <p className={`text text_type_digits-large ${styles.TotalPriceModal}`}>
-        {totalPrice}
+        {data?.order.number}
       </p>
       <p className={`text text_type_main-default ${styles.IdOrderModal}`}>
-        {data?.order.number}
+        Идентификатор заказа
       </p>
       <p className={`text text_type_main-default ${styles.IconStatusModal}`}>
         <CheckMarkIcon type="primary" />

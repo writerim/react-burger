@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './App.module.css';
-import selctedIngridients from './../../utils/data_selected';
-import { IngridientsContext } from './../../services/IngridientsContext';
+import selctedIngredients from './../../utils/data_selected';
+import { IngredientsContext } from './../../services/IngredientsContext';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
@@ -11,14 +11,14 @@ const URL_GET_LIST_INGRIDIENTS = 'https://norma.nomoreparties.space/api/ingredie
 
 function App() {
 
-  const [ingridients, setIngridients] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState([]);
 
   useEffect(() => {
     fetch(URL_GET_LIST_INGRIDIENTS)
       .then(r => r.json())
       .then(req => {
         if (req.success) {
-          setIngridients(req.data)
+          setIngredients(req.data)
         } else {
           return Promise.reject(req.status);
         }
@@ -32,14 +32,14 @@ function App() {
     <div className={styles.Container}>
       <AppHeader />
       <div className={styles.ContainerWorkFlow}>
-        <IngridientsContext.Provider value={ingridients}>
+        <IngredientsContext.Provider value={ingredients}>
           <div className={styles.LeftColumn}>
             <BurgerIngredients />
           </div>
           <div className={styles.RightColumn}>
-            <BurgerConstructor data={selctedIngridients} />
+            <BurgerConstructor data={selctedIngredients} />
           </div>
-        </IngridientsContext.Provider>
+        </IngredientsContext.Provider>
       </div>
     </div>
   );
