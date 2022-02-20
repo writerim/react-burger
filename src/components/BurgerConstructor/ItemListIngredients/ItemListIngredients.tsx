@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { UIEventHandler, useCallback } from 'react';
 import { IngredientInterface } from '../../../interfaces/inredient_interface';
 import data from '../../../utils/data_selected';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
@@ -47,6 +47,7 @@ const ItemList = (props: ItemListProps) => {
     )
   }
 
+
   return (
     <div className={styles.IngridientRow}>
       {getTopMainIngridient(props.items)}
@@ -54,7 +55,7 @@ const ItemList = (props: ItemListProps) => {
         {getMiddleIngredients(props.items)}
       </div>
       {getBottomMainIngridient(props.items)}
-    </div>
+    </div >
   )
 };
 

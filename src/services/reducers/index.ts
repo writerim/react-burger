@@ -1,3 +1,4 @@
+import { activeTab } from './active_tab';
 import { combineReducers } from 'redux'
 
 import { ingredientsReducer } from './ingredients'
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     selectedIngredients: selectedIngredientsReducer,
     curentIngredient: curentIngredientReducer,
-    order: orderReducer
+    order: orderReducer,
+    activeTab: activeTab
 })
 
 export type RootState = ReturnType<typeof rootReducer>;
