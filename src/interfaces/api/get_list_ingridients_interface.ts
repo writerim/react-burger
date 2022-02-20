@@ -1,6 +1,6 @@
 // Интейейс для получения всех ингридиентов
-import { IngridientInterface } from './../inridient_interface';
+import { IngredientInterface } from '../inredient_interface';
 export interface GetListIngridientsInterface {
-    success : string;
-    data : IngridientInterface[]
+    success: string;
+    data: IngredientInterface[]
 }

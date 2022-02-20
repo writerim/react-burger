@@ -1,7 +1,7 @@
 import styles from './IngridientDetails.module.css'
-import { IngridientInterface } from '../../interfaces/inridient_interface';
+import { IngredientInterface } from '../../interfaces/inredient_interface';
 // Еще модальное окно. Ммм фигма Ui
-const IngridientDetails = (props: IngridientInterface) => {
+const IngridientDetails = (props: IngredientInterface) => {
 
   return (
     <>

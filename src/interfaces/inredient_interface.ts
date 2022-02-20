@@ -1,5 +1,5 @@
 // Интефейс одного ингридиента
-export interface IngridientInterface {
+export interface IngredientInterface {
     name: string;
     type: string;
     proteins: number;

@@ -1,26 +1,26 @@
-import ItemListIngridients from './ItemListIngridients/ItemListIngridients';
-import { IngridientInterface } from '../../interfaces/inridient_interface';
+import ItemListIngredients from './ItemListIngredients/ItemListIngredients';
+import { IngredientInterface } from '../../interfaces/inredient_interface';
 import styles from './BurgerConstructor.module.css';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 
 interface BurgerConstructorProps {
-  data: IngridientInterface[]
+  data: IngredientInterface[]
 }
 
 
 const BurgerConstructor = (props: BurgerConstructorProps) => {
 
-  const totalPrice = useCallback((data: IngridientInterface[]): number => {
+  const totalPrice = (data: IngredientInterface[]): number => {
     let totalPrice = 0
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
       totalPrice += element.price
     }
     return totalPrice
-  }, [props])
+  }
 
   const [isShowOrderDetail, setIsShowOrderDetail] = useState(false)
 
@@ -30,7 +30,7 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
 
   return (
     <div data-testid="BurgerConstructor">
-      <ItemListIngridients items={props.data} />
+      <ItemListIngredients items={props.data} />
 
       <div className={styles.SummaryPrice} data-testid="SummaryPrice">
         <span className={`text text_type_main-medium ${styles.Price}`}>
@@ -46,7 +46,7 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
 
       {isShowOrderDetail &&
         <Modal setShow={setIsShowOrderDetail}>
-          <OrderDetails totalPrice={totalPrice(props.data)} />
+          <OrderDetails ingredients={props.data} />
         </Modal>
       }
     </div>
