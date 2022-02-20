@@ -26,6 +26,7 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
 
   const showIngridientDetails = () => {
     setIsShowOrderDetail(!isShowOrderDetail)
+    // Передача нужного ингридиента в стор
   }
 
   return (
@@ -46,7 +47,7 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
 
       {isShowOrderDetail &&
         <Modal setShow={setIsShowOrderDetail}>
-          <OrderDetails ingredients={props.data} />
+          <OrderDetails />
         </Modal>
       }
     </div>

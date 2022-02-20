@@ -1,89 +1,29 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useReducer } from 'react';
-import { IngredientInterface } from '../../interfaces/inredient_interface';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredientsData } from '../../services/order_detail';
+import { RootState } from '../../services/reducers';
 import styles from './OrderDetails.module.css';
 
 
+const OrderDetails = () => {
 
-const URL_TO_SUMMARY = 'https://norma.nomoreparties.space/api/orders'
+  let dispatch = useDispatch()
 
-
-type State = {
-  data?: HNResponse;
-  isLoading: boolean;
-  error?: string;
-}
-
-type HNResponse = {
-  name: string;
-  order: {
-    [number: string]: number
-  };
-  error?: string;
-}
-
-type Action =
-  | { type: 'request' }
-  | { type: 'success', results: HNResponse }
-  | { type: 'failure', error: string };
-
-
-const reducer = (state: State, action: Action) => {
-  switch (action.type) {
-    case 'request':
-      return { isLoading: true };
-    case 'success':
-      return { isLoading: false, data: action.results };
-    case 'failure':
-      return { isLoading: false, error: action.error };
-  }
-}
-
-interface OrderDetailsInterface {
-  ingredients: IngredientInterface[];
-}
-
-
-const OrderDetails = ({ ingredients }: OrderDetailsInterface) => {
-
-  const [{ data }, dispatch] = useReducer(reducer, { isLoading: false })
+  let orderDetailResult = useSelector((state: RootState) => state.order)
+  let selectedIngredients = useSelector((state: RootState) => state.selectedIngredients)
 
   useEffect(() => {
-
-    const getIds = (ingredients: IngredientInterface[]): string[] => {
-      let ids: string[] = []
-      ingredients.forEach(ingridient => {
-        ids.push(ingridient._id)
-      })
-      return ids
-    }
-
-    fetch(URL_TO_SUMMARY, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ingredients: getIds(ingredients)
-      })
-    })
-      .then(r => r.json())
-      .then(req => {
-        if (req.success) {
-          dispatch({ type: "success", results: req })
-        }
-      }).catch(e => {
-        dispatch({ type: "failure", error: e })
-      })
-  }, [ingredients])
+    dispatch(getIngredientsData(selectedIngredients))
+  }, [selectedIngredients])
 
   return (
     <div className={styles.SummaryModal}>
       <p className={`text text_type_digits-large ${styles.TotalPriceModal}`}>
-        {data?.order.number}
+        {orderDetailResult.number}
       </p>
       <p className={`text text_type_main-default ${styles.IdOrderModal}`}>
-        Идентификатор заказа
+        {orderDetailResult.name}
       </p>
       <p className={`text text_type_main-default ${styles.IconStatusModal}`}>
         <CheckMarkIcon type="primary" />

@@ -1,7 +1,9 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../interfaces/inredient_interface';
-import { IngredientsContext } from '../../services/IngredientsContext';
+import { getIngredientsData } from '../../services/ingredients';
+import { RootState } from '../../services/reducers';
 import styles from './BurgerIngredients.module.css';
 import CardList from './CardList/CardList';
 
@@ -15,9 +17,17 @@ const tabs = [
 
 const BurgerIngredients = () => {
 
-  const ingredients = useContext(IngredientsContext);
+  let dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getIngredientsData())
+  }, [])
+
+
+  const ingredients = useSelector((store: RootState) => store.ingredients);
 
   const [curentType, setCurrentType] = React.useState<string>(tabs[0].id);
+
 
 
   const setCurrent = (currentTab: string) => {

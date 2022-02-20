@@ -1,6 +1,8 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredient_interface';
+import { SET_CURENT_INGREDIENT } from '../../../services/actions/curent_ingredient';
 import IngridientDetails from '../../IngridientDetails/IngridientDetails';
 import Modal from '../../Modal/Modal';
 import styles from './CardItem.module.css';
@@ -9,8 +11,14 @@ const CardItem = (props: IngredientInterface) => {
 
   const [isShowDetail, setIsShowDetail] = React.useState(false)
 
+  let dispatch = useDispatch()
+
   const openModal = (item: IngredientInterface) => {
     setIsShowDetail(!isShowDetail)
+    dispatch({
+      type: SET_CURENT_INGREDIENT,
+      playground: item
+    })
   }
 
   return (
@@ -26,7 +34,7 @@ const CardItem = (props: IngredientInterface) => {
         <p className={`${styles.CardItemName} text text_type_main-medium`}>{props.name}</p>
       </div>
       {isShowDetail && <Modal title="Детали" setShow={openModal}>
-        <IngridientDetails {...props} />
+        <IngridientDetails />
       </Modal>}
     </>
   )
