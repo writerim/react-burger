@@ -88,7 +88,8 @@ const BurgerIngredients = () => {
       </div>
       <div className={styles.Overflow}
         ref={scrollRef}
-        onScroll={handlerScroll}>
+        onScroll={handlerScroll}
+      >
         {tabs.map((tab) =>
           <CardList
             listItems={filterByType(tab.id)}

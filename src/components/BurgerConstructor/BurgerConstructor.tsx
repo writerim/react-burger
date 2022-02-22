@@ -5,13 +5,17 @@ import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../services/reducers';
 
 interface BurgerConstructorProps {
   data: IngredientInterface[]
 }
 
 
-const BurgerConstructor = (props: BurgerConstructorProps) => {
+const BurgerConstructor = () => {
+
+  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
 
   const totalPrice = (data: IngredientInterface[]): number => {
     let totalPrice = 0
@@ -31,11 +35,11 @@ const BurgerConstructor = (props: BurgerConstructorProps) => {
 
   return (
     <div data-testid="BurgerConstructor">
-      <ItemListIngredients items={props.data} />
+      <ItemListIngredients />
 
       <div className={styles.SummaryPrice} data-testid="SummaryPrice">
         <span className={`text text_type_main-medium ${styles.Price}`}>
-          {totalPrice(props.data)}
+          {totalPrice(selectedIngredients)}
           <span className={styles.PriceIcon}>
             <CurrencyIcon type="primary" />
           </span>

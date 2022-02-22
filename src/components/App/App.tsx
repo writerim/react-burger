@@ -4,6 +4,8 @@ import selctedIngredients from './../../utils/data_selected';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 
 function App() {
@@ -11,12 +13,14 @@ function App() {
     <div className={styles.Container}>
       <AppHeader />
       <div className={styles.ContainerWorkFlow}>
-        <div className={styles.LeftColumn}>
-          <BurgerIngredients />
-        </div>
-        <div className={styles.RightColumn}>
-          <BurgerConstructor data={selctedIngredients} />
-        </div>
+        <DndProvider backend={HTML5Backend}>
+          <div className={styles.LeftColumn}>
+            <BurgerIngredients />
+          </div>
+          <div className={styles.RightColumn}>
+            <BurgerConstructor />
+          </div>
+        </DndProvider>
       </div>
     </div>
   );
