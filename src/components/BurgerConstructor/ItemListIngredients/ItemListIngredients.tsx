@@ -22,7 +22,6 @@ const ItemList = () => {
   let dispatch = useDispatch()
 
   let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
-  console.log(selectedIngredients)
 
   const getTopMainIngridient = (ingredients: IngredientInterface[]) => {
     let bottom = null;
@@ -32,7 +31,9 @@ const ItemList = () => {
         return
       }
     })
-    return (bottom && <ItemIngridient ingridient={bottom} uid='bottom' is_locked={true} position="top" />)
+    return (bottom && <ItemIngridient ingridient={bottom} uid='bottom' is_locked={true} position="top"
+      indexIngredient={-1}
+    />)
   }
 
   const getBottomMainIngridient = (ingredients: IngredientInterface[]) => {
@@ -42,7 +43,8 @@ const ItemList = () => {
         bottom = ingridient
       }
     })
-    return (bottom && <ItemIngridient ingridient={bottom} uid='top' is_locked={true} position="bottom" />)
+    return (bottom && <ItemIngridient ingridient={bottom} uid='top' is_locked={true} position="bottom"
+      indexIngredient={-1} />)
   }
 
   const getMiddleIngredients = (ingredients: IngredientInterface[]) => {
@@ -52,7 +54,8 @@ const ItemList = () => {
     return (
       filtered_ingredients.map((ingridient, index) => (
         <ItemIngridient ingridient={ingridient} key={`${ingridient._id}${index}`}
-          uid={`${ingridient._id}${index}`} is_locked={false} position={undefined} />
+          uid={`${ingridient._id}${index}`} is_locked={false} position={undefined}
+          indexIngredient={index} />
       ))
     )
   }
@@ -69,8 +72,9 @@ const ItemList = () => {
     accept: 'ingredients',
     drop: (item: IngredientInterface, monitor: DropTargetMonitor) => {
       onDropHandler(item)
-    },
+    }
   });
+
 
   return (
     <div className={styles.IngridientRow} ref={dropTarget}>
