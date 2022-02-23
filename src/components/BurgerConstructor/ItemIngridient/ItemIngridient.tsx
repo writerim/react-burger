@@ -2,8 +2,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { useCallback, useRef } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { IngredientInterface } from '../../../interfaces/inredient_interface';
-import { DROP_SELECTED_INGREDIENT } from '../../../services/actions/selected_ingredients';
+import { DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selected_ingredients';
 import { IngredientsSorted } from '../../../services/reducers/selected_ingredients';
 import styles from './ItemIngridient.module.css';
 
@@ -11,9 +10,10 @@ interface ItemProps {
   ingridient: IngredientsSorted
   isLocked: boolean
   position: "top" | "bottom" | undefined
+  index: number | undefined
 }
 
-const Item = ({ ingridient, isLocked, position }: ItemProps) => {
+const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
 
   let dispatch = useDispatch()
 
@@ -35,17 +35,39 @@ const Item = ({ ingridient, isLocked, position }: ItemProps) => {
 
   const ref = useRef<HTMLDivElement>(null)
 
+  // Избавляемся от спама паозиций
+  let lastIndex: number | undefined = -1
+
+  console.log('render')
 
   const [, drop] = useDrop({
     accept: 'ingredients_sortable',
-    drop: (ingedient, monitor) => {
+    drop: (ingedient: IngredientsSorted, monitor) => {
       if (!ref.current) {
         return
       }
       const clientOffset = monitor.getClientOffset()
       const distance = Number((clientOffset as XYCoord).y) - Number(ref.current?.getBoundingClientRect().y)
-      console.log(ingedient, distance)
+    },
+    hover(item: IngredientsSorted, monitor) {
+      if (!ref.current) {
+        return
+      }
+
+      if (lastIndex == index || ingridient.index == item.index) {
+        return
+      }
+
+      lastIndex = index
+
+      dispatch({
+        type: SET_SORT_INDEX_ELEMENT,
+        uuid: item.uuid,
+        index: ingridient.index
+      })
+
     }
+
   })
 
   const [, drag] = useDrag({

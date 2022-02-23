@@ -26,6 +26,7 @@ const ItemList = () => {
       }
     })
     return (ingredient && <ItemIngridient ingridient={ingredient} isLocked={true} position="top"
+      index={undefined}
     />)
   }
 
@@ -36,6 +37,7 @@ const ItemList = () => {
       }
     })
     return (ingridient && <ItemIngridient ingridient={ingridient} isLocked={true} position="bottom"
+      index={undefined}
     />)
   }
 
@@ -44,9 +46,16 @@ const ItemList = () => {
 
     let filteredIngredients = ingredients.filter(ingridient => ingridient.element.type !== 'bun')
 
+
+    filteredIngredients.map((elem, index) => {
+      elem.index = index
+    })
+
     return (
-      filteredIngredients.map(ingridient => (
-        <ItemIngridient ingridient={ingridient} key={ingridient.uuid} isLocked={false} position={undefined} />
+      filteredIngredients.map((ingridient, index) => (
+        <ItemIngridient ingridient={ingridient} key={ingridient.uuid} isLocked={false} position={undefined}
+          index={index}
+        />
       ))
     )
   }
@@ -58,7 +67,6 @@ const ItemList = () => {
         element: ingredient,
         index: 0,
         uuid: uuid()
-
       }
     })
   }

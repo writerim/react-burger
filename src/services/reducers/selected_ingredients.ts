@@ -1,4 +1,4 @@
-import { GET_SELECTED_INGREDIENTS, ADD_SELECTED_INGREDIENT, DROP_SELECTED_INGREDIENT } from './../actions/selected_ingredients';
+import { GET_SELECTED_INGREDIENTS, ADD_SELECTED_INGREDIENT, DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from './../actions/selected_ingredients';
 import { IngredientInterface } from './../../interfaces/inredient_interface';
 export interface IngredientsSorted {
     // Сам элемент
@@ -22,6 +22,7 @@ type Action = {
     type: string
     playground: IngredientsSorted
     uuid: string
+    index: number
 }
 
 
@@ -35,6 +36,32 @@ export const selectedIngredientsReducer = (state = defaultIngredients, action: A
                 }
             })
             return state.filter((elem, index) => index !== removeIndex)
+        case SET_SORT_INDEX_ELEMENT:
+            // Высчитываем направление
+            let moveElem = state.find(elem => elem.uuid === action.uuid)
+            if (!moveElem) {
+                return state
+            }
+
+            let moveTop = true
+            if (moveElem?.index < action.index) {
+                moveTop = false
+            }
+
+            moveElem.index = action.index
+            return state.reduce((res: IngredientsSorted[], elem) => {
+                if (elem.uuid !== action.uuid) {
+                    if (moveTop && action.index <= elem.index) {
+                        elem.index += 1
+                    } else if (!moveTop && action.index >= elem.index) {
+                        elem.index -= 1
+                    }
+                } else {
+                    elem.index = action.index
+                }
+                res.push(elem)
+                return res
+            }, state)
         case ADD_SELECTED_INGREDIENT:
             // Если пришла булка то надо удалить предыдущую
             let removeBunIndex = -1
@@ -47,7 +74,14 @@ export const selectedIngredientsReducer = (state = defaultIngredients, action: A
             }
             return [...state.filter((_, index) => removeBunIndex !== index), action.playground]
         case GET_SELECTED_INGREDIENTS:
-            return state
+            return state.sort((a, b) => {
+                if (a.index > b.index) {
+                    return 1
+                } else if (a.index < b.index) {
+                    return -1
+                }
+                return 0
+            })
         default:
             return state
     }
