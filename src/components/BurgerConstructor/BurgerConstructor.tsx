@@ -7,21 +7,18 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/reducers';
-
-interface BurgerConstructorProps {
-  data: IngredientInterface[]
-}
+import { IngredientsSorted } from '../../services/reducers/selected_ingredients';
 
 
 const BurgerConstructor = () => {
 
-  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
+  const selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
 
-  const totalPrice = (data: IngredientInterface[]): number => {
+  const totalPrice = (data: IngredientsSorted[]): number => {
     let totalPrice = 0
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-      totalPrice += element.price
+      totalPrice += element.element.price
     }
     return totalPrice
   }

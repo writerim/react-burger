@@ -5,33 +5,39 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredient_interface';
 import { SET_CURENT_INGREDIENT } from '../../../services/actions/curent_ingredient';
 import { RootState } from '../../../services/reducers';
+import { uuid } from '../../../services/reducers/selected_ingredients';
 import IngridientDetails from '../../IngridientDetails/IngridientDetails';
 import Modal from '../../Modal/Modal';
 import styles from './CardItem.module.css';
+
 
 const CardItem = (props: IngredientInterface) => {
 
   const [isShowDetail, setIsShowDetail] = React.useState(false)
 
-  let countUsedIngredient = useSelector((state: RootState) => {
-    let filter = state.selectedIngredients.filter(ingredient => ingredient._id == props._id)
-    if (props.type == 'bun') {
+  const countUsedIngredient = useSelector((state: RootState) => {
+    let filter = state.selectedIngredients.filter(ingredientSelected => ingredientSelected.element._id === props._id)
+    if (props.type === 'bun') {
       return filter.length > 0 ? 2 : 0
     }
     return filter.length
   })
 
-  let dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const openModal = (item: IngredientInterface) => {
     setIsShowDetail(!isShowDetail)
     dispatch({
       type: SET_CURENT_INGREDIENT,
-      playground: item
+      playground: {
+        element: item,
+        index: 0,
+        uuid: uuid()
+      }
     })
   }
 
-  const [{ opacity }, ref] = useDrag({
+  const [, ref] = useDrag({
     type: 'ingredients',
     item: props,
     collect: monitor => ({

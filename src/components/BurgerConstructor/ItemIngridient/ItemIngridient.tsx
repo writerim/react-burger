@@ -1,41 +1,36 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useCallback, useRef } from 'react';
-import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
+import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredient_interface';
 import { DROP_SELECTED_INGREDIENT } from '../../../services/actions/selected_ingredients';
+import { IngredientsSorted } from '../../../services/reducers/selected_ingredients';
 import styles from './ItemIngridient.module.css';
 
 interface ItemProps {
-  ingridient: IngredientInterface
-  is_locked: boolean
+  ingridient: IngredientsSorted
+  isLocked: boolean
   position: "top" | "bottom" | undefined
-  uid: string
-  indexIngredient: number
 }
 
-const Item = ({ ingridient, is_locked, position, uid, indexIngredient }: ItemProps) => {
+const Item = ({ ingridient, isLocked, position }: ItemProps) => {
 
   let dispatch = useDispatch()
 
   const getName = useCallback((position) => {
     if (position === 'top') {
-      return ingridient.name + ' (верх)'
+      return ingridient.element.name + ' (верх)'
     } else if (position === 'bottom') {
-      return ingridient.name + ' (низ)'
+      return ingridient.element.name + ' (низ)'
     }
-    return ingridient.name
+    return ingridient.element.name
   }, [position])
 
   const handleClose = () => {
     dispatch({
       type: DROP_SELECTED_INGREDIENT,
-      uid: uid
+      uuid: ingridient.uuid
     })
-  }
-
-  const onMoveHandler = (ingredient: IngredientInterface) => {
-    console.log(ingredient)
   }
 
   const ref = useRef<HTMLDivElement>(null)
@@ -61,22 +56,21 @@ const Item = ({ ingridient, is_locked, position, uid, indexIngredient }: ItemPro
       return ingridient
     },
   })
-  drag(drop(ref))
+  drop(drag(ref))
 
   return (
-    <div className={`col ${is_locked ? styles.ItemColMain : styles.ItemCol}`} ref={ref}
-
-    >
-      {!is_locked && <div className={styles.Pointers}>
+    <div className={`col ${isLocked ? styles.ItemColMain : styles.ItemCol}`} ref={ref}>
+      {!isLocked && <div className={styles.Pointers}>
         <DragIcon type="primary" />
       </div>}
       <div className={styles.IngridientSummary}>
         <span className={styles.Element}>
           <ConstructorElement
-            isLocked={is_locked}
+            isLocked={isLocked}
+            type={position}
             text={getName(position)}
-            price={ingridient.price}
-            thumbnail={ingridient.image}
+            price={ingridient.element.price}
+            thumbnail={ingridient.element.image}
             handleClose={handleClose}
           />
         </span>

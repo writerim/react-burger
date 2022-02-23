@@ -1,16 +1,12 @@
-import { UIEventHandler, useCallback, useEffect } from 'react';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredient_interface';
-import { ADD_SELECTED_INGREDIENT, GET_SELECTED_INGREDIENTS } from '../../../services/actions/selected_ingredients';
+import { ADD_SELECTED_INGREDIENT } from '../../../services/actions/selected_ingredients';
 import { RootState } from '../../../services/reducers';
-import data from '../../../utils/data_selected';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngredients.module.css'
-
-
-
-
+import { IngredientsSorted, uuid } from '../../../services/reducers/selected_ingredients';
+import { randomUUID } from 'crypto';
 
 const ItemList = () => {
 
@@ -19,43 +15,38 @@ const ItemList = () => {
   // А потом и нижний
   // Все это прибиваем на гвозди
 
-  let dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
 
-  const getTopMainIngridient = (ingredients: IngredientInterface[]) => {
-    let bottom = null;
-    ingredients.map(ingridient => {
-      if (ingridient.type == 'bun') {
-        bottom = ingridient
-        return
+  const getTopMainIngridient = (ingredients: IngredientsSorted[]) => {
+    let ingredient = ingredients.find(ingridient => {
+      if (ingridient.element.type === 'bun') {
+        return ingridient
       }
     })
-    return (bottom && <ItemIngridient ingridient={bottom} uid='bottom' is_locked={true} position="top"
-      indexIngredient={-1}
+    return (ingredient && <ItemIngridient ingridient={ingredient} isLocked={true} position="top"
     />)
   }
 
-  const getBottomMainIngridient = (ingredients: IngredientInterface[]) => {
-    let bottom = null;
-    ingredients.map(ingridient => {
-      if (ingridient.type == 'bun') {
-        bottom = ingridient
+  const getBottomMainIngridient = (ingredients: IngredientsSorted[]) => {
+    let ingridient = ingredients.find(ingridient => {
+      if (ingridient.element.type === 'bun') {
+        return ingridient
       }
     })
-    return (bottom && <ItemIngridient ingridient={bottom} uid='top' is_locked={true} position="bottom"
-      indexIngredient={-1} />)
+    return (ingridient && <ItemIngridient ingridient={ingridient} isLocked={true} position="bottom"
+    />)
   }
 
-  const getMiddleIngredients = (ingredients: IngredientInterface[]) => {
 
-    let filtered_ingredients = ingredients.filter(ingridient => ingridient.type !== 'bun')
+  const getMiddleIngredients = (ingredients: IngredientsSorted[]) => {
+
+    let filteredIngredients = ingredients.filter(ingridient => ingridient.element.type !== 'bun')
 
     return (
-      filtered_ingredients.map((ingridient, index) => (
-        <ItemIngridient ingridient={ingridient} key={`${ingridient._id}${index}`}
-          uid={`${ingridient._id}${index}`} is_locked={false} position={undefined}
-          indexIngredient={index} />
+      filteredIngredients.map(ingridient => (
+        <ItemIngridient ingridient={ingridient} key={ingridient.uuid} isLocked={false} position={undefined} />
       ))
     )
   }
@@ -63,7 +54,12 @@ const ItemList = () => {
   const onDropHandler = (ingredient: IngredientInterface) => {
     dispatch({
       type: ADD_SELECTED_INGREDIENT,
-      playground: ingredient
+      playground: {
+        element: ingredient,
+        index: 0,
+        uuid: uuid()
+
+      }
     })
   }
 
@@ -78,13 +74,13 @@ const ItemList = () => {
 
   return (
     <div className={styles.IngridientRow} ref={dropTarget}>
-      <div className={styles.BunTop}>
+      <div>
         {getTopMainIngridient(selectedIngredients)}
       </div>
       <div className={styles.Scroll}>
         {getMiddleIngredients(selectedIngredients)}
       </div>
-      <div className={styles.BunBottom}>
+      <div>
         {getBottomMainIngridient(selectedIngredients)}
       </div>
     </div >

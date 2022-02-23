@@ -1,20 +1,21 @@
+import { IngredientsSorted } from './reducers/selected_ingredients';
+import { URL_TO_SUMMARY } from './consts';
 import { GET_ORDER_DETAIL, SET_ORDER_DETAIL, GET_ORDER_ERROR } from './actions/ordet';
 import { IngredientInterface } from './../interfaces/inredient_interface';
 import { Dispatch } from 'react';
 
-const URL_TO_SUMMARY = 'https://norma.nomoreparties.space/api/orders';
 
 type Action =
     | { type: string }
     | { type: string, playground: IngredientInterface[] }
     | { type: string, playground: Error };
 
-export const getIngredientsData = (ingredients: IngredientInterface[]) => {
+export const getIngredientsData = (ingredients: IngredientsSorted[]) => {
 
-    const getIds = (ingredients: IngredientInterface[]): string[] => {
+    const getIds = (ingredients: IngredientsSorted[]): string[] => {
         let ids: string[] = []
         ingredients.forEach(ingridient => {
-            ids.push(ingridient._id)
+            ids.push(ingridient.element._id)
         })
         return ids
     }

@@ -1,5 +1,5 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredientsData } from '../../services/order_detail';
 import { RootState } from '../../services/reducers';
@@ -8,7 +8,7 @@ import styles from './OrderDetails.module.css';
 
 const OrderDetails = () => {
 
-  let dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   let orderDetailResult = useSelector((state: RootState) => state.order)
   let selectedIngredients = useSelector((state: RootState) => state.selectedIngredients)

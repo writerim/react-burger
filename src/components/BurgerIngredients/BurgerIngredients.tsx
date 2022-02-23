@@ -19,7 +19,7 @@ const tabs = [
 
 const BurgerIngredients = () => {
 
-  let dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getIngredientsData())
