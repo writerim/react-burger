@@ -1,12 +1,11 @@
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredient_interface';
-import { ADD_SELECTED_INGREDIENT } from '../../../services/actions/selected_ingredients';
+import { ADD_SELECTED_INGREDIENT, GET_SELECTED_INGREDIENTS } from '../../../services/actions/selected_ingredients';
 import { RootState } from '../../../services/reducers';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngredients.module.css'
 import { IngredientsSorted, uuid } from '../../../services/reducers/selected_ingredients';
-import { randomUUID } from 'crypto';
 
 const ItemList = () => {
 
@@ -17,7 +16,21 @@ const ItemList = () => {
 
   const dispatch = useDispatch()
 
-  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
+  console.log(dispatch({
+    type: GET_SELECTED_INGREDIENTS
+  }))
+
+  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients.sort((a, b) => {
+    if (a.index < b.index) {
+      return 1
+    } else if (a.index > b.index) {
+      return -1
+    } else {
+      return 0
+    }
+  }))
+
+  console.log(selectedIngredients)
 
   const getTopMainIngridient = (ingredients: IngredientsSorted[]) => {
     let ingredient = ingredients.find(ingridient => {
@@ -46,9 +59,9 @@ const ItemList = () => {
 
     let filteredIngredients = ingredients.filter(ingridient => ingridient.element.type !== 'bun')
 
-
     filteredIngredients.map((elem, index) => {
       elem.index = index
+      return elem
     })
 
     return (
@@ -65,12 +78,11 @@ const ItemList = () => {
       type: ADD_SELECTED_INGREDIENT,
       playground: {
         element: ingredient,
-        index: 0,
+        index: selectedIngredients.length,
         uuid: uuid()
       }
     })
   }
-
 
   const [, dropTarget] = useDrop({
     accept: 'ingredients',

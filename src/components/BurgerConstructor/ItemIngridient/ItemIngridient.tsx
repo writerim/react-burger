@@ -38,7 +38,6 @@ const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
   // Избавляемся от спама паозиций
   let lastIndex: number | undefined = -1
 
-  console.log('render')
 
   const [, drop] = useDrop({
     accept: 'ingredients_sortable',
@@ -47,16 +46,15 @@ const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
         return
       }
       const clientOffset = monitor.getClientOffset()
-      const distance = Number((clientOffset as XYCoord).y) - Number(ref.current?.getBoundingClientRect().y)
     },
     hover(item: IngredientsSorted, monitor) {
       if (!ref.current) {
         return
       }
 
-      if (lastIndex == index || ingridient.index == item.index) {
-        return
-      }
+      // if (lastIndex == index || ingridient.index == item.index) {
+      //   return
+      // }
 
       lastIndex = index
 
@@ -73,8 +71,6 @@ const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
   const [, drag] = useDrag({
     type: 'ingredients_sortable',
     item: () => {
-      // То что я перемещаю 
-      console.log(ingridient)
       return ingridient
     },
   })
