@@ -16,11 +16,9 @@ const ItemList = () => {
 
   const dispatch = useDispatch()
 
-  console.log(dispatch({
-    type: GET_SELECTED_INGREDIENTS
-  }))
+  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
 
-  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients.sort((a, b) => {
+  selectedIngredients.sort((a, b) => {
     if (a.index < b.index) {
       return 1
     } else if (a.index > b.index) {
@@ -28,9 +26,8 @@ const ItemList = () => {
     } else {
       return 0
     }
-  }))
+  })
 
-  console.log(selectedIngredients)
 
   const getTopMainIngridient = (ingredients: IngredientsSorted[]) => {
     let ingredient = ingredients.find(ingridient => {

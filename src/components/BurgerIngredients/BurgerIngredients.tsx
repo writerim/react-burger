@@ -29,9 +29,35 @@ const BurgerIngredients = () => {
   const ingredients = useSelector((store: RootState) => store.ingredients);
   const activeTab = useSelector((store: RootState) => store.activeTab);
 
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const setCurrent = (currentTab: string) => {
-    // setCurrentType(currentTab)
+
+    let difference = []
+
+    let topScroll = scrollRef.current?.scrollTop
+
+    if (!scrollRef.current || !scrollRef.current?.children) {
+      return
+    }
+
+    const current = scrollRef.current
+
+    tabs.map((tab, indexTab) => {
+      for (let index = 0; index < current?.children.length; index++) {
+        if (tab.id == currentTab && index == indexTab && current.children.item(index) !== null) {
+          let curentPos = current.children.item(index)
+          if (curentPos !== null) {
+            current.scrollTop = curentPos.clientHeight
+          }
+        }
+      }
+    })
+
+    dispatch({
+      type: SET_ACTIVE_TAB,
+      activeTab: currentTab
+    })
   }
 
   // Получение продуктов по типу
@@ -69,10 +95,6 @@ const BurgerIngredients = () => {
     })
 
   }
-
-
-  const scrollRef = useRef<HTMLDivElement>(null)
-
 
   return (
     <>
