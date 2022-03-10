@@ -2,10 +2,10 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { IngredientInterface } from '../../../interfaces/inredient_interface';
-import { SET_CURENT_INGREDIENT } from '../../../services/actions/curent_ingredient';
+import { IngredientInterface } from '../../../interfaces/inredientInterface';
+import { SET_CURENT_INGREDIENT } from '../../../services/actions/curentIngredient';
 import { RootState } from '../../../services/reducers';
-import { uuid } from '../../../services/reducers/selected_ingredients';
+import { uuid } from '../../../services/reducers/selectedIngredients';
 import IngridientDetails from '../../IngridientDetails/IngridientDetails';
 import Modal from '../../Modal/Modal';
 import styles from './CardItem.module.css';
@@ -29,11 +29,7 @@ const CardItem = (props: IngredientInterface) => {
     setIsShowDetail(!isShowDetail)
     dispatch({
       type: SET_CURENT_INGREDIENT,
-      playground: {
-        element: item,
-        index: 0,
-        uuid: uuid()
-      }
+      playground: item
     })
   }
 

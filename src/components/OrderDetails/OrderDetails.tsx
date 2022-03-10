@@ -1,7 +1,7 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredientsData } from '../../services/order_detail';
+import { getIngredientsData } from '../../services/orderDetail';
 import { RootState } from '../../services/reducers';
 import styles from './OrderDetails.module.css';
 

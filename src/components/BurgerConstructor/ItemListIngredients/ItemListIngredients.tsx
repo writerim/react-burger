@@ -1,11 +1,11 @@
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { IngredientInterface } from '../../../interfaces/inredient_interface';
-import { ADD_SELECTED_INGREDIENT, GET_SELECTED_INGREDIENTS } from '../../../services/actions/selected_ingredients';
+import { IngredientInterface } from '../../../interfaces/inredientInterface';
+import { ADD_SELECTED_INGREDIENT } from '../../../services/actions/selectedIngredients';
 import { RootState } from '../../../services/reducers';
+import { IngredientsSorted, uuid } from '../../../services/reducers/selectedIngredients';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngredients.module.css'
-import { IngredientsSorted, uuid } from '../../../services/reducers/selected_ingredients';
 
 const ItemList = () => {
 

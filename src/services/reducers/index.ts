@@ -1,10 +1,10 @@
-import { activeTab } from './active_tab';
+import { activeTab } from './activeTab';
 import { combineReducers } from 'redux'
 
 import { ingredientsReducer } from './ingredients'
-import { selectedIngredientsReducer } from './selected_ingredients'
-import { curentIngredientReducer } from './curent_ingredient'
+import { selectedIngredientsReducer } from './selectedIngredients'
 import { orderReducer } from './order'
+import { curentIngredientReducer } from './curentIngredient';
 
 
 const rootReducer = combineReducers({

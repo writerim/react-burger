@@ -1,5 +1,5 @@
+import { IngredientInterface } from '../../interfaces/inredientInterface';
 import { SET_INGRIDIENTS } from './../actions/ingredients';
-import { IngredientInterface } from "../../interfaces/inredient_interface"
 
 const defaultIngredients: IngredientInterface[] = []
 

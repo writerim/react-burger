@@ -1,7 +1,7 @@
 import { URL_GET_LIST_INGRIDIENTS } from './consts';
-import { IngredientInterface } from './../interfaces/inredient_interface';
 import { Dispatch } from 'react';
 import { GET_INGRIDIENTS, GET_INGRIDIENTS_FAILED, GET_INGRIDIENTS_ERROR, SET_INGRIDIENTS } from './actions/ingredients';
+import { IngredientInterface } from '../interfaces/inredientInterface';
 
 
 type Action =

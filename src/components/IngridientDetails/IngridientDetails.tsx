@@ -1,11 +1,16 @@
 import styles from './IngridientDetails.module.css'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/reducers';
+import { useEffect } from 'react';
 
 // Еще модальное окно. Ммм фигма Ui
 const IngridientDetails = () => {
 
   const selectedIngredients = useSelector((store: RootState) => store.curentIngredient)
+
+  console.log(selectedIngredients)
+
+
 
   return (
     <>

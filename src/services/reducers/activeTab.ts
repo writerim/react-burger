@@ -1,4 +1,4 @@
-import { SET_ACTIVE_TAB } from './../actions/active_tab';
+import { SET_ACTIVE_TAB } from "../actions/activeTab"
 
 type Action = {
     type: string

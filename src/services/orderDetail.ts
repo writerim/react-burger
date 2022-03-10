@@ -1,8 +1,8 @@
-import { IngredientsSorted } from './reducers/selected_ingredients';
+import { IngredientsSorted } from './reducers/selectedIngredients';
 import { URL_TO_SUMMARY } from './consts';
 import { GET_ORDER_DETAIL, SET_ORDER_DETAIL, GET_ORDER_ERROR } from './actions/ordet';
-import { IngredientInterface } from './../interfaces/inredient_interface';
 import { Dispatch } from 'react';
+import { IngredientInterface } from '../interfaces/inredientInterface';
 
 
 type Action =

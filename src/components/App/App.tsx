@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
 import styles from './App.module.css';
-import selctedIngredients from './../../utils/data_selected';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';

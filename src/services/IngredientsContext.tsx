@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IngredientInterface } from "../interfaces/inredient_interface";
+import { IngredientInterface } from "../interfaces/inredientInterface";
 
 
 const defaultIngridients: IngredientInterface[] = []

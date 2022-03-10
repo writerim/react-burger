@@ -1,5 +1,5 @@
-import { SET_CURENT_INGREDIENT } from './../actions/curent_ingredient';
-import { IngredientInterface } from './../../interfaces/inredient_interface';
+import { IngredientInterface } from '../../interfaces/inredientInterface';
+import { SET_CURENT_INGREDIENT } from '../actions/curentIngredient';
 
 const defaultIngredient: IngredientInterface = {
     _id: "",

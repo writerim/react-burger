@@ -1,5 +1,5 @@
-import { GET_SELECTED_INGREDIENTS, ADD_SELECTED_INGREDIENT, DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from './../actions/selected_ingredients';
-import { IngredientInterface } from './../../interfaces/inredient_interface';
+import { GET_SELECTED_INGREDIENTS, ADD_SELECTED_INGREDIENT, DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../actions/selectedIngredients';
+import { IngredientInterface } from '../../interfaces/inredientInterface';
 export interface IngredientsSorted {
     // Сам элемент
     element: IngredientInterface;
@@ -13,7 +13,7 @@ const defaultIngredients: IngredientsSorted[] = []
 
 export function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }

@@ -1,9 +1,9 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useCallback, useRef } from 'react';
-import { useDrag, useDrop, XYCoord } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selected_ingredients';
-import { IngredientsSorted } from '../../../services/reducers/selected_ingredients';
+import { DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
+import { IngredientsSorted } from '../../../services/reducers/selectedIngredients';
 import styles from './ItemIngridient.module.css';
 
 interface ItemProps {
@@ -41,22 +41,15 @@ const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
 
   const [, drop] = useDrop({
     accept: 'ingredients_sortable',
-    drop: (ingedient: IngredientsSorted, monitor) => {
+    drop: () => {
       if (!ref.current) {
         return
       }
-      const clientOffset = monitor.getClientOffset()
     },
     hover(item: IngredientsSorted, monitor) {
       if (!ref.current) {
         return
       }
-
-      // if (lastIndex == index || ingridient.index == item.index) {
-      //   return
-      // }
-
-      lastIndex = index
 
       dispatch({
         type: SET_SORT_INDEX_ELEMENT,

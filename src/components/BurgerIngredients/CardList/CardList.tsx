@@ -1,4 +1,4 @@
-import { IngredientInterface } from '../../../interfaces/inredient_interface';
+import { IngredientInterface } from '../../../interfaces/inredientInterface';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardList.module.css';
 

@@ -1,9 +1,8 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useContext, useEffect, useRef, UIEvent } from 'react';
-import ReactDOM from 'react-dom';
+import { useRef, UIEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IngredientInterface } from '../../interfaces/inredient_interface';
-import { SET_ACTIVE_TAB } from '../../services/actions/active_tab';
+import { IngredientInterface } from '../../interfaces/inredientInterface';
+import { SET_ACTIVE_TAB } from '../../services/actions/activeTab';
 import { getIngredientsData } from '../../services/ingredients';
 import { RootState } from '../../services/reducers';
 import styles from './BurgerIngredients.module.css';
@@ -21,9 +20,7 @@ const BurgerIngredients = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getIngredientsData())
-  }, [])
+  dispatch(getIngredientsData())
 
 
   const ingredients = useSelector((store: RootState) => store.ingredients);
@@ -32,10 +29,6 @@ const BurgerIngredients = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const setCurrent = (currentTab: string) => {
-
-    let difference = []
-
-    let topScroll = scrollRef.current?.scrollTop
 
     if (!scrollRef.current || !scrollRef.current?.children) {
       return

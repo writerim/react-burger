@@ -1,5 +1,4 @@
 import ItemListIngredients from './ItemListIngredients/ItemListIngredients';
-import { IngredientInterface } from '../../interfaces/inredient_interface';
 import styles from './BurgerConstructor.module.css';
 import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,7 +6,7 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/reducers';
-import { IngredientsSorted } from '../../services/reducers/selected_ingredients';
+import { IngredientsSorted } from '../../services/reducers/selectedIngredients';
 
 
 const BurgerConstructor = () => {
