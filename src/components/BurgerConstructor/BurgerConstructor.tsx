@@ -11,7 +11,10 @@ import { IngredientsSorted } from '../../services/reducers/selectedIngredients';
 
 const BurgerConstructor = () => {
 
-  const selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
+
+  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
+  console.log(selectedIngredients)
+
 
   const totalPrice = (data: IngredientsSorted[]): number => {
     let totalPrice = 0
@@ -26,7 +29,6 @@ const BurgerConstructor = () => {
 
   const showIngridientDetails = () => {
     setIsShowOrderDetail(!isShowOrderDetail)
-    // Передача нужного ингридиента в стор
   }
 
   return (

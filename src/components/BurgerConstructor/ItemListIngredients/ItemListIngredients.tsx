@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
@@ -9,6 +10,7 @@ import styles from './ItemListIngredients.module.css'
 
 const ItemList = () => {
 
+
   // Нужно отрисовать сначала топ элемент
   // Потом все остальные элементы
   // А потом и нижний
@@ -16,16 +18,9 @@ const ItemList = () => {
 
   const dispatch = useDispatch()
 
-  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
-
-  selectedIngredients.sort((a, b) => {
-    if (a.index < b.index) {
-      return 1
-    } else if (a.index > b.index) {
-      return -1
-    } else {
-      return 0
-    }
+  const selectedIngredients = useSelector((store: RootState) => {
+    console.log('RERENDER 3', store.selectedIngredients);
+    return store.selectedIngredients
   })
 
 
@@ -51,14 +46,19 @@ const ItemList = () => {
     />)
   }
 
-
   const getMiddleIngredients = (ingredients: IngredientsSorted[]) => {
 
     let filteredIngredients = ingredients.filter(ingridient => ingridient.element.type !== 'bun')
 
-    filteredIngredients.map((elem, index) => {
-      elem.index = index
-      return elem
+
+    filteredIngredients.sort((a, b) => {
+      if (a.index < b.index) {
+        return 1
+      } else if (a.index > b.index) {
+        return -1
+      } else {
+        return 0
+      }
     })
 
     return (

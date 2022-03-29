@@ -48,10 +48,11 @@ export const selectedIngredientsReducer = (state = defaultIngredients, action: A
             }
             let indexTo = toElem.index
             let index = moveElem.index
-            moveElem.index = indexTo
+            state.splice(indexTo, 1, moveElem)
+            state.splice(index, 1, toElem)
             toElem.index = index
-            state.splice(moveElem.index, 1, toElem)
-            state.splice(toElem.index, 1, moveElem)
+            moveElem.index = indexTo
+            console.log(state)
             return state
         case ADD_SELECTED_INGREDIENT:
             // Если пришла булка то надо удалить предыдущую
@@ -65,14 +66,7 @@ export const selectedIngredientsReducer = (state = defaultIngredients, action: A
             }
             return [...state.filter((_, index) => removeBunIndex !== index), action.playground]
         case GET_SELECTED_INGREDIENTS:
-            return state.sort((a, b) => {
-                if (a.index > b.index) {
-                    return 1
-                } else if (a.index < b.index) {
-                    return -1
-                }
-                return 0
-            })
+            return state
         default:
             return state
     }

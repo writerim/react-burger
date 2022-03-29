@@ -1,5 +1,5 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useRef, UIEvent } from 'react';
+import { useRef, UIEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../interfaces/inredientInterface';
 import { SET_ACTIVE_TAB } from '../../services/actions/activeTab';
@@ -20,7 +20,9 @@ const BurgerIngredients = () => {
 
   const dispatch = useDispatch()
 
-  dispatch(getIngredientsData())
+  useEffect(() => {
+    dispatch(getIngredientsData())
+  }, [])
 
 
   const ingredients = useSelector((store: RootState) => store.ingredients);

@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
@@ -15,7 +15,7 @@ interface ItemProps {
 
 const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
 
-  let dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const getName = useCallback((position) => {
     if (position === 'top') {
@@ -36,27 +36,27 @@ const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
   const ref = useRef<HTMLDivElement>(null)
 
   // Избавляемся от спама паозиций
-  let lastIndex: number | undefined = -1
-
+  let moveToIndex: number | undefined = -1
 
   const [, drop] = useDrop({
     accept: 'ingredients_sortable',
-    drop: () => {
+    drop: (item: IngredientsSorted) => {
       if (!ref.current) {
         return
       }
+      dispatch({
+        type: SET_SORT_INDEX_ELEMENT,
+        uuid: item.uuid,
+        index: moveToIndex
+      })
     },
+
+
     hover(item: IngredientsSorted, monitor) {
       if (!ref.current) {
         return
       }
-
-      dispatch({
-        type: SET_SORT_INDEX_ELEMENT,
-        uuid: item.uuid,
-        index: ingridient.index
-      })
-
+      moveToIndex = ingridient.index
     }
 
   })
@@ -67,7 +67,9 @@ const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
       return ingridient
     },
   })
-  drop(drag(ref))
+
+  drag(ref)
+  drop(ref)
 
   return (
     <div className={`col ${isLocked ? styles.ItemColMain : styles.ItemCol}`} ref={ref}>
