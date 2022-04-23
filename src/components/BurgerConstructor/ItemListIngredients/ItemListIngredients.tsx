@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import { DropTargetMonitor, useDrop } from 'react-dnd';
+import { useCallback, useEffect } from 'react';
+import { DndProvider, DropTargetMonitor, useDrop, XYCoord } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
-import { ADD_SELECTED_INGREDIENT } from '../../../services/actions/selectedIngredients';
+import { ADD_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
 import { RootState } from '../../../services/reducers';
 import { IngredientsSorted, uuid } from '../../../services/reducers/selectedIngredients';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
@@ -19,7 +20,6 @@ const ItemList = () => {
   const dispatch = useDispatch()
 
   const selectedIngredients = useSelector((store: RootState) => {
-    console.log('RERENDER 3', store.selectedIngredients);
     return store.selectedIngredients
   })
 
@@ -31,7 +31,7 @@ const ItemList = () => {
       }
     })
     return (ingredient && <ItemIngridient ingridient={ingredient} isLocked={true} position="top"
-      index={undefined}
+      index={undefined} moveListItem={undefined}
     />)
   }
 
@@ -42,20 +42,20 @@ const ItemList = () => {
       }
     })
     return (ingridient && <ItemIngridient ingridient={ingridient} isLocked={true} position="bottom"
-      index={undefined}
+      index={undefined} moveListItem={undefined}
     />)
   }
 
-  const getMiddleIngredients = (ingredients: IngredientsSorted[]) => {
+  const getMiddleIngredients = (ingredients: IngredientsSorted[], moveListItem: Function | undefined) => {
 
     let filteredIngredients = ingredients.filter(ingridient => ingridient.element.type !== 'bun')
 
 
     filteredIngredients.sort((a, b) => {
       if (a.index < b.index) {
-        return 1
-      } else if (a.index > b.index) {
         return -1
+      } else if (a.index > b.index) {
+        return 1
       } else {
         return 0
       }
@@ -64,7 +64,7 @@ const ItemList = () => {
     return (
       filteredIngredients.map((ingridient, index) => (
         <ItemIngridient ingridient={ingridient} key={ingridient.uuid} isLocked={false} position={undefined}
-          index={index}
+          index={index} moveListItem={moveListItem}
         />
       ))
     )
@@ -85,8 +85,50 @@ const ItemList = () => {
     accept: 'ingredients',
     drop: (item: IngredientInterface, monitor: DropTargetMonitor) => {
       onDropHandler(item)
-    }
+    },
   });
+
+  const moveListItem = useCallback((uuid, moveToIndex) => {
+    dispatch({
+      type: SET_SORT_INDEX_ELEMENT,
+      uuid: uuid,
+      index: moveToIndex
+    })
+  }, [selectedIngredients])
+
+  var hoverPosition: XYCoord = {
+    x: 0,
+    y: 0
+  }
+
+  const [, drop] = useDrop({
+    accept: 'ingredients_sortable',
+    drop: (item: IngredientsSorted) => {
+      console.log(item);
+
+    },
+
+
+    hover(item: IngredientsSorted, monitor) {
+
+      const clientOffset: XYCoord | null = monitor.getClientOffset()
+      if (!clientOffset) {
+        return
+      }
+      if (hoverPosition.y === 0) {
+        hoverPosition = clientOffset
+      }
+
+      const hoverClientY = clientOffset.y - hoverPosition.y
+      const changePosition = Math.floor(hoverClientY / 88) + 1
+      if (changePosition !== 0) {
+        moveListItem(item.uuid, item.index + changePosition)
+      }
+    }
+
+  })
+
+
 
 
   return (
@@ -94,8 +136,8 @@ const ItemList = () => {
       <div>
         {getTopMainIngridient(selectedIngredients)}
       </div>
-      <div className={styles.Scroll}>
-        {getMiddleIngredients(selectedIngredients)}
+      <div className={styles.Scroll} ref={drop}>
+        {getMiddleIngredients(selectedIngredients, moveListItem)}
       </div>
       <div>
         {getBottomMainIngridient(selectedIngredients)}

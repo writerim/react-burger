@@ -11,9 +11,10 @@ interface ItemProps {
   isLocked: boolean
   position: "top" | "bottom" | undefined
   index: number | undefined
+  moveListItem: Function | undefined
 }
 
-const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
+const Item = ({ ingridient, isLocked, position, index, moveListItem }: ItemProps) => {
 
   const dispatch = useDispatch()
 
@@ -38,38 +39,16 @@ const Item = ({ ingridient, isLocked, position, index }: ItemProps) => {
   // Избавляемся от спама паозиций
   let moveToIndex: number | undefined = -1
 
-  const [, drop] = useDrop({
-    accept: 'ingredients_sortable',
-    drop: (item: IngredientsSorted) => {
-      if (!ref.current) {
-        return
-      }
-      dispatch({
-        type: SET_SORT_INDEX_ELEMENT,
-        uuid: item.uuid,
-        index: moveToIndex
-      })
-    },
 
-
-    hover(item: IngredientsSorted, monitor) {
-      if (!ref.current) {
-        return
-      }
-      moveToIndex = ingridient.index
-    }
-
-  })
 
   const [, drag] = useDrag({
     type: 'ingredients_sortable',
     item: () => {
       return ingridient
-    },
+    }
   })
 
   drag(ref)
-  drop(ref)
 
   return (
     <div className={`col ${isLocked ? styles.ItemColMain : styles.ItemCol}`} ref={ref}>
