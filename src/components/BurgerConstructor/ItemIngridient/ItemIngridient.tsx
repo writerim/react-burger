@@ -34,24 +34,16 @@ const Item = ({ ingridient, isLocked, position, index, moveListItem }: ItemProps
     })
   }
 
-  const ref = useRef<HTMLDivElement>(null)
-
-  // Избавляемся от спама паозиций
-  let moveToIndex: number | undefined = -1
-
-
 
   const [, drag] = useDrag({
     type: 'ingredients_sortable',
-    item: () => {
-      return ingridient
-    }
+    item: ingridient
   })
 
-  drag(ref)
+  // drag(ref)
 
   return (
-    <div className={`col ${isLocked ? styles.ItemColMain : styles.ItemCol}`} ref={ref}>
+    <div className={`col ${isLocked ? styles.ItemColMain : styles.ItemCol}`} ref={drag}>
       {!isLocked && <div className={styles.Pointers}>
         <DragIcon type="primary" />
       </div>}

@@ -9,7 +9,11 @@ import { IngredientsSorted, uuid } from '../../../services/reducers/selectedIngr
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngredients.module.css'
 
-const ItemList = () => {
+interface onSortHandlerProps {
+  onHandleSortable(item: string, index: number): void
+}
+
+const ItemList = (props: onSortHandlerProps) => {
 
 
   // Нужно отрисовать сначала топ элемент
@@ -103,10 +107,10 @@ const ItemList = () => {
 
   const [, drop] = useDrop({
     accept: 'ingredients_sortable',
-    drop: (item: IngredientsSorted) => {
-      console.log(item);
-
-    },
+    // drop: (item: IngredientsSorted) => {
+    //   console.log(item);
+    //   onSortHandler(item,)
+    // },
 
 
     hover(item: IngredientsSorted, monitor) {
@@ -122,7 +126,7 @@ const ItemList = () => {
       const hoverClientY = clientOffset.y - hoverPosition.y
       const changePosition = Math.floor(hoverClientY / 88) + 1
       if (changePosition !== 0) {
-        moveListItem(item.uuid, item.index + changePosition)
+        props.onHandleSortable(item.uuid, item.index + changePosition)
       }
     }
 

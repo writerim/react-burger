@@ -4,16 +4,30 @@ import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services/reducers';
 import { IngredientsSorted } from '../../services/reducers/selectedIngredients';
+import { IngredientInterface } from '../../interfaces/inredientInterface';
+import { SET_SORT_INDEX_ELEMENT } from '../../services/actions/selectedIngredients';
 
 
 const BurgerConstructor = () => {
 
 
-  let selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
-  console.log(selectedIngredients)
+
+  const dispatch = useDispatch()
+
+  const selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
+
+  const handleSortable = (itemDrop: string, moveToIndex: number) => {
+    dispatch({
+      type: SET_SORT_INDEX_ELEMENT,
+      uuid: itemDrop,
+      index: moveToIndex
+    })
+  }
+
+  console.log(selectedIngredients, "EEEEEEEEE")
 
 
   const totalPrice = (data: IngredientsSorted[]): number => {
@@ -33,7 +47,7 @@ const BurgerConstructor = () => {
 
   return (
     <div data-testid="BurgerConstructor">
-      <ItemListIngredients />
+      <ItemListIngredients onHandleSortable={handleSortable} />
 
       <div className={styles.SummaryPrice} data-testid="SummaryPrice">
         <span className={`text text_type_main-medium ${styles.Price}`}>
