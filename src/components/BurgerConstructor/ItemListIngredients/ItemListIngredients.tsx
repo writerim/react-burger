@@ -124,7 +124,7 @@ const ItemList = (props: onSortHandlerProps) => {
       }
 
       const hoverClientY = clientOffset.y - hoverPosition.y
-      const changePosition = Math.floor(hoverClientY / 88) + 1
+      const changePosition = Math.floor(hoverClientY / 88)
       if (changePosition !== 0) {
         props.onHandleSortable(item.uuid, item.index + changePosition)
       }

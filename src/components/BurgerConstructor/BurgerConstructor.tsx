@@ -27,9 +27,6 @@ const BurgerConstructor = () => {
     })
   }
 
-  console.log(selectedIngredients, "EEEEEEEEE")
-
-
   const totalPrice = (data: IngredientsSorted[]): number => {
     let totalPrice = 0
     for (let index = 0; index < data.length; index++) {

@@ -38,22 +38,22 @@ export const selectedIngredientsReducer = (state = defaultIngredients, action: A
             return state.filter((elem, index) => index !== removeIndex)
         case SET_SORT_INDEX_ELEMENT:
             // Высчитываем направление
-            let moveElem = state.find(elem => elem.uuid === action.uuid)
-            let toElem = state.find(elem => elem.index === action.index)
+            let newStage = [...state]
+            let moveElem = newStage.find(elem => elem.uuid === action.uuid)
+            let toElem = newStage.find(elem => elem.index === action.index)
             if (!moveElem) {
-                return state
+                return newStage
             }
             if (!toElem) {
-                return state
+                return newStage
             }
             let indexTo = toElem.index
             let index = moveElem.index
-            state.splice(indexTo, 1, moveElem)
-            state.splice(index, 1, toElem)
+            newStage.splice(indexTo, 1, moveElem)
+            newStage.splice(index, 1, toElem)
             toElem.index = index
             moveElem.index = indexTo
-            console.log(state)
-            return state
+            return newStage
         case ADD_SELECTED_INGREDIENT:
             // Если пришла булка то надо удалить предыдущую
             let removeBunIndex = -1

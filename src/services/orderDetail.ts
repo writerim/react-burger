@@ -3,6 +3,7 @@ import { URL_TO_SUMMARY } from './consts';
 import { GET_ORDER_DETAIL, SET_ORDER_DETAIL, GET_ORDER_ERROR } from './actions/ordet';
 import { Dispatch } from 'react';
 import { IngredientInterface } from '../interfaces/inredientInterface';
+import { checkResponse } from '../utils/api';
 
 
 type Action =
@@ -32,7 +33,7 @@ export const getIngredientsData = (ingredients: IngredientsSorted[]) => {
             body: JSON.stringify({
                 ingredients: getIds(ingredients)
             })
-        }).then(r => r.json())
+        }).then(checkResponse)
             .then(req => {
                 if (req.success) {
                     dispatch({ type: SET_ORDER_DETAIL, playground: req })
