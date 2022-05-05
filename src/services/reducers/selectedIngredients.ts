@@ -7,6 +7,7 @@ export interface IngredientsSorted {
     uuid: string;
     // Индекс в сортировке
     index: number;
+    ref : HTMLDivElement
 }
 
 const defaultIngredients: IngredientsSorted[] = []

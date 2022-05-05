@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { UIEvent, useCallback, useEffect } from 'react';
 import { DndProvider, DropTargetMonitor, useDrop, XYCoord } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ import styles from './ItemListIngredients.module.css'
 interface onSortHandlerProps {
   onHandleSortable(item: string, index: number): void
 }
+
+let lastChangePosition: number | undefined = undefined
 
 const ItemList = (props: onSortHandlerProps) => {
 
@@ -98,40 +100,51 @@ const ItemList = (props: onSortHandlerProps) => {
       uuid: uuid,
       index: moveToIndex
     })
-  }, [selectedIngredients])
+  }, [])
 
   var hoverPosition: XYCoord = {
     x: 0,
     y: 0
   }
 
+
   const [, drop] = useDrop({
     accept: 'ingredients_sortable',
-    // drop: (item: IngredientsSorted) => {
-    //   console.log(item);
-    //   onSortHandler(item,)
-    // },
 
+    drop : (item: IngredientsSorted) =>{
+      lastChangePosition = undefined
+    },
 
     hover(item: IngredientsSorted, monitor) {
+
+      if(typeof lastChangePosition == "undefined"){
+        lastChangePosition = item.index
+      }
 
       const clientOffset: XYCoord | null = monitor.getClientOffset()
       if (!clientOffset) {
         return
       }
+      const topOffset: XYCoord | null = monitor.getSourceClientOffset()
+      if (!topOffset) {
+        return
+      }
+
+      const moveOffset: XYCoord | null = monitor.getDifferenceFromInitialOffset()
+      if (!moveOffset) {
+        return
+      }
       if (hoverPosition.y === 0) {
         hoverPosition = clientOffset
       }
-
-      const hoverClientY = clientOffset.y - hoverPosition.y
-      const changePosition = Math.floor(hoverClientY / 88)
-      if (changePosition !== 0) {
+      const changePosition = Math.floor(moveOffset.y / 88)
+      if (changePosition !== 0 && lastChangePosition !== changePosition) {
         props.onHandleSortable(item.uuid, item.index + changePosition)
+        lastChangePosition = changePosition
       }
     }
 
   })
-
 
 
 
