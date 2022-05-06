@@ -1,37 +1,61 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useCallback } from 'react';
-import { IngredientInterface } from '../../../interfaces/inredient_interface';
+import { useCallback, useEffect, useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
+import { DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
+import { IngredientsSorted } from '../../../services/reducers/selectedIngredients';
 import styles from './ItemIngridient.module.css';
 
 interface ItemProps {
-  ingridient: IngredientInterface
-  is_locked: boolean
+  ingridient: IngredientsSorted
+  isLocked: boolean
   position: "top" | "bottom" | undefined
+  index: number | undefined
+  moveListItem: Function | undefined
 }
 
-const Item = ({ ingridient, is_locked, position }: ItemProps) => {
+const Item = ({ ingridient, isLocked, position, index, moveListItem }: ItemProps) => {
+
+  const dispatch = useDispatch()
 
   const getName = useCallback((position) => {
     if (position === 'top') {
-      return ingridient.name + ' (верх)'
+      return ingridient.element.name + ' (верх)'
     } else if (position === 'bottom') {
-      return ingridient.name + ' (низ)'
+      return ingridient.element.name + ' (низ)'
     }
-    return ingridient.name
+    return ingridient.element.name
   }, [position])
 
+  const handleClose = () => {
+    dispatch({
+      type: DROP_SELECTED_INGREDIENT,
+      uuid: ingridient.uuid
+    })
+  }
+
+
+  const [, drag] = useDrag({
+    type: 'ingredients_sortable',
+    item: ingridient
+  })
+
+  // drag(ref)
+
   return (
-    <div className={`col ${is_locked ? styles.ItemColMain : styles.ItemCol}`}>
-      {!is_locked && <div className={styles.Pointers}>
+    <div className={`col ${isLocked ? styles.ItemColMain : styles.ItemCol}`} ref={drag}>
+      {!isLocked && <div className={styles.Pointers}>
         <DragIcon type="primary" />
       </div>}
       <div className={styles.IngridientSummary}>
         <span className={styles.Element}>
           <ConstructorElement
-            isLocked={is_locked}
+            isLocked={isLocked}
+            type={position}
             text={getName(position)}
-            price={ingridient.price}
-            thumbnail={ingridient.image}
+            price={ingridient.element.price}
+            thumbnail={ingridient.element.image}
+            handleClose={handleClose}
           />
         </span>
       </div>

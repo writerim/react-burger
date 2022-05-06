@@ -27,4 +27,5 @@
 .CardItemCol {
     text-align: center;
     flex: 1;
+    position: relative;
 }

@@ -7,9 +7,24 @@
     max-height: 600px;
     padding-left: 14px;
     align-items: center;
+    overflow-y: hidden;
 }
 
 .Scroll {
-    overflow-y: scroll;
-    max-height: 351px;
+    overflow-y: auto;
+    height: 351px;
+}
+
+.BunBottom {
+    background: #2f2f37;
+    height: 88px;
+    width: 100%;
+    border-radius: 0 0px 40px 40px;
+}
+
+.BunTop {
+    background: #2f2f37;
+    height: 88px;
+    width: 100%;
+    border-radius: 40px 40px 0 0px;
 }

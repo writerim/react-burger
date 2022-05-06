@@ -1,7 +1,10 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useContext } from 'react';
-import { IngredientInterface } from '../../interfaces/inredient_interface';
-import { IngredientsContext } from '../../services/IngredientsContext';
+import { useRef, UIEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IngredientInterface } from '../../interfaces/inredientInterface';
+import { SET_ACTIVE_TAB } from '../../services/actions/activeTab';
+import { getIngredientsData } from '../../services/ingredients';
+import { RootState } from '../../services/reducers';
 import styles from './BurgerIngredients.module.css';
 import CardList from './CardList/CardList';
 
@@ -15,13 +18,41 @@ const tabs = [
 
 const BurgerIngredients = () => {
 
-  const ingredients = useContext(IngredientsContext);
+  const dispatch = useDispatch()
 
-  const [curentType, setCurrentType] = React.useState<string>(tabs[0].id);
+  useEffect(() => {
+    dispatch(getIngredientsData())
+  }, [])
 
+
+  const ingredients = useSelector((store: RootState) => store.ingredients);
+  const activeTab = useSelector((store: RootState) => store.activeTab);
+
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const setCurrent = (currentTab: string) => {
-    setCurrentType(currentTab)
+
+    if (!scrollRef.current || !scrollRef.current?.children) {
+      return
+    }
+
+    const current = scrollRef.current
+
+    tabs.map((tab, indexTab) => {
+      for (let index = 0; index < current?.children.length; index++) {
+        if (tab.id == currentTab && index == indexTab && current.children.item(index) !== null) {
+          let curentPos = current.children.item(index)
+          if (curentPos !== null) {
+            current.scrollTop = curentPos.clientHeight
+          }
+        }
+      }
+    })
+
+    dispatch({
+      type: SET_ACTIVE_TAB,
+      activeTab: currentTab
+    })
   }
 
   // Получение продуктов по типу
@@ -31,19 +62,51 @@ const BurgerIngredients = () => {
     })
   }
 
+  const handlerScroll = (event: UIEvent<HTMLDivElement>) => {
+    event.preventDefault()
 
+    // Находим то как низко мы пали
+    let topScroll = scrollRef.current?.scrollTop
+
+    let difference = []
+
+    if (scrollRef.current?.children) {
+      for (let index = 0; index < scrollRef.current?.children.length; index++) {
+        let h = scrollRef.current?.children.item(index)?.clientHeight
+        if (h && topScroll) {
+          difference[index] = Math.abs(topScroll - h)
+        }
+      }
+    }
+
+    let min = Math.min.apply(null, difference)
+    let index = difference.indexOf(min)
+    if (index == -1) {
+      index = 0
+    }
+    dispatch({
+      type: SET_ACTIVE_TAB,
+      activeTab: tabs[index].id
+    })
+
+  }
 
   return (
     <>
       <h1 className='text text_type_main-large'>Соберите бургер</h1>
       <div className={styles.Tabs}>
         {tabs.map(tab => (
-          <Tab key={tab.id} value={tab.id} active={curentType === tab.id} onClick={setCurrent}>
+          <Tab key={tab.id} value={tab.id} active={activeTab === tab.id}
+            onClick={setCurrent}
+          >
             {tab.value}
           </Tab>
         ))}
       </div>
-      <div className={styles.Overflow}>
+      <div className={styles.Overflow}
+        ref={scrollRef}
+        onScroll={handlerScroll}
+      >
         {tabs.map((tab) =>
           <CardList
             listItems={filterByType(tab.id)}
