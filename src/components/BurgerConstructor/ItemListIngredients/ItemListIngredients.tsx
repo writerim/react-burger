@@ -139,7 +139,13 @@ const ItemList = (props: onSortHandlerProps) => {
       }
       const changePosition = Math.floor(moveOffset.y / 88)
       if (changePosition !== 0 && lastChangePosition !== changePosition) {
-        props.onHandleSortable(item.uuid, item.index + changePosition)
+        if(changePosition > 0){
+          props.onHandleSortable(item.uuid, item.index + 1) 
+          console.log("DOWN" , item.index + 1)
+        }else{
+          props.onHandleSortable(item.uuid, item.index - 1) 
+          console.log("UP" , item.index - 1)
+        }
         lastChangePosition = changePosition
       }
     }
