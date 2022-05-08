@@ -2,14 +2,15 @@ import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { FC } from 'react';
 import styles from './BtnProfile.module.css';
 import stylesAppHeader from './../AppHeader.module.css';
+import { Link } from 'react-router-dom';
 
 interface BtnProfileProps {}
 
 const BtnProfile: FC<BtnProfileProps> = () => (
-  <a className={ `${styles.BtnProfile} ${stylesAppHeader.Btn} text text_type_main-default` } data-testid="BtnProfile">
+  <Link to="/profile" className={ `${styles.BtnProfile} ${stylesAppHeader.Btn} text text_type_main-default` }>
     <ProfileIcon type="primary"/>
     <span className={stylesAppHeader.BtnTitle}>Личный кабинет</span>
-  </a>
+  </Link>
 );
 
 export default BtnProfile;

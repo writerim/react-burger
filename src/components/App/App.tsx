@@ -14,8 +14,8 @@ import Home from '../../pages/Home';
 function App() {
   return (
     <div className={styles.Container}>
-      <AppHeader />
       <BrowserRouter>
+      <AppHeader />
         <Routes>
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/register" element={<RegisterPage/>} />

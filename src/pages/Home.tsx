@@ -5,8 +5,6 @@ import BurgerIngredients from '../components/BurgerIngredients/BurgerIngredients
 import styles from '../components/App/App.module.css';
 
 const Home = () => {
-
-    console.log(111)
     return (
         <div className={styles.ContainerWorkFlow}>
             <DndProvider backend={HTML5Backend}>
