@@ -2,3 +2,7 @@
     display: inline-block;
     flex: 1;
 }
+
+.active {
+    color: #F2F2F3 !important;
+}
