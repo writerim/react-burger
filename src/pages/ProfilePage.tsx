@@ -1,13 +1,22 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
+import { RootState } from "../services/reducers";
 import styles from "./ProfilePage.module.css"
 
 const ProfilePage = () => {
+
+  const { name, email } = useSelector((store:RootState) => store.auth);
 
   const onChangeName = () => { }
   const onChangeEmail = () => { }
   const onChangePassword = () => { }
   const cancelForm = () => { }
+
+  const [nameForm , setName] = useState(name)
+  const [emailForm , setEmail] = useState(email)
+  
 
   return (
     <main>
@@ -22,11 +31,11 @@ const ProfilePage = () => {
           <form>
             <div className="mt-6">
               <Input type={'text'} placeholder={'Имя'}
-                onChange={onChangeName} icon={'CurrencyIcon'} value={''}
+                onChange={onChangeName} icon={'CurrencyIcon'} value={nameForm}
                 name="name" />
             </div>
             <div className="mt-6">
-              <EmailInput onChange={onChangeEmail} value={''} name="email" />
+              <EmailInput onChange={onChangeEmail} value={emailForm} name="email" />
             </div>
             <div className="mt-6">
               <PasswordInput onChange={onChangePassword} value={''} name={'password'} />

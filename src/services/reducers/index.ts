@@ -5,6 +5,8 @@ import { ingredientsReducer } from './ingredients'
 import { selectedIngredientsReducer } from './selectedIngredients'
 import { orderReducer } from './order'
 import { curentIngredientReducer } from './curentIngredient';
+import { authReducer } from './authEtc';
+
 
 
 const rootReducer = combineReducers({
@@ -12,7 +14,8 @@ const rootReducer = combineReducers({
     selectedIngredients: selectedIngredientsReducer,
     curentIngredient: curentIngredientReducer,
     order: orderReducer,
-    activeTab: activeTab
+    activeTab: activeTab,
+    auth : authReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>;
