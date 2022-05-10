@@ -8,6 +8,7 @@ import ResetPasswordPage from '../../pages/ResetPasswordPage';
 import ProfilePage from '../../pages/ProfilePage';
 import IngredientsByIdPage from '../../pages/IngredientsByIdPage';
 import Home from '../../pages/Home';
+import { ProtectedRoute } from '../Protected/Protected';
 
 
 
@@ -21,8 +22,11 @@ function App() {
           <Route path="/register" element={<RegisterPage/>} />
           <Route path="/forgot-password" element={<ForgotPasswordPage/>} />
           <Route path="/reset-password" element={<ResetPasswordPage/>} />
-          <Route path="/profile" element={<ProfilePage/>} />
           <Route path="/ingredients/:id" element={<IngredientsByIdPage/>} />
+          <ProtectedRoute>
+          <Route path="/profile" element={<ProfilePage/>} />
+          </ProtectedRoute>
+          
           <Route path="/" element={<Home/>} />
         </Routes>
       </BrowserRouter>
