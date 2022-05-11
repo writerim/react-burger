@@ -16,22 +16,26 @@ const LoginPage = () => {
     navigate('/')
   };
 
-  const { name, password } = useSelector((store:RootState) => store.auth);
+  const { name, password } = useSelector((store: RootState) => store.auth);
 
   const [emailForm, setEmail] = useState<string>(name)
   const [passwordForm, setPassword] = useState<string>(password)
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
-  }
-  
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
+    if (e.target) {
+      setEmail(e.target.value)
+    }
   }
 
-  const onLogin = (e:SyntheticEvent) => {
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target) {
+      setPassword(e.target.value)
+    }
+  }
+
+  const onLogin = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(login({ email:emailForm, password:passwordForm } , redirect));
+    dispatch(login({ email: emailForm, password: passwordForm }, redirect));
   }
 
   return (
@@ -42,7 +46,7 @@ const LoginPage = () => {
         <div className="mt-6"><PasswordInput onChange={onChangePassword} value={passwordForm} name={'password'} /></div>
         <div className={`mt-6 ${styles.center}`}>
           <Button type="primary" size="medium" onClick={onLogin} >Войти</Button>
-          </div>
+        </div>
       </form>
       <div className="text text_type_main-small text_color_inactive mt-20">
         Вы — новый пользователь?

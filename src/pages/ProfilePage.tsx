@@ -1,11 +1,15 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
+import { getAccessToken, getAuth } from "../services/authEtc";
 import { RootState } from "../services/reducers";
 import styles from "./ProfilePage.module.css"
 
 const ProfilePage = () => {
+
+  const dispatch = useDispatch();
 
   const { name, email } = useSelector((store:RootState) => store.auth);
 
@@ -16,6 +20,18 @@ const ProfilePage = () => {
 
   const [nameForm , setName] = useState(name)
   const [emailForm , setEmail] = useState(email)
+
+  const navigate = useNavigate();
+
+  useEffect(
+    () => {
+      if(!getAccessToken()){
+        navigate('/login')
+      }
+      dispatch(getAuth());
+    },
+    [dispatch]
+  );
   
 
   return (

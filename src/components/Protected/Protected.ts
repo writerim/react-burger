@@ -2,27 +2,26 @@ import { ReactElement, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAccessToken } from '../../services/authEtc';
-import { ActionUser } from '../../services/reducers/authEtc';
 
 interface ProtectedRouteArs {
-  children: JSX.Element | JSX.Element[]; // Что будет в теле модального окна
+  children: ReactElement | JSX.Element; // Что будет в теле модального окна
 }
 
-export const ProtectedRoute = ({ children }: ProtectedRouteArs) :JSX.Element=> {
+export const ProtectedRoute = ({ children }: ProtectedRouteArs) => {
   const dispatch = useDispatch();
-  const refreshToken = localStorage.refreshToken;
+  const navigate = useNavigate();
 
+  const refreshToken = localStorage.refreshToken;
   useEffect(() => {
     if (refreshToken) {
       dispatch(getAccessToken());
+    } else {
+      navigate("/login");
     }
-  }, [dispatch, refreshToken]);
+  }, []);
 
-  const navigate = useNavigate();
-  if (!refreshToken) {
-    navigate('/login')
-    return null
+  if (refreshToken) {
+    return children
   }
-
-  return children
+  return null
 }
