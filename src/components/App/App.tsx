@@ -9,6 +9,7 @@ import ProfilePage from '../../pages/ProfilePage';
 import IngredientsByIdPage from '../../pages/IngredientsByIdPage';
 import Home from '../../pages/Home';
 import { ProtectedRoute } from '../Protected/Protected';
+import { ProfileOrderByPage } from '../../pages/ProfileOrderByPage';
 
 
 
@@ -23,13 +24,16 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/ingredients/:id" element={
-            <ProtectedRoute>
               <IngredientsByIdPage />
-            </ProtectedRoute>
           } />
           <Route path="/profile" element={
             <ProtectedRoute>
               <ProfilePage />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile/orders/:id" element={
+            <ProtectedRoute>
+              <ProfileOrderByPage />
             </ProtectedRoute>
           } />
           <Route path="/" element={<Home />} />
