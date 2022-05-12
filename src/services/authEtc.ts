@@ -58,7 +58,7 @@ export const getAuth = () => {
     };
 };
 
-interface ForgotPasswordInterface {
+export interface ForgotPasswordInterface {
     email: string
 }
 

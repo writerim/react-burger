@@ -10,18 +10,14 @@ const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('')
-
-
-  const onChangeEmail = (e: React.FormEvent<HTMLInputElement>) => {
-    if(e.currentTarget){
-      setEmail(e.currentTarget.value)
-    }
+  const [form, setValue] = useState({ email: '' })
+  const onChange = (e:{target: HTMLInputElement}) => {
+    setValue({ ...form, [e.target.name]: e.target.value })
   }
 
-  const onClickForgot = (e: React.SyntheticEvent<EventTarget>) => {
+  const onForgot = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    dispatch(forgotPassword({email}))
+    dispatch(forgotPassword({email:form.email}))
   };
 
   if (localStorage.refreshToken){
@@ -30,12 +26,11 @@ const ForgotPasswordPage = () => {
 
   return (
     <div className={styles.fixed_center}>
-      <form>
+      <form  onSubmit={onForgot}>
         <h1 className="text text_type_main-medium">Восстановление пароля</h1>
-        <div className="mt-6"><EmailInput onChange={onChangeEmail} value={email} name="email" /></div>
+        <div className="mt-6"><EmailInput onChange={onChange} value={form.email} name="email" /></div>
         <div className="mt-6">
-          <Button type="primary" size="medium"
-            onClick={onClickForgot}>Восстановить</Button>
+          <Button type="primary" size="medium">Восстановить</Button>
         </div>
       </form>
       <div className="text text_type_main-small text_color_inactive mt-4">Вспомнили пароль?

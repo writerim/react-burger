@@ -1,5 +1,5 @@
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useState } from "react"
+import { SyntheticEvent, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { resetPassword } from "../services/authEtc"
@@ -10,39 +10,28 @@ const ResetPasswordPage = () => {
 
   const dispatch = useDispatch();
 
-
-  const [password , setPassword] = useState('')
-  const [token , setToken] = useState('')
-
-  const onChangePassword = (e : React.FormEvent<HTMLInputElement>) => {
-    if(e.currentTarget){
-      setPassword(e.currentTarget.value)
-    }
-  }
-  
-  const onChangeToken = (e:  React.FormEvent<HTMLInputElement>) => {
-    if(e.currentTarget){
-      setToken(e.currentTarget.value)
-    }
+  const [form, setValue] = useState({ token: '', password: '' })
+  const onChange = (e: { target: HTMLInputElement }) => {
+    setValue({ ...form, [e.target.name]: e.target.value })
   }
 
-  const onClickForm = (e: React.SyntheticEvent<EventTarget>) => {
+  const onClickForm = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(resetPassword({token, password}))
+    dispatch(resetPassword(form))
   };
 
   return (
     <div className={styles.fixed_center}>
-      <form>
+      <form onSubmit={onClickForm}>
         <h1 className="text text_type_main-medium">Восстановление пароля</h1>
         <div className="mt-6">
-          <PasswordInput onChange={onChangePassword} value={password} name={'password'} />
+          <PasswordInput onChange={onChange} value={form.password} name={'password'} />
         </div>
         <div className="mt-6">
           <Input type={'text'} placeholder={'Введите код из письма'}
-            onChange={onChangeToken} value={token} name="token"/>
+            onChange={onChange} value={form.token} name="token"/>
         </div>
-        <div className="mt-6"><Button type="primary" size="medium" onClick={onClickForm}>Сохранить</Button></div>
+        <div className="mt-6"><Button type="primary" size="medium">Сохранить</Button></div>
       </form>
       <div className="text text_type_main-small text_color_inactive mt-4">
         Вспомнили пароль? <Link to='/login' className={styles.link}>Войти</Link>

@@ -16,36 +16,26 @@ const LoginPage = () => {
     navigate('/')
   };
 
-  const { name, password } = useSelector((store: RootState) => store.auth);
+  const { email, password } = useSelector((store: RootState) => store.auth);
 
-  const [emailForm, setEmail] = useState<string>(name ?? '')
-  const [passwordForm, setPassword] = useState<string>(password ?? '')
-
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target) {
-      setEmail(e.target.value)
-    }
-  }
-
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target) {
-      setPassword(e.target.value)
-    }
+  const [form, setValue] = useState({ email: email ?? '' , password : password ?? '' })
+  const onChange = (e:{target: HTMLInputElement}) => {
+    setValue({ ...form, [e.target.name]: e.target.value })
   }
 
   const onLogin = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(login({ email: emailForm, password: passwordForm }, redirect));
+    dispatch(login({ email: form.email, password: form.password }, redirect));
   }
 
   return (
     <div className={styles.fixed_center}>
-      <form >
+      <form onSubmit={onLogin}>
         <h1 className="text text_type_main-medium">Вход</h1>
-        <div className="mt-6"><EmailInput onChange={onChangeEmail} value={emailForm} name="email" /></div>
-        <div className="mt-6"><PasswordInput onChange={onChangePassword} value={passwordForm} name={'password'} /></div>
+        <div className="mt-6"><EmailInput onChange={onChange} value={form.email} name="email" /></div>
+        <div className="mt-6"><PasswordInput onChange={onChange} value={form.password} name={'password'} /></div>
         <div className={`mt-6 ${styles.center}`}>
-          <Button type="primary" size="medium" onClick={onLogin} >Войти</Button>
+          <Button type="primary" size="medium">Войти</Button>
         </div>
       </form>
       <div className="text text_type_main-small text_color_inactive mt-20">

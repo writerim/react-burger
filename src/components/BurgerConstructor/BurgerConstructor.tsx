@@ -14,8 +14,6 @@ import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor = () => {
 
-
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
