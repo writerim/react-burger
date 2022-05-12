@@ -13,13 +13,12 @@ const IngredientsByIdPage = (): JSX.Element => {
 
   const allIngredients = useSelector((store: RootState) => store.ingredients)
 
+  const { id } = useParams()
   useEffect(() => {
     dispatch(getIngredientsData())
-  }, [])
-  const { id } = useParams()
+  }, [id])
 
   const curentIngredient = allIngredients.find(item => item._id === id)
-  console.log(curentIngredient,allIngredients)
 
   if (curentIngredient) {
     dispatch({
