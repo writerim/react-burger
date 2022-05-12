@@ -18,8 +18,8 @@ const LoginPage = () => {
 
   const { name, password } = useSelector((store: RootState) => store.auth);
 
-  const [emailForm, setEmail] = useState<string>(name)
-  const [passwordForm, setPassword] = useState<string>(password)
+  const [emailForm, setEmail] = useState<string>(name ?? '')
+  const [passwordForm, setPassword] = useState<string>(password ?? '')
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target) {

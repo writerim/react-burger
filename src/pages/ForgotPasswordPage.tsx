@@ -1,13 +1,14 @@
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { forgotPassword } from "../services/authEtc";
 import styles from "./ForgotPasswordPage.module.css"
 
 const ForgotPasswordPage = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
 
@@ -22,6 +23,10 @@ const ForgotPasswordPage = () => {
     e.preventDefault();
     dispatch(forgotPassword({email}))
   };
+
+  if (localStorage.refreshToken){
+    navigate('/');
+  }
 
   return (
     <div className={styles.fixed_center}>
