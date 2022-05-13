@@ -4,7 +4,7 @@ import { Action } from "redux";
 import { UserInterface } from "../interfaces/userInterface";
 import { checkResponse } from "../utils/api";
 import { deleteCookie, getCookie, getTokens } from "../utils/cookie";
-import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS } from "./actions/authEtc";
+import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
 import { URL_AUTH_TOKEN, URL_AUTH_USER, URL_FORGOT_PASSWORD, URL_LOGIN_USER, URL_LOGOUT_USER, URL_REGISTR_USER, URL_RESET_PASSWORD } from "./consts";
 import { ActionUser } from "./reducers/authEtc";
 
@@ -31,6 +31,7 @@ export const getAuth = () => {
         })
             .then(checkResponse)
             .then((res) => {
+                console.log(res)
                 if (res && res.success) {
                     dispatch({
                         type: USER_SUCCESS,
@@ -260,7 +261,7 @@ export const register = ({ name, email, password }: RegisterUserRequest, redirec
 
 
 
-
+// Обновление токена
 export const getAccessToken = () => {
     return function (dispatch: Dispatch<ActionUser>) {
         dispatch({ type: TOKEN_REQUEST, user: {} });
@@ -309,3 +310,50 @@ export const getAccessToken = () => {
             });
     };
 };
+
+
+
+
+export const updateAuth = (form : {name:string, email:string, password:string}) => {
+    return function(dispatch: Dispatch<ActionUser>) {
+      dispatch({
+        type: USER_UPDATE_REQUEST,
+        user : {}
+      });
+      fetch(URL_AUTH_USER, {
+        method: 'PATCH',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getCookie('token')}`
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(form)
+      })
+        .then(checkResponse)
+        .then((res) => {
+          if (res && res.success) {
+            dispatch({
+              type: USER_SUCCESS,
+              user: res.user
+            });
+          } else {
+            dispatch({
+              type: USER_FAILED,
+              user : {}
+            });
+          }
+        })
+        .catch((e) => {
+          if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
+            getAccessToken();
+          } else dispatch({
+            type: USER_FAILED,
+            user : {}
+          })
+        });
+    };
+  };
