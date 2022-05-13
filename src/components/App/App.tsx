@@ -34,7 +34,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/ingredients/:id" element={
-              <IngredientsByIdPage />
+            <IngredientsByIdPage />
           } />
           <Route path="/profile" element={
             <ProtectedRoute>

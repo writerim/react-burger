@@ -1,7 +1,7 @@
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useState } from "react"
 import { useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { resetPassword } from "../services/authEtc"
 import styles from "./ResetPasswordPage.module.css"
 
@@ -9,15 +9,20 @@ import styles from "./ResetPasswordPage.module.css"
 const ResetPasswordPage = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [form, setValue] = useState({ token: '', password: '' })
   const onChange = (e: { target: HTMLInputElement }) => {
     setValue({ ...form, [e.target.name]: e.target.value })
   }
 
+  const redirect = () => {
+    navigate('/')
+  };
+
   const onClickForm = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(resetPassword(form))
+    dispatch(resetPassword(form,redirect))
   };
 
   return (

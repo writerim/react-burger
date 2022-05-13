@@ -18,6 +18,7 @@ const ForgotPasswordPage = () => {
   const onForgot = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     dispatch(forgotPassword({email:form.email}))
+    window.history.pushState('reset_password','/reset-password')
   };
 
   if (localStorage.refreshToken){

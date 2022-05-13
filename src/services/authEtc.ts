@@ -4,7 +4,7 @@ import { Action } from "redux";
 import { UserInterface } from "../interfaces/userInterface";
 import { checkResponse } from "../utils/api";
 import { deleteCookie, getCookie, getTokens } from "../utils/cookie";
-import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
+import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
 import { URL_AUTH_TOKEN, URL_AUTH_USER, URL_FORGOT_PASSWORD, URL_LOGIN_USER, URL_LOGOUT_USER, URL_REGISTR_USER, URL_RESET_PASSWORD } from "./consts";
 import { ActionUser } from "./reducers/authEtc";
 
@@ -63,10 +63,6 @@ export interface ForgotPasswordInterface {
     email: string
 }
 
-interface ResetPasswordInterface {
-    token: string
-    password: string
-}
 
 export const forgotPassword = ({ email }: ForgotPasswordInterface) => {
     return async function (dispath: Dispatch<Action>) {
@@ -88,8 +84,21 @@ export const forgotPassword = ({ email }: ForgotPasswordInterface) => {
 
 };
 
-export const resetPassword = ({ token, password }: ResetPasswordInterface) => {
-    return async function (dispath: Dispatch<Action>) {
+
+type ResetPasswordAction = {
+    type: string
+}
+
+interface ResetPasswordInterface {
+    token: string
+    password: string
+}
+
+export const resetPassword = ({ token, password }: ResetPasswordInterface, redirect: () => void) => {
+    return async function (dispatch: Dispatch<ResetPasswordAction>) {
+        dispatch({
+            type: FORGOT_PASSWORD_REQUEST
+          });
         await fetch(URL_RESET_PASSWORD, {
             body: JSON.stringify({ token, password }),
             method: "POST",
@@ -98,11 +107,22 @@ export const resetPassword = ({ token, password }: ResetPasswordInterface) => {
             }
         })
             .then(checkResponse)
-            .then(req => {
-                console.log(req)
+            .then(res => {
+                if (res && res.success) {
+                    dispatch({
+                      type: FORGOT_PASSWORD_SUCCESS
+                    });
+                    redirect();
+                  } else {
+                    dispatch({
+                      type: FORGOT_PASSWORD_FAILED
+                    });
+                  }
             })
             .catch(e => {
-                console.log(e)
+                dispatch({
+                    type: FORGOT_PASSWORD_FAILED
+                  })
             })
     }
 
