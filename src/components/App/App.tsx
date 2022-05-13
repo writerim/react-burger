@@ -10,10 +10,20 @@ import IngredientsByIdPage from '../../pages/IngredientsByIdPage';
 import Home from '../../pages/Home';
 import { ProtectedRoute } from '../Protected/Protected';
 import { ProfileOrderByPage } from '../../pages/ProfileOrderByPage';
+import { useDispatch } from 'react-redux';
+import { getIngredientsData } from '../../services/ingredients';
+import { useEffect } from 'react';
 
 
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getIngredientsData())
+  }, [])
+
   return (
     <div className={styles.Container}>
       <BrowserRouter>

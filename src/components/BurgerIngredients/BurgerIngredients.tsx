@@ -20,11 +20,6 @@ const BurgerIngredients = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getIngredientsData())
-  }, [])
-
-
   const ingredients = useSelector((store: RootState) => store.ingredients);
   const activeTab = useSelector((store: RootState) => store.activeTab);
 
