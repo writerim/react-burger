@@ -13,7 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const redirect = () => {
-    navigate('/')
+    navigate(window.history.state.usr.from)
   };
 
   const { email, password } = useSelector((store: RootState) => store.auth);

@@ -17,7 +17,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteArs) => {
     if (refreshToken) {
       dispatch(getAccessToken());
     } else {
-      navigate("/login");
+      navigate("/login", {state: { from: window.location.pathname } });
     }
   }, []);
 

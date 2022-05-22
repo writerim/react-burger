@@ -63,22 +63,40 @@ export interface ForgotPasswordInterface {
     email: string
 }
 
+type ForgotPasswordAction = {
+    email?: string
+    type?: string
+}
 
-export const forgotPassword = ({ email }: ForgotPasswordInterface) => {
-    return async function (dispath: Dispatch<Action>) {
+
+export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect : () => void) => {
+    return async function (dispatch: Dispatch<ForgotPasswordAction>) {
+        dispatch({
+            type: FORGOT_PASSWORD_REQUEST
+        });
         await fetch(URL_FORGOT_PASSWORD, {
-            body: JSON.stringify({ email: email }),
-            method: "POST",
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
             headers: {
-                'Content-Type': 'application/json'
-            }
+            'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify({email : email})
         })
             .then(checkResponse)
             .then(req => {
-                console.log(req)
+                dispatch({
+                    type: FORGOT_PASSWORD_SUCCESS
+                });
+                redirect();
             })
             .catch(e => {
-                console.log(e)
+                dispatch({
+                    type: FORGOT_PASSWORD_FAILED
+                  })
             })
     }
 

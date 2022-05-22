@@ -11,23 +11,26 @@ const ForgotPasswordPage = () => {
   const navigate = useNavigate()
 
   const [form, setValue] = useState({ email: '' })
-  const onChange = (e:{target: HTMLInputElement}) => {
+  const onChange = (e: { target: HTMLInputElement }) => {
     setValue({ ...form, [e.target.name]: e.target.value })
   }
 
   const onForgot = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    dispatch(forgotPassword({email:form.email}))
-    window.history.pushState('reset_password','/reset-password')
+    const redirect = () => {
+      window.history.pushState('reset_password', '/reset-password')
+      window.location.href = '/reset-password';
+    };
+    dispatch(forgotPassword({ email: form.email }, redirect))
   };
 
-  if (localStorage.refreshToken){
+  if (localStorage.refreshToken) {
     navigate('/');
   }
 
   return (
     <div className={styles.fixed_center}>
-      <form  onSubmit={onForgot}>
+      <form onSubmit={onForgot}>
         <h1 className="text text_type_main-medium">Восстановление пароля</h1>
         <div className="mt-6"><EmailInput onChange={onChange} value={form.email} name="email" /></div>
         <div className="mt-6">
