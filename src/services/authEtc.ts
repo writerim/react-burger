@@ -206,6 +206,9 @@ export const login = ({ email, password }: LoginUserRequest, redirect: () => voi
 
 
 export const logout = (redirect: () => void) => {
+    if(!localStorage.refreshToken){
+        redirect()
+    }
     return function (dispatch: Dispatch<Action>) {
         dispatch({
             type: LOGOUT_REQUEST
@@ -301,9 +304,9 @@ export const register = ({ name, email, password }: RegisterUserRequest, redirec
 
 // Обновление токена
 export const getAccessToken = () => {
-    return function (dispatch: Dispatch<ActionUser>) {
+    return async function (dispatch: Dispatch<ActionUser>) {
         dispatch({ type: TOKEN_REQUEST, user: {} });
-        return fetch(URL_AUTH_TOKEN, {
+        return await fetch(URL_AUTH_TOKEN, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -337,6 +340,7 @@ export const getAccessToken = () => {
                         user: {}
                     });
                 }
+                return res
             })
             .catch((e) => {
                 if (e.message === 'Token is invalid') {

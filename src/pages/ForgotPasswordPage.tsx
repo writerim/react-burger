@@ -18,8 +18,7 @@ const ForgotPasswordPage = () => {
   const onForgot = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     const redirect = () => {
-      window.history.pushState('reset_password', '/reset-password')
-      window.location.href = '/reset-password';
+      navigate('/reset-password', {state : {from : '/reset_password'}})
     };
     dispatch(forgotPassword({ email: form.email }, redirect))
   };
