@@ -1,19 +1,25 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate, useNavigationType } from "react-router-dom"
 import { login } from "../services/authEtc"
 import { RootState } from "../services/reducers"
 import styles from "./LoginPage.module.css"
+
+interface Pathname {
+    from : unknown
+}
 
 
 const LoginPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation()
+  const { from } = location.state as any || "/"
 
   const redirect = () => {
-    navigate(window.history.state.usr.from)
+    navigate(from)
   };
 
   const { email, password } = useSelector((store: RootState) => store.auth);
