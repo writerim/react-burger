@@ -44,7 +44,7 @@ const ProfilePage = () => {
     () => {
       dispatch(getAccessToken());
     },
-    []
+    [dispatch]
   );
 
   return (

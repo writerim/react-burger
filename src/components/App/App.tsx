@@ -13,6 +13,7 @@ import { ProfileOrderByPage } from '../../pages/ProfileOrderByPage';
 import { useDispatch } from 'react-redux';
 import { getIngredientsData } from '../../services/ingredients';
 import { useEffect } from 'react';
+import { TestPermission } from '../../pages/TestPermission';
 
 
 
@@ -44,6 +45,11 @@ function App() {
           <Route path="/profile/orders/:id" element={
             <ProtectedRoute>
               <ProfileOrderByPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/test_permission" element={
+            <ProtectedRoute>
+              <TestPermission />
             </ProtectedRoute>
           } />
           <Route path="/" element={<Home />} />
