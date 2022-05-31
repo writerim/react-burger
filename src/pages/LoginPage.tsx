@@ -16,10 +16,11 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation()
-  const { from } = location.state as any || "/"
+  const { from } = location.state as any || location.pathname ||"/"
+  const { isLoggedIn } = useSelector((store: RootState) => store.auth);
 
   const redirect = () => {
-    navigate(from)
+    if(isLoggedIn) navigate(from)
   };
 
   const { email, password } = useSelector((store: RootState) => store.auth);

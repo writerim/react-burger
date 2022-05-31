@@ -4,4 +4,5 @@ export interface UserInterface {
     email?: string;
     refreshToken?: string;
     accessToken? : string;
+    isLoggedIn? : boolean
 }

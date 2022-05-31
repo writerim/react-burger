@@ -23,12 +23,15 @@ import {
     USER_UPDATE_FAILED,
     TOKEN_REQUEST,
     TOKEN_SUCCESS,
-    TOKEN_FAILED
+    TOKEN_FAILED,
+    USER_SET_AUTH_STATUS
 } from '../actions/authEtc';
 
 const initialState = {
     name: '',
     email: '',
+
+    isLoggedIn : false,
 
     loginRequest: false,
     loginFailed: false,
@@ -97,17 +100,18 @@ export const authReducer = (state = initialState, action: ActionUser) => {
                 loginFailed: false,
                 loginRequest: false,
                 name: action.user.name,
-                email: action.user.email
+                email: action.user.email,
+                isLoggedIn : true
             };
         }
         case LOGIN_FAILED: {
-            return { ...state, loginFailed: true };
+            return { ...state, loginFailed: true  , isLoggedIn : false };
         }
         case LOGOUT_REQUEST: {
             return { ...state, logoutRequest: true };
         }
         case LOGOUT_SUCCESS: {
-            return { ...initialState, logoutFailed: false, logoutRequest: false };
+            return { ...initialState, logoutFailed: false, logoutRequest: false  , isLoggedIn : false };
         }
         case LOGOUT_FAILED: {
             return { ...state, logoutFailed: true };
@@ -121,11 +125,12 @@ export const authReducer = (state = initialState, action: ActionUser) => {
                 authFailed: false,
                 authRequest: false,
                 name: action.user.name,
-                email: action.user.email
+                email: action.user.email,
+                isLoggedIn : true
             };
         }
         case USER_FAILED: {
-            return { ...state, authFailed: true };
+            return { ...state, authFailed: true  , isLoggedIn : false };
         }
         case USER_UPDATE_REQUEST: {
             return { ...state, authRequest: true };
@@ -136,20 +141,25 @@ export const authReducer = (state = initialState, action: ActionUser) => {
                 authFailed: false,
                 authRequest: false,
                 name: action.user.name,
-                email: action.user.email
+                email: action.user.email,
+                isLoggedIn : true
             };
         }
         case USER_UPDATE_FAILED: {
-            return { ...state, authFailed: true };
+            return { ...state, authFailed: true  , isLoggedIn : false };
         }
         case TOKEN_REQUEST: {
             return { ...state, tokenRequest: true };
         }
         case TOKEN_SUCCESS: {
-            return { ...state, tokenFailed: false, tokenRequest: false };
+            return { ...state, tokenFailed: false, tokenRequest: false , isLoggedIn : true };
         }
         case TOKEN_FAILED: {
-            return { ...state, tokenFailed: true };
+            return { ...state, tokenFailed: true  , isLoggedIn : false };
+        }
+        case USER_SET_AUTH_STATUS: {
+            console.log(action.user.isLoggedIn,"<---")
+            return { ...state, isLoggedIn: action.user.isLoggedIn };
         }
         default: {
             return state;

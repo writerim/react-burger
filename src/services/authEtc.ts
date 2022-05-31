@@ -4,7 +4,7 @@ import { Action } from "redux";
 import { UserInterface } from "../interfaces/userInterface";
 import { checkResponse } from "../utils/api";
 import { deleteCookie, getCookie, getTokens } from "../utils/cookie";
-import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
+import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SET_AUTH_STATUS, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
 import { URL_AUTH_TOKEN, URL_AUTH_USER, URL_FORGOT_PASSWORD, URL_LOGIN_USER, URL_LOGOUT_USER, URL_REGISTR_USER, URL_RESET_PASSWORD } from "./consts";
 import { ActionUser } from "./reducers/authEtc";
 
@@ -69,7 +69,7 @@ type ForgotPasswordAction = {
 }
 
 
-export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect : () => void) => {
+export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect: () => void) => {
     return async function (dispatch: Dispatch<ForgotPasswordAction>) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST
@@ -80,11 +80,11 @@ export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect : ()
             cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            body: JSON.stringify({email : email})
+            body: JSON.stringify({ email: email })
         })
             .then(checkResponse)
             .then(req => {
@@ -96,7 +96,7 @@ export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect : ()
             .catch(e => {
                 dispatch({
                     type: FORGOT_PASSWORD_FAILED
-                  })
+                })
             })
     }
 
@@ -116,7 +116,7 @@ export const resetPassword = ({ token, password }: ResetPasswordInterface, redir
     return async function (dispatch: Dispatch<ResetPasswordAction>) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST
-          });
+        });
         await fetch(URL_RESET_PASSWORD, {
             body: JSON.stringify({ token, password }),
             method: "POST",
@@ -128,19 +128,19 @@ export const resetPassword = ({ token, password }: ResetPasswordInterface, redir
             .then(res => {
                 if (res && res.success) {
                     dispatch({
-                      type: FORGOT_PASSWORD_SUCCESS
+                        type: FORGOT_PASSWORD_SUCCESS
                     });
                     redirect();
-                  } else {
+                } else {
                     dispatch({
-                      type: FORGOT_PASSWORD_FAILED
+                        type: FORGOT_PASSWORD_FAILED
                     });
-                  }
+                }
             })
             .catch(e => {
                 dispatch({
                     type: FORGOT_PASSWORD_FAILED
-                  })
+                })
             })
     }
 
@@ -206,7 +206,7 @@ export const login = ({ email, password }: LoginUserRequest, redirect: () => voi
 
 
 export const logout = (redirect: () => void) => {
-    if(!localStorage.refreshToken){
+    if (!localStorage.refreshToken) {
         redirect()
     }
     return function (dispatch: Dispatch<Action>) {
@@ -345,10 +345,13 @@ export const getAccessToken = () => {
             .catch((e) => {
                 if (e.message === 'Token is invalid') {
                     getAccessToken();
-                } else dispatch({
-                    type: TOKEN_FAILED,
-                    user: {}
-                })
+                } else {
+                    dispatch({
+                        type: TOKEN_FAILED,
+                        user: {}
+                    })
+                }
+
             });
     };
 };
@@ -356,46 +359,46 @@ export const getAccessToken = () => {
 
 
 
-export const updateAuth = (form : {name:string, email:string, password:string}) => {
-    return function(dispatch: Dispatch<ActionUser>) {
-      dispatch({
-        type: USER_UPDATE_REQUEST,
-        user : {}
-      });
-      fetch(URL_AUTH_USER, {
-        method: 'PATCH',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${getCookie('token')}`
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(form)
-      })
-        .then(checkResponse)
-        .then((res) => {
-          if (res && res.success) {
-            dispatch({
-              type: USER_SUCCESS,
-              user: res.user
-            });
-          } else {
-            dispatch({
-              type: USER_FAILED,
-              user : {}
-            });
-          }
-        })
-        .catch((e) => {
-          if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-            getAccessToken();
-          } else dispatch({
-            type: USER_FAILED,
-            user : {}
-          })
+export const updateAuth = (form: { name: string, email: string, password: string }) => {
+    return function (dispatch: Dispatch<ActionUser>) {
+        dispatch({
+            type: USER_UPDATE_REQUEST,
+            user: {}
         });
+        fetch(URL_AUTH_USER, {
+            method: 'PATCH',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getCookie('token')}`
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify(form)
+        })
+            .then(checkResponse)
+            .then((res) => {
+                if (res && res.success) {
+                    dispatch({
+                        type: USER_SUCCESS,
+                        user: res.user
+                    });
+                } else {
+                    dispatch({
+                        type: USER_FAILED,
+                        user: {}
+                    });
+                }
+            })
+            .catch((e) => {
+                if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
+                    getAccessToken();
+                } else dispatch({
+                    type: USER_FAILED,
+                    user: {}
+                })
+            });
     };
-  };
+};

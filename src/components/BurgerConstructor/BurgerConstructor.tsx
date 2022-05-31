@@ -9,13 +9,14 @@ import { RootState } from '../../services/reducers';
 import { IngredientsSorted } from '../../services/reducers/selectedIngredients';
 import { IngredientInterface } from '../../interfaces/inredientInterface';
 import { SET_SORT_INDEX_ELEMENT } from '../../services/actions/selectedIngredients';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const BurgerConstructor = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
 
@@ -42,7 +43,7 @@ const BurgerConstructor = () => {
     if (localStorage.refreshToken) {
       setIsShowOrderDetail(!isShowOrderDetail)
     } else {
-      navigate("/login")
+      navigate("/login" , {state: { from: location.pathname } } )
     }
   }
 
