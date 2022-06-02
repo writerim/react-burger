@@ -1,7 +1,7 @@
 import { IngredientInterface } from '../../interfaces/inredientInterface';
 import { SET_CURENT_INGREDIENT } from '../actions/curentIngredient';
 
-const defaultIngredient: IngredientInterface = {
+export const defaultIngredient: IngredientInterface = {
     _id: "",
     name: "",
     type: "",

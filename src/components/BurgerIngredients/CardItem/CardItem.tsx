@@ -2,6 +2,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
 import { SET_CURENT_INGREDIENT } from '../../../services/actions/curentIngredient';
 import { RootState } from '../../../services/reducers';
@@ -14,6 +15,8 @@ import styles from './CardItem.module.css';
 const CardItem = (props: IngredientInterface) => {
 
   const [isShowDetail, setIsShowDetail] = React.useState(false)
+
+  const selectedIngredients = useSelector((store: RootState) => store.curentIngredient)
 
   const countUsedIngredient = useSelector((state: RootState) => {
     let filter = state.selectedIngredients.filter(ingredientSelected => ingredientSelected.element._id === props._id)
@@ -31,6 +34,7 @@ const CardItem = (props: IngredientInterface) => {
       type: SET_CURENT_INGREDIENT,
       playground: item
     })
+    window.history.replaceState(`ingredient`,`/ingredients/${item._id}`,`/ingredients/${item._id}`);
   }
 
   const [, ref] = useDrag({

@@ -1,6 +1,7 @@
 import styles from './IngridientDetails.module.css'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/reducers';
+import { defaultIngredient } from '../../services/reducers/curentIngredient';
 
 // Еще модальное окно. Ммм фигма Ui
 const IngridientDetails = () => {

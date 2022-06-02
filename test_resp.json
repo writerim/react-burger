@@ -1,0 +1,9 @@
+{
+    "success": true,
+    "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyN2MwYzk0ZmE3NDdlMDAxYmQ0Nzk0MSIsImlhdCI6MTY1MjQ3OTg2NCwiZXhwIjoxNjUyNDgxMDY0fQ.gtrRfD9fDRdMUYcrs34W8VbjA8UwpzgZu6g_P3hWo9w",
+    "refreshToken": "ac6bb0a33979f76b4deafecf59571bb3357e4096c9c977ec263fa26379ae7914dc3780c4cb4a6012",
+    "user": {
+        "email": "ivanov.s@citilink.ru",
+        "name": "Valya"
+    }
+}
