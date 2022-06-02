@@ -15,8 +15,6 @@ import { getIngredientsData } from '../../services/ingredients';
 import { useEffect } from 'react';
 import { TestPermission } from '../../pages/TestPermission';
 
-
-
 function App() {
 
   const dispatch = useDispatch()
