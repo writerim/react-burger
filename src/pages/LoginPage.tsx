@@ -20,6 +20,9 @@ const LoginPage = () => {
   const { isLoggedIn } = useSelector((store: RootState) => store.auth);
 
   const redirect = () => {
+    if(!from){
+      navigate('/profile')
+    }
     if(isLoggedIn) navigate(from)
   };
 

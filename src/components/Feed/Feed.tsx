@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { RootState } from "../../services/reducers";
 import styles from './Feed.module.css';
 
@@ -7,6 +8,8 @@ import styles from './Feed.module.css';
 const FeedInfo = () => {
 
     const { data } = useSelector((state:RootState) => state.ws);
+
+    // const location = useLocation()
 
     const orders: { created:string[], pending:string[], done:string[] } = useMemo(() => {
         let orders: { created:string[], pending:string[], done:string[] } = { created: [], pending: [], done: [] };

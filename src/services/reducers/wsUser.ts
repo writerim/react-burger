@@ -1,3 +1,4 @@
+import { WS_CONNECTION_START_USER } from './../actions/wsUser';
 import { InitialSocketStateType } from "../../types/wsData";
 import { WsActionUserType } from "../../types/wsUser";
 import { WS_CONNECTION_CLOSED_USER, WS_CONNECTION_ERROR_USER, WS_CONNECTION_SUCCESS_USER, WS_GET_MESSAGE_USER } from "../actions/wsUser";

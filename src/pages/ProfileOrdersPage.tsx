@@ -17,7 +17,9 @@ export const ProfileOrdersPage = () => {
     };
   }, [dispatch]);
 
-  const { orders } = useSelector((state:RootState) => state.wsUser.data);
+  const { orders } = useSelector((state:RootState) => {
+    console.log(state.wsUser)
+    return state.wsUser.data});
   console.log(orders)
 
   return (

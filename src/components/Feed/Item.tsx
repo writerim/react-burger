@@ -22,7 +22,7 @@ const FeedItem = ({ order } :FeedItemInterface) => {
 
     return (
         <>
-            <Link className={styles.link} to={{ pathname: pathName }} >
+            <Link className={styles.link} to={{ pathname: pathName}} state={{ background: location }} >
                 <div className={styles.item}>
                     <div className={styles.header}>
                         <p className="text text_type_digits-default">#{order.number}</p>
