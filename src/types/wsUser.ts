@@ -9,6 +9,15 @@ export type WsDataType = {
   totalToday: number;
 };
 
+export const wsActionsUser = {
+  wsInit: WS_CONNECTION_START_USER,
+  wsSendMessage: WS_SEND_MESSAGE_USER,
+  onOpen: WS_CONNECTION_SUCCESS_USER,
+  onClose: WS_CONNECTION_CLOSED_USER,
+  onError: WS_CONNECTION_ERROR_USER,
+  onMessage: WS_GET_MESSAGE_USER,
+};
+
 
 export type InitialSocketStateType = {
   wsConnected: boolean;

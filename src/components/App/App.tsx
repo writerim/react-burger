@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import { TestPermission } from '../../pages/TestPermission';
 import FeedDetails from '../Feed/Detail';
 import Modal from '../Modal/Modal';
+import { ProfileOrdersPage } from '../../pages/ProfileOrdersPage';
 
 function App() {
 
@@ -50,6 +51,11 @@ function App() {
               <Modal title="sds" setShow={returnFromModal}>
                 <FeedDetails isProfile={false}  />
               </Modal>
+            </ProtectedRoute>
+          } />
+          <Route path="/profile/orders" element={
+            <ProtectedRoute>
+              <ProfileOrdersPage />
             </ProtectedRoute>
           } />
           <Route path="/profile/orders/:id" element={
