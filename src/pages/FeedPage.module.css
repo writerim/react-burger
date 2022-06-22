@@ -1,0 +1,18 @@
+main {
+    width:1240px;
+    margin:0 auto;
+    text-align:left;
+  }
+  
+  .conteiner {
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;  
+  }
+  
+  .item {
+    width:584px;
+    max-height:700px;
+    overflow:auto;
+  }
+  

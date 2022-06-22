@@ -14,10 +14,15 @@ import { useDispatch } from 'react-redux';
 import { getIngredientsData } from '../../services/ingredients';
 import { useEffect } from 'react';
 import { TestPermission } from '../../pages/TestPermission';
+import FeedDetails from '../Feed/Detail';
+import Modal from '../Modal/Modal';
 
 function App() {
 
   const dispatch = useDispatch()
+  const returnFromModal = () => {
+    console.log(111);
+  };
 
   useEffect(() => {
     dispatch(getIngredientsData())
@@ -38,6 +43,13 @@ function App() {
           <Route path="/profile" element={
             <ProtectedRoute>
               <ProfilePage />
+            </ProtectedRoute>
+          } />
+          <Route path="/feed/:id" element={
+            <ProtectedRoute>
+              <Modal title="sds" setShow={returnFromModal}>
+                <FeedDetails isProfile={false}  />
+              </Modal>
             </ProtectedRoute>
           } />
           <Route path="/profile/orders/:id" element={
