@@ -17,13 +17,11 @@ import { TestPermission } from '../../pages/TestPermission';
 import FeedDetails from '../Feed/Detail';
 import Modal from '../Modal/Modal';
 import { ProfileOrdersPage } from '../../pages/ProfileOrdersPage';
+import { FeedPage } from '../../pages/FeedPage';
 
 function App() {
 
   const dispatch = useDispatch()
-  const returnFromModal = () => {
-    console.log(111);
-  };
 
   useEffect(() => {
     dispatch(getIngredientsData())
@@ -46,11 +44,14 @@ function App() {
               <ProfilePage />
             </ProtectedRoute>
           } />
+          <Route path="/feed" element={
+            <ProtectedRoute>
+                <FeedPage/>
+            </ProtectedRoute>
+          } />
           <Route path="/feed/:id" element={
             <ProtectedRoute>
-              <Modal title="sds" setShow={returnFromModal}>
                 <FeedDetails isProfile={false}  />
-              </Modal>
             </ProtectedRoute>
           } />
           <Route path="/profile/orders" element={
@@ -60,7 +61,7 @@ function App() {
           } />
           <Route path="/profile/orders/:id" element={
             <ProtectedRoute>
-              <ProfileOrderByPage />
+              <FeedDetails isProfile={true}  />
             </ProtectedRoute>
           } />
           <Route path="/test_permission" element={

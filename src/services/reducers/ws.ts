@@ -9,10 +9,8 @@ const InitialSocketState = {
 };
 
 export const wsReducer = (state:InitialSocketStateType = InitialSocketState, action: WsActions): InitialSocketStateType => {
-  console.log(action.type)
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
-      console.log("CONNECT")
       return {
         ...state,
         wsConnected: true,

@@ -18,6 +18,7 @@ export const ProfileOrdersPage = () => {
   }, [dispatch]);
 
   const { orders } = useSelector((state:RootState) => state.wsUser.data);
+  console.log(orders)
 
   return (
     <div>

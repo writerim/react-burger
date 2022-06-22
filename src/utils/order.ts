@@ -28,3 +28,4 @@ export const getOrderStatusI18n = (status:string) =>{
     }
     return 'Отменён'
 }
+

@@ -15,8 +15,8 @@ export const WS_URL_ALL = 'wss://norma.nomoreparties.space/orders/all';
 export const WS_URL_OWNER = 'wss://norma.nomoreparties.space/orders';
 
 const middleware = applyMiddleware(thunk,
-  socketUserMiddleware(WS_URL_ALL, wsActionsUser, true),
-  socketMiddleware(WS_URL_OWNER, wsActions, false),
+  socketMiddleware(WS_URL_ALL, wsActions, false),
+  socketUserMiddleware(WS_URL_OWNER, wsActionsUser, true),
   );
 const store = createStore(reducer, middleware)
 

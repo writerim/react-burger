@@ -10,7 +10,11 @@ interface ModalOverlayPropsInterface {
 const ModalOverlay = ({ setShow }: ModalOverlayPropsInterface) => {
 
   const closeModal = () => {
-    setShow(false)
+    if( typeof setShow === 'function' ){
+      setShow(false)
+    }else{
+
+    }
   }
 
   return (
