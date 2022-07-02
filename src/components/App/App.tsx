@@ -44,12 +44,10 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/feed" element={
-                <FeedPage/>
+            <FeedPage />
           } />
           <Route path="/feed/:id" element={
-            <ProtectedRoute>
-                <FeedDetails isProfile={false}  />
-            </ProtectedRoute>
+            <FeedDetails isProfile={false} />
           } />
           <Route path="/profile/orders" element={
             <ProtectedRoute>
@@ -58,7 +56,7 @@ function App() {
           } />
           <Route path="/profile/orders/:id" element={
             <ProtectedRoute>
-              <FeedDetails isProfile={true}  />
+              <FeedDetails isProfile={true} />
             </ProtectedRoute>
           } />
           <Route path="/test_permission" element={
