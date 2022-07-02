@@ -38,6 +38,6 @@ export function getCookie(name:string) {
   export const getTokens = (res: { accessToken:string, refreshToken:string, success:boolean} ) => {
     const accessToken = res.accessToken.split('Bearer ')[1];
     const refreshToken = res.refreshToken;
-    setCookie('token', accessToken);
+    setCookie('token', accessToken , {secure: true, sameSite: 'none'});
     localStorage.setItem('refreshToken', refreshToken);
   };

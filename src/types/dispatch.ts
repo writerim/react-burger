@@ -30,7 +30,7 @@ export type AppDispatchActionsType =
 
 
 export type AppThunk<TReturn = void> = ActionCreator<
-    ThunkAction<TReturn, Action, RootState, AppDispatchActionsType>
+    ThunkAction<TReturn, Action, RootState, any>
 >;
 
 

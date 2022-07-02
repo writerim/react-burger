@@ -3,7 +3,7 @@ import { AppDispatch } from "../types/dispatch";
 import { UserInterface } from "../interfaces/userInterface";
 import { checkResponse } from "../utils/api";
 import { deleteCookie, getCookie, getTokens } from "../utils/cookie";
-import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST,  USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
+import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
 import { URL_AUTH_TOKEN, URL_AUTH_USER, URL_FORGOT_PASSWORD, URL_LOGIN_USER, URL_LOGOUT_USER, URL_REGISTR_USER, URL_RESET_PASSWORD } from "./consts";
 
 
@@ -61,11 +61,6 @@ export interface ForgotPasswordInterface {
     email: string
 }
 
-type ForgotPasswordAction = {
-    email?: string
-    type?: string
-}
-
 
 export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect: () => void) => {
     return async function (dispatch: AppDispatch) {
@@ -104,17 +99,13 @@ export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect: () 
 };
 
 
-type ResetPasswordAction = {
-    type: string
-}
-
 interface ResetPasswordInterface {
     token: string
     password: string
 }
 
 export const resetPassword = ({ token, password }: ResetPasswordInterface, redirect: () => void) => {
-    return async function (dispatch:AppDispatch) {
+    return async function (dispatch: AppDispatch) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST,
             user: {}
@@ -154,16 +145,6 @@ export const resetPassword = ({ token, password }: ResetPasswordInterface, redir
 interface LoginUserRequest {
     email: string
     password: string
-}
-
-interface LoginUserResp {
-    success: boolean
-    accessToken: string
-    refreshToken: string
-    user: {
-        email: string
-        name: string
-    }
 }
 
 
@@ -210,7 +191,7 @@ export const login = ({ email, password }: LoginUserRequest, redirect: () => voi
 
 
 
-export const logout = (redirect:NavigateFunction) => {
+export const logout = (redirect: NavigateFunction) => {
     if (!localStorage.refreshToken) {
         redirect("/")
     }
@@ -360,7 +341,6 @@ export const getAccessToken = () => {
                         user: {}
                     })
                 }
-
             });
     };
 };
@@ -403,7 +383,7 @@ export const updateAuth = (form: { name: string, email: string, password: string
             })
             .catch((e) => {
                 if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-                    getAccessToken();
+                    dispatch(getAccessToken());
                 } else dispatch({
                     type: USER_FAILED,
                     user: {}
