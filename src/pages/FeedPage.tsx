@@ -1,18 +1,17 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../services/actions/ws";
 import styles from "./FeedPage.module.css"
-import { RootState } from "../services/reducers";
 import FeedInfo from "../components/Feed/Feed";
 import FeedItem from "../components/Feed/Item";
 import { OrderInterface } from "../interfaces/order";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "../types/dispatch";
+import { AppDispatch, useDispatch } from "../types/dispatch";
+import { useSelector } from "../types/selector";
 
 export const FeedPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { orders } = useSelector((state:RootState) => state.ws.data)
+  const { orders } = useSelector(state => state.ws.data)
   
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START });

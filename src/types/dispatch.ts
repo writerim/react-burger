@@ -6,15 +6,15 @@ import { CurentIngredientsAction } from './curentIngredients';
 import { ActionUser } from './authEtc';
 import { ActiveTabAction } from './activeTab';
 import { Dispatch } from 'react';
-import { TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook } from 'react-redux';
 import { RootState } from '../services/reducers';
 import { IngredientsAction } from './ingredients';
 import { SelectedIngredientsAction } from './selectedIngredients';
 import { WsActionUserType } from './wsUser';
 import { ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { useDispatch as dispatchHook} from 'react-redux';
 
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+
 
 
 export type AppDispatchActionsType =

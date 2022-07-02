@@ -1,18 +1,16 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
 import { getAccessToken, getAuth, login, updateAuth } from "../services/authEtc";
-import { RootState } from "../services/reducers";
-import { AppDispatch } from "../types/dispatch";
+import { AppDispatch, useDispatch } from "../types/dispatch";
+import { useSelector } from "../types/selector";
 import styles from "./ProfilePage.module.css"
 
 const ProfilePage = () => {
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
-  const { email, name } = useSelector((store: RootState) => store.auth);
+  const { email, name } = useSelector(store => store.auth);
   const [isChanged, setIsChanged] = useState(false);
 
   const [form, setValue] = useState({

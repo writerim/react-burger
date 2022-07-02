@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getOrderDate, getOrderStatusI18n } from "../../utils/order";
-import { RootState } from "../../services/reducers";
 import styles from './Feed.module.css';
 import Modal from "../Modal/Modal";
 import { OrderInterface } from "../../interfaces/order";
 import { useEffect } from "react";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/ws";
 import { AppDispatch } from "../..";
+import { useSelector } from "../../types/selector";
+import { useDispatch } from "../../types/dispatch";
 
 
 interface FeedDetailsInterface {
@@ -21,7 +21,7 @@ interface FeedDetailBodyProps {
 }
 
 const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
-    const items = useSelector((state: RootState) => state.ingredients)
+    const items = useSelector(state => state.ingredients)
     const date = (order) ? getOrderDate(order.createdAt) : null;
     let total = 0;
     return (
@@ -71,14 +71,9 @@ const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
 const FeedDetails = ({ isProfile }: FeedDetailsInterface) => {
     const navigate = useNavigate()
     const location = useLocation()
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const { id } = useParams();
-    const { orders } = useSelector(
-        (state: RootState) => {
-            console.log(state.ws.data)
-            return state.ws.data
-        }
-    );
+    const { orders } = useSelector( state => state.ws.data );
 
     useEffect(() => {
         dispatch({ type: WS_CONNECTION_START });

@@ -1,11 +1,10 @@
 import {  useCallback } from 'react';
 import {  DropTargetMonitor, useDrop, XYCoord } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
 import { ADD_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
-import { RootState } from '../../../services/reducers';
 import { IngredientsSorted, uuid } from '../../../services/reducers/selectedIngredients';
-import { AppDispatch } from '../../../types/dispatch';
+import { useDispatch } from '../../../types/dispatch';
+import { useSelector } from '../../../types/selector';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngredients.module.css'
 
@@ -23,9 +22,9 @@ const ItemList = (props: onSortHandlerProps) => {
   // А потом и нижний
   // Все это прибиваем на гвозди
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch()
 
-  const selectedIngredients = useSelector((store: RootState) => {
+  const selectedIngredients = useSelector(store => {
     return store.selectedIngredients
   })
 

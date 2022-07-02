@@ -1,11 +1,10 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { useDrag } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
 import { SET_CURENT_INGREDIENT } from '../../../services/actions/curentIngredient';
-import { RootState } from '../../../services/reducers';
-import { AppDispatch } from '../../../types/dispatch';
+import { AppDispatch, useDispatch } from '../../../types/dispatch';
+import { useSelector } from '../../../types/selector';
 import IngridientDetails from '../../IngridientDetails/IngridientDetails';
 import Modal from '../../Modal/Modal';
 import styles from './CardItem.module.css';
@@ -15,9 +14,9 @@ const CardItem = (props: IngredientInterface) => {
 
   const [isShowDetail, setIsShowDetail] = React.useState(false)
 
-  const selectedIngredients = useSelector((store: RootState) => store.curentIngredient)
+  const selectedIngredients = useSelector(store => store.curentIngredient)
 
-  const countUsedIngredient = useSelector((state: RootState) => {
+  const countUsedIngredient = useSelector(state => {
     let filter = state.selectedIngredients.filter(ingredientSelected => ingredientSelected.element._id === props._id)
     if (props.type === 'bun') {
       return filter.length > 0 ? 2 : 0
@@ -25,7 +24,7 @@ const CardItem = (props: IngredientInterface) => {
     return filter.length
   })
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch()
 
   const openModal = (item: IngredientInterface) => {
     setIsShowDetail(!isShowDetail)

@@ -1,13 +1,11 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { RootState } from "../../services/reducers";
+import { useSelector } from "../../types/selector";
 import styles from './Feed.module.css';
 
 
 const FeedInfo = () => {
 
-    const { data } = useSelector((state:RootState) => state.ws);
+    const { data } = useSelector(state => state.ws);
 
     // const location = useLocation()
 

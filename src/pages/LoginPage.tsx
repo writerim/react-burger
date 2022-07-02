@@ -1,10 +1,9 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { Link, useLocation, useNavigate, useNavigationType } from "react-router-dom"
 import { login } from "../services/authEtc"
-import { RootState } from "../services/reducers"
-import { AppDispatch } from "../types/dispatch"
+import { AppDispatch, useDispatch } from "../types/dispatch"
+import { useSelector } from "../types/selector"
 import styles from "./LoginPage.module.css"
 
 interface Pathname {
@@ -14,11 +13,11 @@ interface Pathname {
 
 const LoginPage = () => {
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation()
   const { from } = location.state as any || location.pathname ||"/"
-  const { isLoggedIn } = useSelector((store: RootState) => store.auth);
+  const { isLoggedIn } = useSelector(store => store.auth);
 
   const redirect = () => {
     if(!from){
@@ -27,7 +26,7 @@ const LoginPage = () => {
     if(isLoggedIn) navigate(from)
   };
 
-  const { email, password } = useSelector((store: RootState) => store.auth);
+  const { email, password } = useSelector(store => store.auth);
 
   const [form, setValue] = useState({ email: email ?? '' , password : password ?? '' })
   const onChange = (e:{target: HTMLInputElement}) => {

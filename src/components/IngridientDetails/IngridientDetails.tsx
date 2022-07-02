@@ -1,12 +1,10 @@
+import { useSelector } from '../../types/selector';
 import styles from './IngridientDetails.module.css'
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services/reducers';
-import { defaultIngredient } from '../../services/reducers/curentIngredient';
 
 // Еще модальное окно. Ммм фигма Ui
 const IngridientDetails = () => {
 
-  const selectedIngredients = useSelector((store: RootState) => store.curentIngredient)
+  const selectedIngredients = useSelector(store => store.curentIngredient)
 
   if(!selectedIngredients){
     return <></>

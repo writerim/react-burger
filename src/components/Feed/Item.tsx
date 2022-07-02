@@ -1,8 +1,7 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { OrderInterface } from "../../interfaces/order";
-import { RootState } from "../../services/reducers";
+import { useSelector } from "../../types/selector";
 import { getOrderDate, getOrderStatusI18n } from "../../utils/order";
 import styles from './Feed.module.css';
 
@@ -15,7 +14,7 @@ const FeedItem = ({ order } :FeedItemInterface) => {
     const pathName = (location.pathname === '/feed') ? `/feed/${order.number}` : `/profile/orders/${order.number}`;
     const date = getOrderDate(order.createdAt);
 
-    const items = useSelector((state: RootState) => state.ingredients);
+    const items = useSelector(state => state.ingredients);
 
 
     let price = 0;
