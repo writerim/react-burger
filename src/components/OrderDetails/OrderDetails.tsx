@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredientsData } from '../../services/orderDetail';
 import { RootState } from '../../services/reducers';
+import { AppDispatch } from '../../types/dispatch';
 import styles from './OrderDetails.module.css';
 
 
 const OrderDetails = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   let orderDetailResult = useSelector((state: RootState) => state.order)
   let selectedIngredients = useSelector((state: RootState) => state.selectedIngredients)

@@ -8,6 +8,10 @@ const IngridientDetails = () => {
 
   const selectedIngredients = useSelector((store: RootState) => store.curentIngredient)
 
+  if(!selectedIngredients){
+    return <></>
+  }
+
   return (
     <>
       <img src={selectedIngredients.image} className={styles.Img} alt="" />

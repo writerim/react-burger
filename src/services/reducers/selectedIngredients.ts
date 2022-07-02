@@ -1,5 +1,6 @@
 import { GET_SELECTED_INGREDIENTS, ADD_SELECTED_INGREDIENT, DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../actions/selectedIngredients';
 import { IngredientInterface } from '../../interfaces/inredientInterface';
+import { SelectedIngredientsAction } from '../../types/selectedIngredients';
 export interface IngredientsSorted {
     // Сам элемент
     element: IngredientInterface;
@@ -7,7 +8,7 @@ export interface IngredientsSorted {
     uuid: string;
     // Индекс в сортировке
     index: number;
-    ref : HTMLDivElement
+    ref? : HTMLDivElement
 }
 
 const defaultIngredients: IngredientsSorted[] = []
@@ -19,15 +20,8 @@ export function uuid() {
     });
 }
 
-type Action = {
-    type: string
-    playground: IngredientsSorted
-    uuid: string
-    index: number
-}
 
-
-export const selectedIngredientsReducer = (state = defaultIngredients, action: Action) => {
+export const selectedIngredientsReducer = (state = defaultIngredients, action: SelectedIngredientsAction) : IngredientsSorted[]  => {
     switch (action.type) {
         case DROP_SELECTED_INGREDIENT:
             let removeIndex = -1
@@ -58,14 +52,17 @@ export const selectedIngredientsReducer = (state = defaultIngredients, action: A
         case ADD_SELECTED_INGREDIENT:
             // Если пришла булка то надо удалить предыдущую
             let removeBunIndex = -1
-            if (action.playground.element.type === 'bun') {
-                state.forEach((ingredient, index) => {
-                    if (ingredient.element.type === 'bun') {
-                        removeBunIndex = index
-                    }
-                })
+            if(action.playground){
+                if (action.playground.element.type === 'bun') {
+                    state.forEach((ingredient, index) => {
+                        if (ingredient.element.type === 'bun') {
+                            removeBunIndex = index
+                        }
+                    })
+                }
+                return [...state.filter((_, index) => removeBunIndex !== index), action.playground]
             }
-            return [...state.filter((_, index) => removeBunIndex !== index), action.playground]
+            return []
         case GET_SELECTED_INGREDIENTS:
             return state
         default:

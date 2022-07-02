@@ -21,6 +21,7 @@ const middleware = applyMiddleware(thunk,
 const store = createStore(reducer, middleware)
 
 
+export type AppDispatch = typeof store.dispatch
 
 ReactDOM.render(
   <React.StrictMode>

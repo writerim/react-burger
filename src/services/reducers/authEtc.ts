@@ -1,4 +1,4 @@
-import { UserInterface } from '../../interfaces/userInterface';
+import { ActionUser } from '../../types/authEtc';
 import {
     FORGOT_PASSWORD_REQUEST,
     FORGOT_PASSWORD_SUCCESS,
@@ -52,7 +52,6 @@ const initialState = {
     tokenFailed: false,
 };
 
-export type ActionUser = { type: string; user: UserInterface }
 
 
 

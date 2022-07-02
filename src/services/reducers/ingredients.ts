@@ -1,14 +1,11 @@
 import { IngredientInterface } from '../../interfaces/inredientInterface';
+import { IngredientsAction } from '../../types/ingredients';
 import { SET_INGRIDIENTS } from './../actions/ingredients';
 
 const defaultIngredients: IngredientInterface[] = []
 
-type Action = {
-    type: string
-    playground: IngredientInterface[]
-}
 
-export const ingredientsReducer = (state: IngredientInterface[] = defaultIngredients, action: Action) => {
+export const ingredientsReducer = (state: IngredientInterface[] = defaultIngredients, action: IngredientsAction) => {
     switch (action.type) {
         case SET_INGRIDIENTS:
             return action.playground

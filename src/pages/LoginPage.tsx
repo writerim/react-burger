@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useLocation, useNavigate, useNavigationType } from "react-router-dom"
 import { login } from "../services/authEtc"
 import { RootState } from "../services/reducers"
+import { AppDispatch } from "../types/dispatch"
 import styles from "./LoginPage.module.css"
 
 interface Pathname {
@@ -13,7 +14,7 @@ interface Pathname {
 
 const LoginPage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const location = useLocation()
   const { from } = location.state as any || location.pathname ||"/"

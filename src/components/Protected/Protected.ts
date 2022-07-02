@@ -1,15 +1,15 @@
 import { ReactElement, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getAccessToken, getAuth } from '../../services/authEtc';
-import { RootState } from '../../services/reducers';
+import { getAccessToken } from '../../services/authEtc';
+import { AppDispatch } from '../../types/dispatch';
 
 interface ProtectedRouteArs {
   children: ReactElement | JSX.Element; // Что будет в теле модального окна
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteArs) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const location = useLocation();
   const refreshToken = localStorage.refreshToken;

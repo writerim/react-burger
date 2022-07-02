@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../services/actions/ws";
 import styles from "./FeedPage.module.css"
 import { RootState } from "../services/reducers";
 import FeedInfo from "../components/Feed/Feed";
-import { WsOrderDataType } from "../types/wsData";
 import FeedItem from "../components/Feed/Item";
 import { OrderInterface } from "../interfaces/order";
-import Modal from "../components/Modal/Modal";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../types/dispatch";
 
 export const FeedPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate()
   const { orders } = useSelector((state:RootState) => state.ws.data)
   
@@ -27,8 +26,8 @@ export const FeedPage = () => {
   }
 
   return  (
-    <Modal title="Лента заказов" setShow={setIsShowFeed}>
       <main>
+        <h1>"Лента заказов"</h1>
         <div className={styles.conteiner + ' mt-5'}>
           <section className={styles.item}>	
           	{orders && orders.map((order : OrderInterface, index : number) => <FeedItem key={order._id} order={order} />)}
@@ -38,6 +37,5 @@ export const FeedPage = () => {
           </section>
         </div>
       </main>
-    </Modal>
   )
 };

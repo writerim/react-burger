@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
 import { getAccessToken, getAuth, login, updateAuth } from "../services/authEtc";
 import { RootState } from "../services/reducers";
+import { AppDispatch } from "../types/dispatch";
 import styles from "./ProfilePage.module.css"
 
 const ProfilePage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { email, name } = useSelector((store: RootState) => store.auth);
   const [isChanged, setIsChanged] = useState(false);

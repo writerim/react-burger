@@ -4,11 +4,12 @@ import FeedItem from "../components/Feed/Item";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu";
 import { WS_CONNECTION_CLOSED_USER, WS_CONNECTION_START_USER } from "../services/actions/wsUser";
 import { RootState } from "../services/reducers";
+import { AppDispatch } from "../types/dispatch";
 import styles from "./Profile.module.css";
 
 export const ProfileOrdersPage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START_USER });

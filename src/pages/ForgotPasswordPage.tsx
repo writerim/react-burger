@@ -3,11 +3,12 @@ import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { forgotPassword } from "../services/authEtc";
+import { AppDispatch } from "../types/dispatch";
 import styles from "./ForgotPasswordPage.module.css"
 
 const ForgotPasswordPage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate()
 
   const [form, setValue] = useState({ email: '' })

@@ -2,11 +2,10 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
 import { SET_CURENT_INGREDIENT } from '../../../services/actions/curentIngredient';
 import { RootState } from '../../../services/reducers';
-import { uuid } from '../../../services/reducers/selectedIngredients';
+import { AppDispatch } from '../../../types/dispatch';
 import IngridientDetails from '../../IngridientDetails/IngridientDetails';
 import Modal from '../../Modal/Modal';
 import styles from './CardItem.module.css';
@@ -26,7 +25,7 @@ const CardItem = (props: IngredientInterface) => {
     return filter.length
   })
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const openModal = (item: IngredientInterface) => {
     setIsShowDetail(!isShowDetail)

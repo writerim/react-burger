@@ -1,18 +1,16 @@
-import { Dispatch } from "react";
-import { useNavigate } from "react-router-dom";
-import { Action } from "redux";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { AppDispatch } from "../types/dispatch";
 import { UserInterface } from "../interfaces/userInterface";
 import { checkResponse } from "../utils/api";
 import { deleteCookie, getCookie, getTokens } from "../utils/cookie";
-import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SET_AUTH_STATUS, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
+import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST,  USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
 import { URL_AUTH_TOKEN, URL_AUTH_USER, URL_FORGOT_PASSWORD, URL_LOGIN_USER, URL_LOGOUT_USER, URL_REGISTR_USER, URL_RESET_PASSWORD } from "./consts";
-import { ActionUser } from "./reducers/authEtc";
 
 
 
 
 export const getAuth = () => {
-    return function (dispatch: Dispatch<ActionUser>) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_REQUEST,
             user: {}
@@ -70,9 +68,10 @@ type ForgotPasswordAction = {
 
 
 export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect: () => void) => {
-    return async function (dispatch: Dispatch<ForgotPasswordAction>) {
+    return async function (dispatch: AppDispatch) {
         dispatch({
-            type: FORGOT_PASSWORD_REQUEST
+            type: FORGOT_PASSWORD_REQUEST,
+            user: {}
         });
         await fetch(URL_FORGOT_PASSWORD, {
             method: 'POST',
@@ -89,13 +88,15 @@ export const forgotPassword = ({ email }: ForgotPasswordInterface, redirect: () 
             .then(checkResponse)
             .then(req => {
                 dispatch({
-                    type: FORGOT_PASSWORD_SUCCESS
+                    type: FORGOT_PASSWORD_SUCCESS,
+                    user: {}
                 });
                 redirect();
             })
             .catch(e => {
                 dispatch({
-                    type: FORGOT_PASSWORD_FAILED
+                    type: FORGOT_PASSWORD_FAILED,
+                    user: {}
                 })
             })
     }
@@ -113,9 +114,10 @@ interface ResetPasswordInterface {
 }
 
 export const resetPassword = ({ token, password }: ResetPasswordInterface, redirect: () => void) => {
-    return async function (dispatch: Dispatch<ResetPasswordAction>) {
+    return async function (dispatch:AppDispatch) {
         dispatch({
-            type: FORGOT_PASSWORD_REQUEST
+            type: FORGOT_PASSWORD_REQUEST,
+            user: {}
         });
         await fetch(URL_RESET_PASSWORD, {
             body: JSON.stringify({ token, password }),
@@ -128,18 +130,21 @@ export const resetPassword = ({ token, password }: ResetPasswordInterface, redir
             .then(res => {
                 if (res && res.success) {
                     dispatch({
-                        type: FORGOT_PASSWORD_SUCCESS
+                        type: FORGOT_PASSWORD_SUCCESS,
+                        user: {}
                     });
                     redirect();
                 } else {
                     dispatch({
-                        type: FORGOT_PASSWORD_FAILED
+                        type: FORGOT_PASSWORD_FAILED,
+                        user: {}
                     });
                 }
             })
             .catch(e => {
                 dispatch({
-                    type: FORGOT_PASSWORD_FAILED
+                    type: FORGOT_PASSWORD_FAILED,
+                    user: {}
                 })
             })
     }
@@ -163,7 +168,7 @@ interface LoginUserResp {
 
 
 export const login = ({ email, password }: LoginUserRequest, redirect: () => void) => {
-    return function (dispatch: Dispatch<ActionUser>) {
+    return function (dispatch: AppDispatch) {
         fetch(URL_LOGIN_USER, {
             method: 'POST',
             mode: 'cors',
@@ -205,13 +210,14 @@ export const login = ({ email, password }: LoginUserRequest, redirect: () => voi
 
 
 
-export const logout = (redirect: () => void) => {
+export const logout = (redirect:NavigateFunction) => {
     if (!localStorage.refreshToken) {
-        redirect()
+        redirect("/")
     }
-    return function (dispatch: Dispatch<Action>) {
+    return function (dispatch: AppDispatch) {
         dispatch({
-            type: LOGOUT_REQUEST
+            type: LOGOUT_REQUEST,
+            user: {}
         });
         fetch(URL_LOGOUT_USER, {
             method: 'POST',
@@ -231,17 +237,20 @@ export const logout = (redirect: () => void) => {
                 if (res && res.success) {
                     dispatch({
                         type: LOGOUT_SUCCESS,
+                        user: {}
                     });
-                    redirect();
+                    redirect("/");
                 } else {
                     dispatch({
-                        type: LOGOUT_FAILED
+                        type: LOGOUT_FAILED,
+                        user: {}
                     });
                 }
             })
             .catch(() =>
                 dispatch({
-                    type: LOGOUT_FAILED
+                    type: LOGOUT_FAILED,
+                    user: {}
                 })
             );
     };
@@ -263,7 +272,7 @@ interface RegisterRequest {
 
 
 export const register = ({ name, email, password }: RegisterUserRequest, redirect: () => void) => {
-    return function (dispatch: Dispatch<ActionUser>) {
+    return function (dispatch: AppDispatch) {
         fetch(URL_REGISTR_USER, {
             method: 'POST',
             mode: 'cors',
@@ -304,7 +313,7 @@ export const register = ({ name, email, password }: RegisterUserRequest, redirec
 
 // Обновление токена
 export const getAccessToken = () => {
-    return async function (dispatch: Dispatch<ActionUser>) {
+    return async function (dispatch: AppDispatch) {
         dispatch({ type: TOKEN_REQUEST, user: {} });
         return await fetch(URL_AUTH_TOKEN, {
             method: 'POST',
@@ -360,7 +369,7 @@ export const getAccessToken = () => {
 
 
 export const updateAuth = (form: { name: string, email: string, password: string }) => {
-    return function (dispatch: Dispatch<ActionUser>) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_UPDATE_REQUEST,
             user: {}

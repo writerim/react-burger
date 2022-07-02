@@ -3,12 +3,13 @@ import { SyntheticEvent, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { login, register } from "../services/authEtc"
+import { AppDispatch } from "../types/dispatch"
 import styles from "./RegisterPage.module.css"
 
 
 const RegisterPage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
 

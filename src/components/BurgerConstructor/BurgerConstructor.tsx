@@ -7,14 +7,14 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services/reducers';
 import { IngredientsSorted } from '../../services/reducers/selectedIngredients';
-import { IngredientInterface } from '../../interfaces/inredientInterface';
 import { SET_SORT_INDEX_ELEMENT } from '../../services/actions/selectedIngredients';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AppDispatch } from '../../types/dispatch';
 
 
 const BurgerConstructor = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
   const location = useLocation()
 

@@ -8,6 +8,7 @@ import Modal from "../Modal/Modal";
 import { OrderInterface } from "../../interfaces/order";
 import { useEffect } from "react";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/ws";
+import { AppDispatch } from "../..";
 
 
 interface FeedDetailsInterface {
@@ -70,7 +71,7 @@ const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
 const FeedDetails = ({ isProfile }: FeedDetailsInterface) => {
     const navigate = useNavigate()
     const location = useLocation()
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
     const { orders } = useSelector(
         (state: RootState) => {

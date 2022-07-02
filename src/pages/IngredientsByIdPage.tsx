@@ -1,14 +1,15 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import IngridientDetails from "../components/IngridientDetails/IngridientDetails";
 import { SET_CURENT_INGREDIENT } from "../services/actions/curentIngredient";
 import { RootState } from "../services/reducers";
+import { AppDispatch } from "../types/dispatch";
 import styles from "./IngredientsByIdPage.module.css"
 
 const IngredientsByIdPage = (): JSX.Element => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const allIngredients = useSelector((store: RootState) => store.ingredients)
 

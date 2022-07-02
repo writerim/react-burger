@@ -1,6 +1,6 @@
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
-import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from '../../pages/LoginPage';
 import RegisterPage from '../../pages/RegisterPage';
 import ForgotPasswordPage from '../../pages/ForgotPasswordPage';
@@ -9,19 +9,18 @@ import ProfilePage from '../../pages/ProfilePage';
 import IngredientsByIdPage from '../../pages/IngredientsByIdPage';
 import Home from '../../pages/Home';
 import { ProtectedRoute } from '../Protected/Protected';
-import { ProfileOrderByPage } from '../../pages/ProfileOrderByPage';
 import { useDispatch } from 'react-redux';
 import { getIngredientsData } from '../../services/ingredients';
 import { useEffect } from 'react';
 import { TestPermission } from '../../pages/TestPermission';
 import FeedDetails from '../Feed/Detail';
-import Modal from '../Modal/Modal';
 import { ProfileOrdersPage } from '../../pages/ProfileOrdersPage';
 import { FeedPage } from '../../pages/FeedPage';
+import { AppDispatch } from '../../types/dispatch';
 
 function App() {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     dispatch(getIngredientsData())
@@ -45,9 +44,7 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/feed" element={
-            <ProtectedRoute>
                 <FeedPage/>
-            </ProtectedRoute>
           } />
           <Route path="/feed/:id" element={
             <ProtectedRoute>
