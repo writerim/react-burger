@@ -1,15 +1,14 @@
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useState } from "react"
-import { useDispatch } from "react-redux"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { resetPassword } from "../services/authEtc"
-import { AppDispatch } from "../types/dispatch"
+import { useDispatch } from "../types/dispatch"
 import styles from "./ResetPasswordPage.module.css"
 
 
 const ResetPasswordPage = () => {
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const location = useLocation();
 
@@ -29,7 +28,7 @@ const ResetPasswordPage = () => {
 
   const onClickForm = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(resetPassword(form,redirect))
+    resetPassword(form,redirect)
   };
 
   return (

@@ -1,8 +1,7 @@
 import { ReactElement, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAccessToken } from '../../services/authEtc';
-import { AppDispatch } from '../../types/dispatch';
+import { useDispatch } from '../../types/dispatch';
 import { getCookie } from '../../utils/cookie';
 
 interface ProtectedRouteArs {
@@ -10,14 +9,14 @@ interface ProtectedRouteArs {
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteArs) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const refreshToken = localStorage.refreshToken;
   
   useEffect(() => {
     if (!getCookie('token') || !refreshToken) {
-      dispatch(getAccessToken());
+      getAccessToken()
       if (!refreshToken) {
         navigate("/login", {state: { from: location.pathname } });
       }

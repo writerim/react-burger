@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import FeedItem from "../components/Feed/Item";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu";
 import { WS_CONNECTION_CLOSED_USER, WS_CONNECTION_START_USER } from "../services/actions/wsUser";
-import { AppDispatch, useDispatch } from "../types/dispatch";
+import { useDispatch } from "../types/dispatch";
 import { useSelector } from "../types/selector";
 import styles from "./Profile.module.css";
 

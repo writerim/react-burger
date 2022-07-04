@@ -2,7 +2,7 @@ import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer
 import { SyntheticEvent, useState } from "react"
 import { Link, useLocation, useNavigate, useNavigationType } from "react-router-dom"
 import { login } from "../services/authEtc"
-import { AppDispatch, useDispatch } from "../types/dispatch"
+import { useDispatch } from "../types/dispatch"
 import { useSelector } from "../types/selector"
 import styles from "./LoginPage.module.css"
 
@@ -35,7 +35,7 @@ const LoginPage = () => {
 
   const onLogin = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(login({ email: form.email, password: form.password }, redirect));
+    login({ email: form.email, password: form.password }, redirect)
   }
 
   return (

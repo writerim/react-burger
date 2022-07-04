@@ -383,7 +383,7 @@ export const updateAuth = (form: { name: string, email: string, password: string
             })
             .catch((e) => {
                 if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-                    dispatch(getAccessToken());
+                    getAccessToken()
                 } else dispatch({
                     type: USER_FAILED,
                     user: {}

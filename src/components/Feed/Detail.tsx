@@ -6,7 +6,6 @@ import Modal from "../Modal/Modal";
 import { OrderInterface } from "../../interfaces/order";
 import { useEffect } from "react";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/ws";
-import { AppDispatch } from "../..";
 import { useSelector } from "../../types/selector";
 import { useDispatch } from "../../types/dispatch";
 

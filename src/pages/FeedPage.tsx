@@ -5,7 +5,7 @@ import FeedInfo from "../components/Feed/Feed";
 import FeedItem from "../components/Feed/Item";
 import { OrderInterface } from "../interfaces/order";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch, useDispatch } from "../types/dispatch";
+import { useDispatch } from "../types/dispatch";
 import { useSelector } from "../types/selector";
 
 export const FeedPage = () => {

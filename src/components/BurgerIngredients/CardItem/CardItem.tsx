@@ -3,7 +3,7 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
 import { SET_CURENT_INGREDIENT } from '../../../services/actions/curentIngredient';
-import { AppDispatch, useDispatch } from '../../../types/dispatch';
+import { useDispatch } from '../../../types/dispatch';
 import { useSelector } from '../../../types/selector';
 import IngridientDetails from '../../IngridientDetails/IngridientDetails';
 import Modal from '../../Modal/Modal';

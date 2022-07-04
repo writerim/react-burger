@@ -1,10 +1,9 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useCallback } from 'react';
 import { useDrag } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 import { DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
 import { IngredientsSorted } from '../../../services/reducers/selectedIngredients';
-import { AppDispatch } from '../../../types/dispatch';
+import { useDispatch } from '../../../types/dispatch';
 import styles from './ItemIngridient.module.css';
 
 interface ItemProps {
@@ -17,7 +16,7 @@ interface ItemProps {
 
 const Item = ({ ingridient, isLocked, position, index, moveListItem }: ItemProps) => {
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch()
 
   const getName = useCallback((position) => {
     if (position === 'top') {

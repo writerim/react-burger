@@ -4,17 +4,16 @@ import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { useDispatch } from 'react-redux';
 import { IngredientsSorted } from '../../services/reducers/selectedIngredients';
 import { SET_SORT_INDEX_ELEMENT } from '../../services/actions/selectedIngredients';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppDispatch } from '../../types/dispatch';
 import { useSelector } from '../../types/selector';
+import { useDispatch } from '../../types/dispatch';
 
 
 const BurgerConstructor = () => {
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const location = useLocation()
 

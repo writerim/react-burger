@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import IngridientDetails from "../components/IngridientDetails/IngridientDetails";
 import { SET_CURENT_INGREDIENT } from "../services/actions/curentIngredient";
-import { AppDispatch, useDispatch } from "../types/dispatch";
+import { useDispatch } from "../types/dispatch";
 import { useSelector } from "../types/selector";
 import styles from "./IngredientsByIdPage.module.css"
 

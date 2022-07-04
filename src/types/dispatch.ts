@@ -24,13 +24,12 @@ export type AppDispatchActionsType =
     | OrderAction
     | SelectedIngredientsAction
     | WsActions
-    | Function
     | WsActionUserType
     | ActionUser;
 
 
 export type AppThunk<TReturn = void> = ActionCreator<
-    ThunkAction<TReturn, Action, RootState, any>
+    ThunkAction<TReturn, Action, RootState, AppDispatchActionsType>
 >;
 
 

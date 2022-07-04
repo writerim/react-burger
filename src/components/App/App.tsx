@@ -9,21 +9,20 @@ import ProfilePage from '../../pages/ProfilePage';
 import IngredientsByIdPage from '../../pages/IngredientsByIdPage';
 import Home from '../../pages/Home';
 import { ProtectedRoute } from '../Protected/Protected';
-import { useDispatch } from 'react-redux';
 import { getIngredientsData } from '../../services/ingredients';
 import { useEffect } from 'react';
 import { TestPermission } from '../../pages/TestPermission';
 import FeedDetails from '../Feed/Detail';
 import { ProfileOrdersPage } from '../../pages/ProfileOrdersPage';
 import { FeedPage } from '../../pages/FeedPage';
-import { AppDispatch } from '../../types/dispatch';
+import { useDispatch } from '../../types/dispatch';
 
 function App() {
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getIngredientsData())
+    getIngredientsData()
   }, [])
 
   return (

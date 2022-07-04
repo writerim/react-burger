@@ -2,7 +2,7 @@ import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-de
 import { SyntheticEvent, useEffect, useState } from "react";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
 import { getAccessToken, getAuth, login, updateAuth } from "../services/authEtc";
-import { AppDispatch, useDispatch } from "../types/dispatch";
+import { useDispatch } from "../types/dispatch";
 import { useSelector } from "../types/selector";
 import styles from "./ProfilePage.module.css"
 
@@ -35,13 +35,13 @@ const ProfilePage = () => {
 
   const onSave = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(updateAuth(form));
+    updateAuth(form)
   }
 
 
   useEffect(
     () => {
-      dispatch(getAccessToken());
+      getAccessToken()
     },
     [dispatch]
   );
