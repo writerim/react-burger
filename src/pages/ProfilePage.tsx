@@ -1,7 +1,7 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useEffect, useState } from "react";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
-import { getAccessToken, getAuth, login, updateAuth } from "../services/authEtc";
+import { getAccessToken, updateAuth } from "../services/authEtc";
 import { useDispatch } from "../types/dispatch";
 import { useSelector } from "../types/selector";
 import styles from "./ProfilePage.module.css"
@@ -41,7 +41,7 @@ const ProfilePage = () => {
 
   useEffect(
     () => {
-      getAccessToken()
+      getAccessToken(dispatch)
     },
     [dispatch]
   );

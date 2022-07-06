@@ -10,11 +10,12 @@ const OrderDetails = () => {
 
   const dispatch = useDispatch()
 
+
   let orderDetailResult = useSelector(state => state.order)
   let selectedIngredients = useSelector(state => state.selectedIngredients)
 
   useEffect(() => {
-    getIngredientsData(selectedIngredients)
+    getIngredientsData(selectedIngredients,dispatch)
   }, [selectedIngredients])
 
   return (

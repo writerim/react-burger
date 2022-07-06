@@ -9,7 +9,7 @@ import { URL_AUTH_TOKEN, URL_AUTH_USER, URL_FORGOT_PASSWORD, URL_LOGIN_USER, URL
 
 
 
-export const getAuth = () => {
+export const getAuth = (dispatch: AppDispatch) => {
     return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_REQUEST,
@@ -48,14 +48,14 @@ export const getAuth = () => {
                 const redirect = () => {
                     navigate('/login')
                 };
-                logout(redirect);
+                logout(redirect,dispatch);
                 dispatch({
                     type: USER_FAILED,
                     user: {}
                 })
             });
     };
-};
+}
 
 export interface ForgotPasswordInterface {
     email: string
@@ -148,9 +148,8 @@ interface LoginUserRequest {
 }
 
 
-export const login = ({ email, password }: LoginUserRequest, redirect: () => void) => {
-    return function (dispatch: AppDispatch) {
-        fetch(URL_LOGIN_USER, {
+export const login = ({ email, password }: LoginUserRequest, redirect: () => void , dispatch:AppDispatch) => {
+    return fetch(URL_LOGIN_USER, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -186,55 +185,48 @@ export const login = ({ email, password }: LoginUserRequest, redirect: () => voi
                     user: {}
                 });
             });
-    };
 };
 
 
 
-export const logout = (redirect: NavigateFunction) => {
+export const logout = (redirect: NavigateFunction, dispatch: AppDispatch) => {
     if (!localStorage.refreshToken) {
         redirect("/")
     }
-    return function (dispatch: AppDispatch) {
-        dispatch({
-            type: LOGOUT_REQUEST,
-            user: {}
-        });
-        fetch(URL_LOGOUT_USER, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify({ token: localStorage.refreshToken })
-        }).then(checkResponse)
-            .then((res) => {
-                localStorage.removeItem('refreshToken');
-                deleteCookie('token');
-                if (res && res.success) {
-                    dispatch({
-                        type: LOGOUT_SUCCESS,
-                        user: {}
-                    });
-                    redirect("/");
-                } else {
-                    dispatch({
-                        type: LOGOUT_FAILED,
-                        user: {}
-                    });
-                }
-            })
-            .catch(() =>
+    return fetch(URL_LOGOUT_USER, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({ token: localStorage.refreshToken })
+    }).then(checkResponse)
+        .then((res) => {
+            localStorage.removeItem('refreshToken');
+            deleteCookie('token');
+            if (res && res.success) {
+                dispatch({
+                    type: LOGOUT_SUCCESS,
+                    user: {}
+                });
+                redirect("/");
+            } else {
                 dispatch({
                     type: LOGOUT_FAILED,
                     user: {}
-                })
-            );
-    };
+                });
+            }
+        })
+        .catch(() =>
+            dispatch({
+                type: LOGOUT_FAILED,
+                user: {}
+            })
+        );
 };
 
 
@@ -293,7 +285,7 @@ export const register = ({ name, email, password }: RegisterUserRequest, redirec
 
 
 // Обновление токена
-export const getAccessToken = () => {
+export const getAccessToken = (dispatch: AppDispatch) => {
     return async function (dispatch: AppDispatch) {
         dispatch({ type: TOKEN_REQUEST, user: {} });
         return await fetch(URL_AUTH_TOKEN, {
@@ -324,7 +316,7 @@ export const getAccessToken = () => {
                         user: {}
                     });
                 } else {
-                    logout(redirect);
+                    logout(redirect,dispatch);
                     dispatch({
                         type: TOKEN_FAILED,
                         user: {}
@@ -334,7 +326,7 @@ export const getAccessToken = () => {
             })
             .catch((e) => {
                 if (e.message === 'Token is invalid') {
-                    getAccessToken();
+                    getAccessToken(dispatch);
                 } else {
                     dispatch({
                         type: TOKEN_FAILED,
@@ -383,7 +375,7 @@ export const updateAuth = (form: { name: string, email: string, password: string
             })
             .catch((e) => {
                 if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-                    getAccessToken()
+                    getAccessToken(dispatch)
                 } else dispatch({
                     type: USER_FAILED,
                     user: {}
