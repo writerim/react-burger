@@ -35,7 +35,7 @@ const LoginPage = () => {
 
   const onLogin = (e: SyntheticEvent) => {
     e.preventDefault();
-    login({ email: form.email, password: form.password }, redirect , dispatch)
+    dispatch(login({ email: form.email, password: form.password }, redirect))
   }
 
   return (

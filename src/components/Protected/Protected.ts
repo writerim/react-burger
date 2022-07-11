@@ -16,7 +16,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteArs) => {
   
   useEffect(() => {
     if (!getCookie('token') || !refreshToken) {
-      getAccessToken(dispatch)
+      dispatch(getAccessToken())
       if (!refreshToken) {
         navigate("/login", {state: { from: location.pathname } });
       }

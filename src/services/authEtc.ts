@@ -3,13 +3,13 @@ import { AppDispatch } from "../types/dispatch";
 import { UserInterface } from "../interfaces/userInterface";
 import { checkResponse } from "../utils/api";
 import { deleteCookie, getCookie, getTokens } from "../utils/cookie";
-import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
+import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS, USER_UPDATE_REQUEST } from "./actions/authEtc";
 import { URL_AUTH_TOKEN, URL_AUTH_USER, URL_FORGOT_PASSWORD, URL_LOGIN_USER, URL_LOGOUT_USER, URL_REGISTR_USER, URL_RESET_PASSWORD } from "./consts";
 
 
 
 
-export const getAuth = (dispatch: AppDispatch) => {
+export const getAuth = () => {
     return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_REQUEST,
@@ -48,14 +48,14 @@ export const getAuth = (dispatch: AppDispatch) => {
                 const redirect = () => {
                     navigate('/login')
                 };
-                logout(redirect,dispatch);
+                logout(redirect);
                 dispatch({
                     type: USER_FAILED,
                     user: {}
                 })
             });
     };
-}
+};
 
 export interface ForgotPasswordInterface {
     email: string
@@ -148,8 +148,13 @@ interface LoginUserRequest {
 }
 
 
-export const login = ({ email, password }: LoginUserRequest, redirect: () => void , dispatch:AppDispatch) => {
-    return fetch(URL_LOGIN_USER, {
+export const login = ({ email, password }: LoginUserRequest, redirect: () => void) => {
+    return function (dispatch: AppDispatch) {
+        dispatch({
+            type: LOGIN_REQUEST,
+            user: {}
+        });
+        fetch(URL_LOGIN_USER, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -185,48 +190,55 @@ export const login = ({ email, password }: LoginUserRequest, redirect: () => voi
                     user: {}
                 });
             });
+    }
 };
 
 
 
-export const logout = (redirect: NavigateFunction, dispatch: AppDispatch) => {
+export const logout = (redirect: NavigateFunction) => {
     if (!localStorage.refreshToken) {
         redirect("/")
     }
-    return fetch(URL_LOGOUT_USER, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify({ token: localStorage.refreshToken })
-    }).then(checkResponse)
-        .then((res) => {
-            localStorage.removeItem('refreshToken');
-            deleteCookie('token');
-            if (res && res.success) {
-                dispatch({
-                    type: LOGOUT_SUCCESS,
-                    user: {}
-                });
-                redirect("/");
-            } else {
+    return function (dispatch: AppDispatch) {
+        dispatch({
+            type: LOGOUT_REQUEST,
+            user: {}
+        });
+        fetch(URL_LOGOUT_USER, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify({ token: localStorage.refreshToken })
+        }).then(checkResponse)
+            .then((res) => {
+                localStorage.removeItem('refreshToken');
+                deleteCookie('token');
+                if (res && res.success) {
+                    dispatch({
+                        type: LOGOUT_SUCCESS,
+                        user: {}
+                    });
+                    redirect("/");
+                } else {
+                    dispatch({
+                        type: LOGOUT_FAILED,
+                        user: {}
+                    });
+                }
+            })
+            .catch(() =>
                 dispatch({
                     type: LOGOUT_FAILED,
                     user: {}
-                });
-            }
-        })
-        .catch(() =>
-            dispatch({
-                type: LOGOUT_FAILED,
-                user: {}
-            })
-        );
+                })
+            );
+    };
 };
 
 
@@ -285,10 +297,10 @@ export const register = ({ name, email, password }: RegisterUserRequest, redirec
 
 
 // Обновление токена
-export const getAccessToken = (dispatch: AppDispatch) => {
-    return async function (dispatch: AppDispatch) {
+export const getAccessToken = () => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: TOKEN_REQUEST, user: {} });
-        return await fetch(URL_AUTH_TOKEN, {
+        fetch(URL_AUTH_TOKEN, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -316,7 +328,7 @@ export const getAccessToken = (dispatch: AppDispatch) => {
                         user: {}
                     });
                 } else {
-                    logout(redirect,dispatch);
+                    logout(redirect);
                     dispatch({
                         type: TOKEN_FAILED,
                         user: {}
@@ -326,7 +338,7 @@ export const getAccessToken = (dispatch: AppDispatch) => {
             })
             .catch((e) => {
                 if (e.message === 'Token is invalid') {
-                    getAccessToken(dispatch);
+                    getAccessToken();
                 } else {
                     dispatch({
                         type: TOKEN_FAILED,
@@ -375,7 +387,7 @@ export const updateAuth = (form: { name: string, email: string, password: string
             })
             .catch((e) => {
                 if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-                    getAccessToken(dispatch)
+                    getAccessToken()
                 } else dispatch({
                     type: USER_FAILED,
                     user: {}

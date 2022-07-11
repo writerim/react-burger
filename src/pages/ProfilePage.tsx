@@ -39,12 +39,12 @@ const ProfilePage = () => {
   }
 
 
-  useEffect(
-    () => {
-      getAccessToken(dispatch)
-    },
-    [dispatch]
-  );
+  // useEffect(
+  //   () => {
+  //     dispatch(getAccessToken())
+  //   },
+  //   [dispatch]
+  // );
 
   return (
     <main>
