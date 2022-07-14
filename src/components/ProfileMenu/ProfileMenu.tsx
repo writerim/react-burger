@@ -16,7 +16,7 @@ export const ProfileMenu = () => {
 
     const onLogout = (e: SyntheticEvent) => {
         e.preventDefault();
-        logout(redirect,dispatch)
+        dispatch(logout(redirect))
     }
 
     return (

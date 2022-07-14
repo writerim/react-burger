@@ -4,13 +4,14 @@ import styles from "./FeedPage.module.css"
 import FeedInfo from "../components/Feed/Feed";
 import FeedItem from "../components/Feed/Item";
 import { OrderInterface } from "../interfaces/order";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "../types/dispatch";
 import { useSelector } from "../types/selector";
 
 export const FeedPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const location = useLocation()
   const { orders } = useSelector(state => state.ws.data)
   
   useEffect(() => {
@@ -22,7 +23,7 @@ export const FeedPage = () => {
 
   const setIsShowFeed = () => {
     navigate('/')
-  }
+  }  
 
   return  (
       <main>

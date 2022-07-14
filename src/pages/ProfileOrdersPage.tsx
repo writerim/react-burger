@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import FeedItem from "../components/Feed/Item";
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu";
 import { WS_CONNECTION_CLOSED_USER, WS_CONNECTION_START_USER } from "../services/actions/wsUser";
@@ -9,6 +10,7 @@ import styles from "./Profile.module.css";
 export const ProfileOrdersPage = () => {
 
   const dispatch = useDispatch();
+  const location = useLocation()
 
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START_USER });
@@ -18,6 +20,7 @@ export const ProfileOrdersPage = () => {
   }, [dispatch]);
 
   const { orders } = useSelector(state => state.wsUser.data);
+
 
   return (
     <div>

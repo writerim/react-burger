@@ -1,10 +1,14 @@
 import { URL_GET_LIST_INGRIDIENTS } from './consts';
-import { GET_INGRIDIENTS_FAILED, GET_INGRIDIENTS_ERROR, SET_INGRIDIENTS } from './actions/ingredients';
+import { GET_INGRIDIENTS_FAILED, GET_INGRIDIENTS_ERROR, SET_INGRIDIENTS, GET_INGRIDIENTS } from './actions/ingredients';
 import { checkResponse } from '../utils/api';
 import { AppDispatch } from '../types/dispatch';
 
-export const getIngredientsData = (dispath: AppDispatch) => {
-    return fetch(URL_GET_LIST_INGRIDIENTS)
+export const getIngredientsData = () => {
+    return async function (dispath: AppDispatch) {
+        dispath({
+            type: GET_INGRIDIENTS
+        })
+        await fetch(URL_GET_LIST_INGRIDIENTS)
             .then(checkResponse)
             .then(req => {
                 if (req.success) {
@@ -24,5 +28,5 @@ export const getIngredientsData = (dispath: AppDispatch) => {
                     playground: e
                 })
             })
-
+    }
 };

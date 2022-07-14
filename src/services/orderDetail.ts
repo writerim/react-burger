@@ -7,7 +7,7 @@ import { getCookie } from '../utils/cookie';
 
 
 
-export const getIngredientsData = (ingredients: IngredientsSorted[],dispatch: AppDispatch) => {
+export const getIngredientsData = (ingredients: IngredientsSorted[]) => {
 
     const getIds = (ingredients: IngredientsSorted[]): string[] => {
         let ids: string[] = []
@@ -17,7 +17,11 @@ export const getIngredientsData = (ingredients: IngredientsSorted[],dispatch: Ap
         return ids
     }
 
-    return fetch(URL_TO_SUMMARY, {
+    return async function (dispatch: AppDispatch) {
+        dispatch({
+            type: GET_ORDER_DETAIL
+        })
+        await fetch(URL_TO_SUMMARY, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,5 +43,5 @@ export const getIngredientsData = (ingredients: IngredientsSorted[],dispatch: Ap
                     playground: e
                 })
             })
-
+    }
 };

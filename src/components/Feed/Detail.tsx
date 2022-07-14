@@ -8,10 +8,12 @@ import { useEffect } from "react";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/ws";
 import { useSelector } from "../../types/selector";
 import { useDispatch } from "../../types/dispatch";
+import { WS_CONNECTION_CLOSED_USER, WS_CONNECTION_START_USER } from "../../services/actions/wsUser";
 
 
 interface FeedDetailsInterface {
     isProfile: boolean
+    isModal: boolean
 }
 
 interface FeedDetailBodyProps {
@@ -19,7 +21,8 @@ interface FeedDetailBodyProps {
     order: OrderInterface
 }
 
-const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
+export const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
+
     const items = useSelector(state => state.ingredients)
     const date = (order) ? getOrderDate(order.createdAt) : null;
     let total = 0;
@@ -67,36 +70,27 @@ const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
     )
 }
 
-const FeedDetails = ({ isProfile }: FeedDetailsInterface) => {
+export const FeedDetails = ({ isProfile , isModal }: FeedDetailsInterface) => {
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { orders } = useSelector( state => state.ws.data );
+    const { orders } = useSelector( state => state.wsUser.data );
 
     useEffect(() => {
-        dispatch({ type: WS_CONNECTION_START });
+        dispatch({ type: WS_CONNECTION_START_USER });
         return () => {
-            dispatch({ type: WS_CONNECTION_CLOSED });
+            dispatch({ type: WS_CONNECTION_CLOSED_USER });
         };
-    }, [dispatch]);
+    }, [dispatch,orders]);
 
     const order = (orders.length > 0) && orders.find((item) => item.number == id);
 
-    const setIsShowFeedDetail = () => {
-        navigate('/feed' , {state :{background: location}})
-    }
-
-    if (!order) {
+    if(order){
+        return <FeedDetailBody id={id} order={order} />
+    }else{
         return <></>
     }
-
-    return (location.state ?
-        <Modal title="" setShow={setIsShowFeedDetail}>
-            <FeedDetailBody id={id} order={order} />
-        </Modal>
-        : <FeedDetailBody id={id} order={order} />
-    );
 };
 
 export default FeedDetails;

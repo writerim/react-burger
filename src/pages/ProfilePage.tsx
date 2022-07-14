@@ -38,14 +38,6 @@ const ProfilePage = () => {
     updateAuth(form)
   }
 
-
-  // useEffect(
-  //   () => {
-  //     dispatch(getAccessToken())
-  //   },
-  //   [dispatch]
-  // );
-
   return (
     <main>
       <div className={styles.conteiner}>

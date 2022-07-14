@@ -11,7 +11,7 @@ import { IngredientsAction } from './ingredients';
 import { SelectedIngredientsAction } from './selectedIngredients';
 import { WsActionUserType } from './wsUser';
 import { ActionCreator } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { useDispatch as dispatchHook} from 'react-redux';
 
 
@@ -33,5 +33,5 @@ export type AppThunk<TReturn = void> = ActionCreator<
 >;
 
 
-export type AppDispatch = Dispatch<AppDispatchActionsType>;
-export const useDispatch = () => dispatchHook<AppDispatch | AppThunk>(); 
+export type AppDispatch = ThunkDispatch<RootState, never, AppDispatchActionsType>
+export const useDispatch = () => dispatchHook<AppDispatch>();

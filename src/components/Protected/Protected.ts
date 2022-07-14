@@ -13,6 +13,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteArs) => {
   const navigate = useNavigate();
   const location = useLocation();
   const refreshToken = localStorage.refreshToken;
+
   
   useEffect(() => {
     if (!getCookie('token') || !refreshToken) {

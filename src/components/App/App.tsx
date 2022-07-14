@@ -16,13 +16,14 @@ import FeedDetails from '../Feed/Detail';
 import { ProfileOrdersPage } from '../../pages/ProfileOrdersPage';
 import { FeedPage } from '../../pages/FeedPage';
 import { useDispatch } from '../../types/dispatch';
+import { FeedDetailPage } from '../../pages/FeedDetailsPage';
 
 function App() {
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    getIngredientsData(dispatch)
+    dispatch(getIngredientsData())
   }, [])
 
   return (
@@ -46,7 +47,7 @@ function App() {
             <FeedPage />
           } />
           <Route path="/feed/:id" element={
-            <FeedDetails isProfile={false} />
+            <FeedDetails isProfile={false} isModal={false} />
           } />
           <Route path="/profile/orders" element={
             <ProtectedRoute>
@@ -55,7 +56,7 @@ function App() {
           } />
           <Route path="/profile/orders/:id" element={
             <ProtectedRoute>
-              <FeedDetails isProfile={true} />
+              <FeedDetails isProfile={true} isModal={false} />
             </ProtectedRoute>
           } />
           <Route path="/test_permission" element={

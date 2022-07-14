@@ -338,7 +338,7 @@ export const getAccessToken = () => {
             })
             .catch((e) => {
                 if (e.message === 'Token is invalid') {
-                    getAccessToken();
+                    dispatch(getAccessToken());
                 } else {
                     dispatch({
                         type: TOKEN_FAILED,
@@ -387,7 +387,7 @@ export const updateAuth = (form: { name: string, email: string, password: string
             })
             .catch((e) => {
                 if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-                    getAccessToken()
+                    dispatch(getAccessToken())
                 } else dispatch({
                     type: USER_FAILED,
                     user: {}

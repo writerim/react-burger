@@ -18,21 +18,25 @@ export const socketMiddleware = (wsUrl : string, wsActions : TWsActions, user : 
       }
       if (socket) {
         socket.onopen = ( event : AnyAction ) => {
+          console.log('onopen' ,{ type: onOpen, action: event } )
           dispatch({ type: onOpen, action: event });
         };
 
         socket.onerror = ( event : AnyAction ) => {
+          console.log('onerror' ,{ type: onError, payload: event } )
           dispatch({ type: onError, payload: event });
         };
-
+        
         socket.onmessage = ( event : AnyAction ) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
+          // console.log('onmessage' ,parsedData )
           const { success, ...restParsedData } = parsedData;
           dispatch({ type: onMessage, payload: restParsedData });
         };
 
         socket.onclose = ( event : AnyAction ) => {
+          console.log('onclose' ,{ type: onClose, payload: event } )
           dispatch({ type: onClose, payload: event });
         };
 
