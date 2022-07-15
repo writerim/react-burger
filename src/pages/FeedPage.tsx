@@ -10,20 +10,15 @@ import { useSelector } from "../types/selector";
 
 export const FeedPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const location = useLocation()
   const { orders } = useSelector(state => state.ws.data)
   
   useEffect(() => {
+    console.log('connect')
     dispatch({ type: WS_CONNECTION_START });
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
-
-  const setIsShowFeed = () => {
-    navigate('/')
-  }  
 
   return  (
       <main>

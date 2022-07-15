@@ -35,7 +35,7 @@ const FeedItem = ({ order }: FeedItemInterface) => {
         setPopupOrder({ order: order })
     }
 
-    if(!openDetail){
+    if(!openDetail && window.location.pathname != statePathName){
         window.history.replaceState(null,statePathName,statePathName);
     }
 

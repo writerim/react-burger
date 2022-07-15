@@ -1,11 +1,9 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getOrderDate, getOrderStatusI18n } from "../../utils/order";
 import styles from './Feed.module.css';
-import Modal from "../Modal/Modal";
 import { OrderInterface } from "../../interfaces/order";
 import { useEffect } from "react";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/ws";
 import { useSelector } from "../../types/selector";
 import { useDispatch } from "../../types/dispatch";
 import { WS_CONNECTION_CLOSED_USER, WS_CONNECTION_START_USER } from "../../services/actions/wsUser";
@@ -71,8 +69,6 @@ export const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
 }
 
 export const FeedDetails = ({ isProfile , isModal }: FeedDetailsInterface) => {
-    const navigate = useNavigate()
-    const location = useLocation()
     const dispatch = useDispatch();
     const { id } = useParams();
     const { orders } = useSelector( state => state.wsUser.data );
@@ -82,9 +78,9 @@ export const FeedDetails = ({ isProfile , isModal }: FeedDetailsInterface) => {
         return () => {
             dispatch({ type: WS_CONNECTION_CLOSED_USER });
         };
-    }, [dispatch,orders]);
+    }, [dispatch]);
 
-    const order = (orders.length > 0) && orders.find((item) => item.number == id);
+    const order = (orders.length > 0) && orders.find((item) => item.number === id);
 
     if(order){
         return <FeedDetailBody id={id} order={order} />
