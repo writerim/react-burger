@@ -1,6 +1,6 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { OrderInterface } from "../../interfaces/order";
 import { useSelector } from "../../types/selector";
 import { getOrderDate, getOrderStatusI18n } from "../../utils/order";

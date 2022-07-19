@@ -24,9 +24,7 @@ export const getIngredientsData = (ingredients: IngredientsSorted[]) => {
         await fetch(URL_TO_SUMMARY, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${getCookie('token')}`
-                // Authorization: 'Bearer ' + getCookie('token')
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 ingredients: getIds(ingredients)

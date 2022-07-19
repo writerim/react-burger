@@ -15,7 +15,7 @@ const OrderDetails = () => {
   let selectedIngredients = useSelector(state => state.selectedIngredients)
 
   useEffect(() => {
-    getIngredientsData(selectedIngredients)
+    dispatch(getIngredientsData(selectedIngredients))
   }, [selectedIngredients])
 
   return (
