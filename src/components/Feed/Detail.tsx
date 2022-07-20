@@ -1,4 +1,4 @@
-import {  useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getOrderDate, getOrderStatusI18n } from "../../utils/order";
 import styles from './Feed.module.css';
@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useSelector } from "../../types/selector";
 import { useDispatch } from "../../types/dispatch";
 import { WS_CONNECTION_CLOSED_USER, WS_CONNECTION_START_USER } from "../../services/actions/wsUser";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/ws";
 
 
 interface FeedDetailsInterface {
@@ -68,23 +69,51 @@ export const FeedDetailBody = ({ id, order }: FeedDetailBodyProps) => {
     )
 }
 
-export const FeedDetails = ({ isProfile , isModal }: FeedDetailsInterface) => {
+export const FeedDetails = ({ isProfile, isModal }: FeedDetailsInterface) => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const { id } = useParams();
-    const { orders } = useSelector( state => state.wsUser.data );
+
+    const orderRegexp = new RegExp('\/profile\/orders\/([0-9]*)')
+    //const feedRegexp = new RegExp('\/feed\/orders\/([0-9]*)')
+
+
+    const { orders } = useSelector(state => {
+        if (orderRegexp.test(location.pathname)) {
+            return state.wsUser.data
+        }
+        return state.ws.data
+    });
 
     useEffect(() => {
-        dispatch({ type: WS_CONNECTION_START_USER });
+
+
+
+        dispatch({
+            type: function () {
+                if (orderRegexp.test(location.pathname)) {
+                    return WS_CONNECTION_START_USER
+                }
+                return WS_CONNECTION_START
+            }()
+        });
         return () => {
-            dispatch({ type: WS_CONNECTION_CLOSED_USER });
+            dispatch({
+                type: function () {
+                    if (orderRegexp.test(location.pathname)) {
+                        return WS_CONNECTION_CLOSED_USER
+                    }
+                    return WS_CONNECTION_CLOSED
+                }()
+            });
         };
     }, [dispatch]);
 
-    const order = (orders.length > 0) && orders.find((item) => item.number === id);
-
-    if(order){
+    const order = (orders.length > 0) && orders.find((item) => item.number == id);
+    if (order) {
         return <FeedDetailBody id={id} order={order} />
-    }else{
+    } else {
+        console.log(222)
         return <></>
     }
 };
