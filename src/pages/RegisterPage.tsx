@@ -1,8 +1,8 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useState } from "react"
-import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { login, register } from "../services/authEtc"
+import { register } from "../services/authEtc"
+import { useDispatch } from "../types/dispatch"
 import styles from "./RegisterPage.module.css"
 
 
@@ -23,7 +23,7 @@ const RegisterPage = () => {
 
   const onNewRegister = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(register(form, redirect));
+    register(form, redirect)
   }
 
   return (

@@ -1,17 +1,6 @@
+import { OrderAction } from '../../types/order';
 import { SET_ORDER_DETAIL } from './../actions/ordet';
 
-type OrderDetailtOuter = {
-    success: boolean;
-    name: string;
-    order: {
-        [number: string]: number
-    };
-}
-
-type Action = {
-    type: string
-    playground: OrderDetailtOuter
-}
 
 
 const OrderDefault: OrderInterface = {
@@ -24,7 +13,7 @@ interface OrderInterface {
     name: string
 }
 
-export const orderReducer = (state: OrderInterface = OrderDefault, action: Action) => {
+export const orderReducer = (state: OrderInterface = OrderDefault, action: OrderAction) => {
     switch (action.type) {
         case SET_ORDER_DETAIL:
             return {

@@ -4,21 +4,20 @@ import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services/reducers';
 import { IngredientsSorted } from '../../services/reducers/selectedIngredients';
-import { IngredientInterface } from '../../interfaces/inredientInterface';
 import { SET_SORT_INDEX_ELEMENT } from '../../services/actions/selectedIngredients';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from '../../types/selector';
+import { useDispatch } from '../../types/dispatch';
 
 
 const BurgerConstructor = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const location = useLocation()
 
-  const selectedIngredients = useSelector((store: RootState) => store.selectedIngredients)
+  const selectedIngredients = useSelector(store => store.selectedIngredients)
 
   const handleSortable = (itemDrop: string, moveToIndex: number) => {
     dispatch({

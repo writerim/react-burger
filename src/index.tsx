@@ -7,11 +7,21 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import reducer from './services/reducers/index';
 import thunk from "redux-thunk";
+import { socketMiddleware } from './services/middleware/socket';
+import { wsActionsUser } from './types/wsUser';
+import { wsActions } from './types/ws';
 
+export const WS_URL_ALL = 'wss://norma.nomoreparties.space/orders/all';
+export const WS_URL_OWNER = 'wss://norma.nomoreparties.space/orders';
 
-const middleware = applyMiddleware(thunk);
+const middleware = applyMiddleware(thunk,
+  socketMiddleware(WS_URL_OWNER, wsActionsUser, true),
+  socketMiddleware(WS_URL_ALL, wsActions, false),
+);
 const store = createStore(reducer, middleware)
 
+
+export type AppDispatch = typeof store.dispatch
 
 ReactDOM.render(
   <React.StrictMode>

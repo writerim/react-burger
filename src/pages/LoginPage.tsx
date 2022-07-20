@@ -1,9 +1,9 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components"
 import { SyntheticEvent, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { Link, useLocation, useNavigate, useNavigationType } from "react-router-dom"
 import { login } from "../services/authEtc"
-import { RootState } from "../services/reducers"
+import { useDispatch } from "../types/dispatch"
+import { useSelector } from "../types/selector"
 import styles from "./LoginPage.module.css"
 
 interface Pathname {
@@ -17,13 +17,16 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation()
   const { from } = location.state as any || location.pathname ||"/"
-  const { isLoggedIn } = useSelector((store: RootState) => store.auth);
+  const { isLoggedIn } = useSelector(store => store.auth);
 
   const redirect = () => {
+    if(!from){
+      navigate('/profile')
+    }
     if(isLoggedIn) navigate(from)
   };
 
-  const { email, password } = useSelector((store: RootState) => store.auth);
+  const { email, password } = useSelector(store => store.auth);
 
   const [form, setValue] = useState({ email: email ?? '' , password : password ?? '' })
   const onChange = (e:{target: HTMLInputElement}) => {
@@ -32,7 +35,7 @@ const LoginPage = () => {
 
   const onLogin = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(login({ email: form.email, password: form.password }, redirect));
+    dispatch(login({ email: form.email, password: form.password }, redirect))
   }
 
   return (

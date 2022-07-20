@@ -1,16 +1,10 @@
 import { URL_GET_LIST_INGRIDIENTS } from './consts';
-import { Dispatch } from 'react';
-import { GET_INGRIDIENTS, GET_INGRIDIENTS_FAILED, GET_INGRIDIENTS_ERROR, SET_INGRIDIENTS } from './actions/ingredients';
-import { IngredientInterface } from '../interfaces/inredientInterface';
+import { GET_INGRIDIENTS_FAILED, GET_INGRIDIENTS_ERROR, SET_INGRIDIENTS, GET_INGRIDIENTS } from './actions/ingredients';
 import { checkResponse } from '../utils/api';
-
-
-type Action =
-    | { type: string }
-    | { type: string, playground: IngredientInterface[] };
+import { AppDispatch } from '../types/dispatch';
 
 export const getIngredientsData = () => {
-    return async function (dispath: Dispatch<Action>) {
+    return async function (dispath: AppDispatch) {
         dispath({
             type: GET_INGRIDIENTS
         })
@@ -35,5 +29,4 @@ export const getIngredientsData = () => {
                 })
             })
     }
-
 };

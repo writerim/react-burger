@@ -1,4 +1,5 @@
 import { IngredientInterface } from '../../interfaces/inredientInterface';
+import { CurentIngredientsAction } from '../../types/curentIngredients';
 import { SET_CURENT_INGREDIENT } from '../actions/curentIngredient';
 
 export const defaultIngredient: IngredientInterface = {
@@ -17,12 +18,8 @@ export const defaultIngredient: IngredientInterface = {
 }
 
 
-type Action = {
-    type: string
-    playground: IngredientInterface
-}
 
-export const curentIngredientReducer = (state = defaultIngredient, action: Action) => {
+export const curentIngredientReducer = (state = defaultIngredient, action: CurentIngredientsAction) => {
     switch (action.type) {
         case SET_CURENT_INGREDIENT:
             return action.playground

@@ -1,11 +1,10 @@
-import { UIEvent, useCallback, useEffect } from 'react';
-import { DndProvider, DropTargetMonitor, useDrop, XYCoord } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useCallback } from 'react';
+import {  DropTargetMonitor, useDrop, XYCoord } from 'react-dnd';
 import { IngredientInterface } from '../../../interfaces/inredientInterface';
 import { ADD_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
-import { RootState } from '../../../services/reducers';
 import { IngredientsSorted, uuid } from '../../../services/reducers/selectedIngredients';
+import { useDispatch } from '../../../types/dispatch';
+import { useSelector } from '../../../types/selector';
 import ItemIngridient from '../ItemIngridient/ItemIngridient';
 import styles from './ItemListIngredients.module.css'
 
@@ -25,7 +24,7 @@ const ItemList = (props: onSortHandlerProps) => {
 
   const dispatch = useDispatch()
 
-  const selectedIngredients = useSelector((store: RootState) => {
+  const selectedIngredients = useSelector(store => {
     return store.selectedIngredients
   })
 
@@ -77,11 +76,17 @@ const ItemList = (props: onSortHandlerProps) => {
   }
 
   const onDropHandler = (ingredient: IngredientInterface) => {
+
+    let length = 0
+    if(selectedIngredients){
+      length = selectedIngredients.length
+    }
+
     dispatch({
       type: ADD_SELECTED_INGREDIENT,
       playground: {
         element: ingredient,
-        index: selectedIngredients.length,
+        index: selectedIngredients ? length  : 0,
         uuid: uuid()
       }
     })

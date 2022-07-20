@@ -1,13 +1,15 @@
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components"
-import { ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { forgotPassword } from "../services/authEtc";
+import { useDispatch } from "../types/dispatch";
 import styles from "./ForgotPasswordPage.module.css"
 
 const ForgotPasswordPage = () => {
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
   const navigate = useNavigate()
 
   const [form, setValue] = useState({ email: '' })
@@ -18,9 +20,9 @@ const ForgotPasswordPage = () => {
   const onForgot = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     const redirect = () => {
-      navigate('/reset-password', {state : {from : '/reset_password'}})
+      navigate('/reset-password', {state : {from : location.pathname}})
     };
-    dispatch(forgotPassword({ email: form.email }, redirect))
+    forgotPassword({ email: form.email }, redirect)
   };
 
   if (localStorage.refreshToken) {

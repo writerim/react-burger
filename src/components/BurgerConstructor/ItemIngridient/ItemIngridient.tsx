@@ -1,9 +1,9 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useCallback, useEffect, useRef } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
+import { useCallback } from 'react';
+import { useDrag } from 'react-dnd';
 import { DROP_SELECTED_INGREDIENT, SET_SORT_INDEX_ELEMENT } from '../../../services/actions/selectedIngredients';
 import { IngredientsSorted } from '../../../services/reducers/selectedIngredients';
+import { useDispatch } from '../../../types/dispatch';
 import styles from './ItemIngridient.module.css';
 
 interface ItemProps {

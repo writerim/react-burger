@@ -1,7 +1,7 @@
 import { SyntheticEvent } from "react";
-import { useDispatch } from "react-redux";
-import { Navigate, NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { logout } from "../../services/authEtc";
+import { useDispatch } from "../../types/dispatch";
 import styles from "./ProfileMenu.module.css"
 
 export const ProfileMenu = () => {
@@ -16,7 +16,7 @@ export const ProfileMenu = () => {
 
     const onLogout = (e: SyntheticEvent) => {
         e.preventDefault();
-        dispatch(logout(redirect));
+        dispatch(logout(redirect))
     }
 
     return (
