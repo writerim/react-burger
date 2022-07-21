@@ -11,7 +11,7 @@ export interface IngredientsSorted {
     ref? : HTMLDivElement
 }
 
-const defaultIngredients: IngredientsSorted[] = []
+export const defaultIngredients: IngredientsSorted[] = []
 
 export function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

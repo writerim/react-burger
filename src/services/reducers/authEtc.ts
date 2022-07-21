@@ -45,6 +45,9 @@ const initialState = {
     resetRequest: false,
     resetFailed: false,
 
+    registerFailed: false,
+    registerRequest: false,
+
     authRequest: false,
     authFailed: false,
 

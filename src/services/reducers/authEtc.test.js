@@ -1,9 +1,9 @@
-import * as types from '../actions/auth';
+import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS, RESET_PASSWORD_FAILED, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, TOKEN_FAILED, TOKEN_REQUEST, TOKEN_SUCCESS, USER_FAILED, USER_REQUEST, USER_SUCCESS } from '../actions/authEtc';
 import { authReducer } from './authEtc';
 
 const initialState = {
-  name:'',
-  email:'',
+  name: '',
+  email: '',
   registerRequest: false,
   registerFailed: false,
   loginRequest: false,
@@ -22,7 +22,7 @@ const initialState = {
 
 describe('authReducer', () => {
   it('should return the initial state', () => {
-    expect(authReducer(undefined, {})).toEqual(
+    expect(authReducer(initialState, {})).toEqual(
       initialState
     )
   })
@@ -30,12 +30,12 @@ describe('authReducer', () => {
   it('should handle FORGOT_PASSWORD_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.FORGOT_PASSWORD_REQUEST
+        type: FORGOT_PASSWORD_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        forgotRequest:true
+        forgotRequest: true
       }
     )
   })
@@ -43,13 +43,13 @@ describe('authReducer', () => {
   it('should handle FORGOT_PASSWORD_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.FORGOT_PASSWORD_SUCCESS
+        type: FORGOT_PASSWORD_SUCCESS
       })
     ).toEqual(
       {
         ...initialState,
-        forgotFailed:false,
-        forgotRequest:false
+        forgotFailed: false,
+        forgotRequest: false
       }
     )
   })
@@ -57,12 +57,12 @@ describe('authReducer', () => {
   it('should handle FORGOT_PASSWORD_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.FORGOT_PASSWORD_FAILED
+        type: FORGOT_PASSWORD_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        forgotFailed:true
+        forgotFailed: true
       }
     )
   })
@@ -70,12 +70,14 @@ describe('authReducer', () => {
   it('should handle RESET_PASSWORD_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.RESET_PASSWORD_REQUEST
+        type: RESET_PASSWORD_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        resetRequest:true
+        resetRequest: true,
+        forgotRequest: true,
+        resetRequest: false,
       }
     )
   })
@@ -83,13 +85,13 @@ describe('authReducer', () => {
   it('should handle RESET_PASSWORD_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.RESET_PASSWORD_SUCCESS
+        type: RESET_PASSWORD_SUCCESS
       })
     ).toEqual(
       {
         ...initialState,
-        resetFailed:false,
-        resetRequest:false
+        resetFailed: false,
+        resetRequest: false
       }
     )
   })
@@ -97,12 +99,14 @@ describe('authReducer', () => {
   it('should handle RESET_PASSWORD_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.RESET_PASSWORD_FAILED
+        type: RESET_PASSWORD_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        resetFailed:true
+        resetFailed: true,
+        forgotFailed: true,
+        resetFailed: false
       }
     )
   })
@@ -110,12 +114,12 @@ describe('authReducer', () => {
   it('should handle REGISTER_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.REGISTER_REQUEST
+        type: REGISTER_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        registerRequest:true
+        registerRequest: true
       }
     )
   })
@@ -123,16 +127,16 @@ describe('authReducer', () => {
   it('should handle REGISTER_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.REGISTER_SUCCESS,
-        user: {name:'', email:''}
+        type: REGISTER_SUCCESS,
+        user: { name: '', email: '' }
       })
     ).toEqual(
       {
         ...initialState,
-        registerFailed:false,
-        registerRequest:false,
-        name:'',
-        email:''
+        registerFailed: false,
+        registerRequest: false,
+        name: '',
+        email: ''
       }
     )
   })
@@ -140,12 +144,12 @@ describe('authReducer', () => {
   it('should handle REGISTER_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.REGISTER_FAILED
+        type: REGISTER_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        registerFailed:true
+        registerFailed: true
       }
     )
   })
@@ -153,12 +157,12 @@ describe('authReducer', () => {
   it('should handle LOGIN_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.LOGIN_REQUEST
+        type: LOGIN_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        loginRequest:true
+        loginRequest: true
       }
     )
   })
@@ -166,16 +170,17 @@ describe('authReducer', () => {
   it('should handle LOGIN_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.LOGIN_SUCCESS,
-        user: {name:'', email:''}
+        type: LOGIN_SUCCESS,
+        user: { name: '', email: '' }
       })
     ).toEqual(
       {
         ...initialState,
-        loginFailed:false,
-        loginRequest:false,
-        name:'',
-        email:''
+        loginFailed: false,
+        loginRequest: false,
+        isLoggedIn: true,
+        name: '',
+        email: ''
       }
     )
   })
@@ -183,12 +188,13 @@ describe('authReducer', () => {
   it('should handle LOGIN_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.LOGIN_FAILED
+        type: LOGIN_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        loginFailed:true
+        loginFailed: true,
+        isLoggedIn: false
       }
     )
   })
@@ -196,12 +202,12 @@ describe('authReducer', () => {
   it('should handle LOGOUT_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.LOGOUT_REQUEST
+        type: LOGOUT_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        logoutRequest:true
+        logoutRequest: true
       }
     )
   })
@@ -209,13 +215,14 @@ describe('authReducer', () => {
   it('should handle LOGOUT_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.LOGOUT_SUCCESS
+        type: LOGOUT_SUCCESS
       })
     ).toEqual(
       {
         ...initialState,
-        logoutFailed:false,
-        logoutRequest:false
+        logoutFailed: false, 
+        logoutRequest: false  , 
+        isLoggedIn : false
       }
     )
   })
@@ -223,12 +230,12 @@ describe('authReducer', () => {
   it('should handle LOGOUT_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.LOGOUT_FAILED
+        type: LOGOUT_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        logoutFailed:true
+        logoutFailed: true
       }
     )
   })
@@ -236,12 +243,12 @@ describe('authReducer', () => {
   it('should handle USER_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.USER_REQUEST
+        type: USER_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        authRequest:true
+        authRequest: true
       }
     )
   })
@@ -249,16 +256,17 @@ describe('authReducer', () => {
   it('should handle USER_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.USER_SUCCESS,
-        user: {name:'', email:''}
+        type: USER_SUCCESS,
+        user: { name: '', email: '' }
       })
     ).toEqual(
       {
         ...initialState,
-        authFailed:false,
-        authRequest:false,
-        name:'',
-        email:''
+        authFailed: false,
+        authRequest: false,
+        name: '',
+        email: '',
+        isLoggedIn: true
       }
     )
   })
@@ -266,12 +274,13 @@ describe('authReducer', () => {
   it('should handle USER_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.USER_FAILED
+        type: USER_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        authFailed:true
+        authFailed: true,
+        isLoggedIn: false
       }
     )
   })
@@ -279,12 +288,12 @@ describe('authReducer', () => {
   it('should handle USER_UPDATE_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.USER_REQUEST
+        type: USER_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        authRequest:true
+        authRequest: true
       }
     )
   })
@@ -292,16 +301,17 @@ describe('authReducer', () => {
   it('should handle USER_UPDATE_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.USER_SUCCESS,
-        user: {name:'', email:''}
+        type: USER_SUCCESS,
+        user: { name: '', email: '' }
       })
     ).toEqual(
       {
         ...initialState,
-        authFailed:false,
-        authRequest:false,
-        name:'',
-        email:''
+        authFailed: false,
+        authRequest: false,
+        name: '',
+        email: '',
+        isLoggedIn: true
       }
     )
   })
@@ -309,12 +319,13 @@ describe('authReducer', () => {
   it('should handle USER_UPDATE_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.USER_FAILED
+        type: USER_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        authFailed:true
+        authFailed: true,
+        isLoggedIn: false
       }
     )
   })
@@ -322,12 +333,12 @@ describe('authReducer', () => {
   it('should handle TOKEN_REQUEST', () => {
     expect(
       authReducer(initialState, {
-        type: types.TOKEN_REQUEST
+        type: TOKEN_REQUEST
       })
     ).toEqual(
       {
         ...initialState,
-        tokenRequest:true
+        tokenRequest: true
       }
     )
   })
@@ -335,13 +346,14 @@ describe('authReducer', () => {
   it('should handle TOKEN_SUCCESS', () => {
     expect(
       authReducer(initialState, {
-        type: types.TOKEN_SUCCESS
+        type: TOKEN_SUCCESS
       })
     ).toEqual(
       {
         ...initialState,
-        tokenFailed:false,
-        tokenRequest:false
+        tokenFailed: false,
+        tokenRequest: false,
+        isLoggedIn: true
       }
     )
   })
@@ -349,12 +361,13 @@ describe('authReducer', () => {
   it('should handle TOKEN_FAILED', () => {
     expect(
       authReducer(initialState, {
-        type: types.TOKEN_FAILED
+        type: TOKEN_FAILED
       })
     ).toEqual(
       {
         ...initialState,
-        tokenFailed:true
+        tokenFailed: true,
+        isLoggedIn: false
       }
     )
   })

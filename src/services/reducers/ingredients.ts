@@ -2,7 +2,7 @@ import { IngredientInterface } from '../../interfaces/inredientInterface';
 import { IngredientsAction } from '../../types/ingredients';
 import { SET_INGRIDIENTS } from './../actions/ingredients';
 
-const defaultIngredients: IngredientInterface[] = []
+export const defaultIngredients: IngredientInterface[] = []
 
 
 export const ingredientsReducer = (state: IngredientInterface[] = defaultIngredients, action: IngredientsAction) => {

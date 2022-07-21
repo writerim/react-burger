@@ -1,5 +1,5 @@
-import { wsReducer } from './socket'
-import * as types from '../actions/wsActions';
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE } from "../actions/ws";
+import { wsReducer } from "./ws";
 
 const initialState = {
   wsConnected: false,
@@ -16,7 +16,7 @@ describe('wsReducer', () => {
   it('should handle WS_CONNECTION_SUCCESS', () => {
     expect(
       wsReducer(initialState, {
-        type: types.WS_CONNECTION_SUCCESS
+        type: WS_CONNECTION_SUCCESS
       })
     ).toEqual(
       {
@@ -30,7 +30,7 @@ describe('wsReducer', () => {
   it('should handle WS_CONNECTION_ERROR', () => {
     expect(
       wsReducer(initialState, {
-        type: types.WS_CONNECTION_ERROR,
+        type: WS_CONNECTION_ERROR,
         payload: 'Error'
       })
     ).toEqual(
@@ -45,7 +45,7 @@ describe('wsReducer', () => {
   it('should handle WS_CONNECTION_CLOSED', () => {
     expect(
       wsReducer(initialState, {
-        type: types.WS_CONNECTION_CLOSED
+        type: WS_CONNECTION_CLOSED
       })
     ).toEqual(
       {
@@ -59,7 +59,7 @@ describe('wsReducer', () => {
   it('should handle WS_GET_MESSAGE', () => {
     expect(
       wsReducer(initialState, {
-        type: types.WS_GET_MESSAGE,
+        type: WS_GET_MESSAGE,
         payload: {
           orders: {},
           total: 1234,
