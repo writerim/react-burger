@@ -21,6 +21,8 @@ function App() {
 
   const dispatch = useDispatch()
 
+  console.log(111)
+
   useEffect(() => {
     dispatch(getIngredientsData())
   }, [])
