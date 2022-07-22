@@ -16,7 +16,6 @@ import FeedDetails from '../Feed/Detail';
 import { ProfileOrdersPage } from '../../pages/ProfileOrdersPage';
 import { FeedPage } from '../../pages/FeedPage';
 import { useDispatch } from '../../types/dispatch';
-import { FeedDetailPage } from '../../pages/FeedDetailsPage';
 
 function App() {
 
