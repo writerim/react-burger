@@ -57,6 +57,5 @@
   "devDependencies": {
     "@types/react-redux": "^7.1.22",
     "@types/redux": "^3.6.0"
-  },
-  "homepage": "./"
+  }
 }
