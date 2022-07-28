@@ -1,6 +1,6 @@
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from '../../pages/LoginPage';
 import RegisterPage from '../../pages/RegisterPage';
 import ForgotPasswordPage from '../../pages/ForgotPasswordPage';
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div className={styles.Container}>
-      <BrowserRouter>
+      <HashRouter>
         <AppHeader />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
@@ -67,7 +67,7 @@ function App() {
           } />
           <Route path="/" element={<Home />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
